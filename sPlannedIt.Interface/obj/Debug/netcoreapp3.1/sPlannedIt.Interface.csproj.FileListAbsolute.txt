@@ -1,0 +1,12 @@
+C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt.Interface\bin\Debug\netcoreapp3.1\sPlannedIt.Interface.deps.json
+C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt.Interface\bin\Debug\netcoreapp3.1\sPlannedIt.Interface.dll
+C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt.Interface\obj\Debug\netcoreapp3.1\sPlannedIt.Interface.csprojAssemblyReference.cache
+C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt.Interface\obj\Debug\netcoreapp3.1\sPlannedIt.Interface.AssemblyInfoInputs.cache
+C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt.Interface\obj\Debug\netcoreapp3.1\sPlannedIt.Interface.AssemblyInfo.cs
+C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt.Interface\bin\Debug\netcoreapp3.1\sPlannedIt.Interface.runtimeconfig.json
+C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt.Interface\bin\Debug\netcoreapp3.1\sPlannedIt.Interface.runtimeconfig.dev.json
+C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt.Interface\bin\Debug\netcoreapp3.1\sPlannedIt.Interface.pdb
+C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt.Interface\obj\Debug\netcoreapp3.1\sPlannedIt.Interface.csproj.CoreCompileInputs.cache
+C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt.Interface\obj\Debug\netcoreapp3.1\sPlannedIt.Interface.dll
+C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt.Interface\obj\Debug\netcoreapp3.1\sPlannedIt.Interface.pdb
+C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt.Interface\obj\Debug\netcoreapp3.1\sPlannedIt.Interface.genruntimeconfig.cache

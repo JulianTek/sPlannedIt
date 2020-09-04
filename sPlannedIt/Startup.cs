@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using sPlannedIt.Data;
 
 namespace sPlannedIt
 {
@@ -26,6 +28,8 @@ namespace sPlannedIt
         {
             services.AddControllersWithViews();
             services.AddRazorPages().AddRazorRuntimeCompilation();
+            services.AddDbContextPool<AppDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("LocalDb")));
             services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<Data.AppDbContext>();
         }
 

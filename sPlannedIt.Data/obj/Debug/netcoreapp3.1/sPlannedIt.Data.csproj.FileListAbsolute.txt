@@ -3,3 +3,10 @@ C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt.Data\bin\Debug\netcoreapp3
 C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt.Data\obj\Debug\netcoreapp3.1\sPlannedIt.Data.csprojAssemblyReference.cache
 C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt.Data\obj\Debug\netcoreapp3.1\sPlannedIt.Data.AssemblyInfoInputs.cache
 C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt.Data\obj\Debug\netcoreapp3.1\sPlannedIt.Data.AssemblyInfo.cs
+C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt.Data\bin\Debug\netcoreapp3.1\sPlannedIt.Data.runtimeconfig.json
+C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt.Data\bin\Debug\netcoreapp3.1\sPlannedIt.Data.runtimeconfig.dev.json
+C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt.Data\bin\Debug\netcoreapp3.1\sPlannedIt.Data.pdb
+C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt.Data\obj\Debug\netcoreapp3.1\sPlannedIt.Data.dll
+C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt.Data\obj\Debug\netcoreapp3.1\sPlannedIt.Data.pdb
+C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt.Data\obj\Debug\netcoreapp3.1\sPlannedIt.Data.genruntimeconfig.cache
+C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt.Data\obj\Debug\netcoreapp3.1\sPlannedIt.Data.csproj.CoreCompileInputs.cache
