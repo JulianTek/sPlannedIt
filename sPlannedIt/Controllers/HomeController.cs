@@ -23,6 +23,11 @@ namespace sPlannedIt.Controllers
             return View();
         }
 
+        public IActionResult IndexEmployee()
+        {
+            return View();
+        }
+
         public IActionResult Privacy()
         {
             return View();
