@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-using sPlannedIt.Models.Enums;
+using Microsoft.AspNetCore.Identity;
 
-namespace sPlannedIt.Viewmodels
+namespace sPlannedIt.Viewmodels.Account_Viewmodels
 {
     public class RegisterViewModel
     {
@@ -15,12 +15,11 @@ namespace sPlannedIt.Viewmodels
         [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; }
+
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
         [Compare("Password",
             ErrorMessage = "Passwords do not match")]
         public string ConfirmPwd { get; set; }
-        [Required]
-        public UserRole Role { get; set; }
     }
 }

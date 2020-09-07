@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using sPlannedIt.Viewmodels;
+using sPlannedIt.Viewmodels.Account_Viewmodels;
 
 namespace sPlannedIt.Controllers
 {

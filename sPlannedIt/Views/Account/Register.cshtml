@@ -1,4 +1,4 @@
-﻿@model sPlannedIt.Viewmodels.RegisterViewModel
+﻿@model sPlannedIt.Viewmodels.Account_Viewmodels.RegisterViewModel
 
 @{
     ViewData["Title"] = "Register";
@@ -26,11 +26,6 @@
                 <label asp-for="ConfirmPwd" class="control-label"></label>
                 <input asp-for="ConfirmPwd" class="form-control" />
                 <span asp-validation-for="ConfirmPwd" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Role" class="control-label"></label>
-                <input asp-for="Role" class="form-control" />
-                <span asp-validation-for="Role" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

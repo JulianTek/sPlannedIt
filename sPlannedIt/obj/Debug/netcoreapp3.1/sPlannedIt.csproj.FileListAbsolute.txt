@@ -427,3 +427,6 @@ C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt\bin\Debug\netcoreapp3.1\zh
 C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt\bin\Debug\netcoreapp3.1\sPlannedIt.Logic.dll
 C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt\bin\Debug\netcoreapp3.1\sPlannedIt.Logic.pdb
 C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt\obj\Debug\netcoreapp3.1\Razor\Views\Account\Register.cshtml.g.cs
+C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt\obj\Debug\netcoreapp3.1\Razor\Views\Account\Login.cshtml.g.cs
+C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt\obj\Debug\netcoreapp3.1\Razor\Views\Role\ListRoles.cshtml.g.cs
+C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt\obj\Debug\netcoreapp3.1\Razor\Views\Role\CreateRole.cshtml.g.cs
