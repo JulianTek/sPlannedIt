@@ -430,3 +430,7 @@ C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt\obj\Debug\netcoreapp3.1\Ra
 C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt\obj\Debug\netcoreapp3.1\Razor\Views\Account\Login.cshtml.g.cs
 C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt\obj\Debug\netcoreapp3.1\Razor\Views\Role\ListRoles.cshtml.g.cs
 C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt\obj\Debug\netcoreapp3.1\Razor\Views\Role\CreateRole.cshtml.g.cs
+C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt\bin\Debug\netcoreapp3.1\System.Data.SqlClient.dll
+C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt\obj\Debug\netcoreapp3.1\Razor\Views\Role\EditRole.cshtml.g.cs
