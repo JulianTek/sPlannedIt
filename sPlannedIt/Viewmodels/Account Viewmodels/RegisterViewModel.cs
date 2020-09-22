@@ -4,22 +4,13 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
+using sPlannedIt.Models;
 
 namespace sPlannedIt.Viewmodels.Account_Viewmodels
 {
     public class RegisterViewModel
     {
-        [Required]
-        [EmailAddress]
-        public string Email { get; set; }
-        [Required]
-        [DataType(DataType.Password)]
-        public string Password { get; set; }
-
-        [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [Compare("Password",
-            ErrorMessage = "Passwords do not match")]
-        public string ConfirmPwd { get; set; }
+        public UserData User { get; set; }
+        public RolesData Roles { get; set; }
     }
 }

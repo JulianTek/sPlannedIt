@@ -13,19 +13,28 @@
         <form asp-action="Register">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
+                <label asp-for="User.Email" class="control-label"></label>
+                <input asp-for="User.Email" class="form-control" />
+                <span asp-validation-for="User.Email" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
+                <label asp-for="User.Password" class="control-label"></label>
+                <input asp-for="User.Password" class="form-control" />
+                <span asp-validation-for="User.Password" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ConfirmPwd" class="control-label"></label>
-                <input asp-for="ConfirmPwd" class="form-control" />
-                <span asp-validation-for="ConfirmPwd" class="text-danger"></span>
+                <label asp-for="User.ConfirmPwd" class="control-label"></label>
+                <input asp-for="User.ConfirmPwd" class="form-control" />
+                <span asp-validation-for="User.ConfirmPwd" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>Select Role:</label>
+                <select asp-for="User.RoleName">
+                    @foreach (string rolename in Model.Roles.Roles)
+                    {
+                        <option value="@rolename">@rolename</option>
+                    }
+                </select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
