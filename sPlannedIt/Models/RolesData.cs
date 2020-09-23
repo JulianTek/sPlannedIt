@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace sPlannedIt.Models.Enums
+namespace sPlannedIt.Models
 {
-    public enum UserRole
+    public class RolesData
     {
-        Employee,
-        Employer,
-        Admin
+        public List<string> Roles { get; set; }
     }
 }
