@@ -78,7 +78,7 @@ namespace sPlannedIt.Controllers
             return View(model);
         }
 
-        [HttpPost]
+        [HttpGet]
         public IActionResult Login()
         {
             return View();
@@ -90,11 +90,17 @@ namespace sPlannedIt.Controllers
             if (ModelState.IsValid)
             {
                 var user = await _userManager.FindByEmailAsync(model.Email);
+                var role = await _userManager.GetRolesAsync(user);
+                if (role.Count > 1)
+                {
+                    // todo: add view and action if user has more roles
+                }
                 var result = await _signInManager.PasswordSignInAsync(user.UserName, model.Password, model.RememberMe, false);
 
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("index", "home");
+                    // Since UserRole is a list, it will use the first index of the list
+                    return RedirectToAction(string.Concat("index" + role[0], "home"));
                 }
 
                 ModelState.AddModelError(string.Empty, "Invalid credentials");
