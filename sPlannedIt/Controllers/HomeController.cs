@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using sPlannedIt.Models;
+using sPlannedIt.Viewmodels.Homepage_Viewmodels;
 
 namespace sPlannedIt.Controllers
 {
@@ -23,10 +24,6 @@ namespace sPlannedIt.Controllers
             return View();
         }
 
-        public IActionResult IndexEmployee()
-        {
-            return View();
-        }
 
         public IActionResult Privacy()
         {

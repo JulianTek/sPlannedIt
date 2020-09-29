@@ -100,5 +100,23 @@ namespace sPlannedIt.Data
                 return userIDs;
             }
         }
+
+        public static List<string> GetShifts(string userID)
+        {
+            using (ConnectionString connectionString = new ConnectionString())
+            {
+                List<string> shiftIds = new List<string>();
+                SqlCommand getShifts = new SqlCommand("SELECT ShiftID from Shift WHERE @UserID = UserID");
+                getShifts.Parameters.AddWithValue("@UserID", userID);
+                connectionString.sqlConnection.Open();
+                var reader = getShifts.ExecuteReader();
+                while (reader.Read())
+                {
+                    shiftIds.Add(reader.GetString(0));
+                }
+                connectionString.Dispose();
+                return shiftIds;
+            }
+        }
     }
 }

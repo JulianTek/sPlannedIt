@@ -15,11 +15,6 @@ namespace sPlannedIt.Logic
             _userManager = userManager;
         }
 
-        public static DateTime GetToday()
-        {
-            return DateTime.Today;
-        }
-
         public static string GetScheduleID(DateTime dateTime)
         {
             return Data.ScheduleManager_Data.GetScheduleID(dateTime);
@@ -53,6 +48,11 @@ namespace sPlannedIt.Logic
             }
 
             return users;
+        }
+
+        public static List<string> GetShiftIDs(string userID)
+        {
+            return Data.ScheduleManager_Data.GetShifts(userID);
         }
     }
 }

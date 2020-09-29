@@ -435,4 +435,4 @@ C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt\bin\Debug\netcoreapp3.1\ru
 C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
 C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt\obj\Debug\netcoreapp3.1\Razor\Views\Role\EditRole.cshtml.g.cs
 C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt\obj\Debug\netcoreapp3.1\Razor\Views\Role\EditUsersInRole.cshtml.g.cs
-C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt\obj\Debug\netcoreapp3.1\Razor\Views\Home\IndexEmployee.cshtml.g.cs
+C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt\obj\Debug\netcoreapp3.1\Razor\Views\Employee\IndexEmployee.cshtml.g.cs
