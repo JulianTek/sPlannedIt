@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using sPlannedIt.Data.Models;
 using sPlannedIt.Models;
 using sPlannedIt.Viewmodels.Homepage_Viewmodels;
 
 namespace sPlannedIt.Controllers
 {
-    [Authorize]
     public class EmployeeController : Controller
     {
         public IActionResult IndexEmployee()
@@ -27,8 +27,18 @@ namespace sPlannedIt.Controllers
         public List<Shift> ConvertIDsToShifts(List<string> ids)
         {
             List<Shift> shifts = new List<Shift>();
-            foreach (Shift shift in shifts)
+            List<ShiftDTO> shiftDtos = Logic.ScheduleManager_Logic.ConvertIdsToDtos(ids);
+            foreach (ShiftDTO shiftDto in shiftDtos)
             {
+                Shift shift = new Shift()
+                {
+                    ShiftID = shiftDto.ShiftID,
+                    ScheduleID = shiftDto.ScheduleID,
+                    ShiftDate = shiftDto.ShiftDate,
+                    UserID = shiftDto.UserID,
+                    StartTime = shiftDto.StartTime,
+                    EndTime = shiftDto.EndTime
+                };
                 shifts.Add(shift);
             }
 

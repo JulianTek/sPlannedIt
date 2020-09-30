@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
+using sPlannedIt.Data.Models;
 
 namespace sPlannedIt.Logic
 {
@@ -53,6 +54,22 @@ namespace sPlannedIt.Logic
         public static List<string> GetShiftIDs(string userID)
         {
             return Data.ScheduleManager_Data.GetShifts(userID);
+        }
+
+        public static List<ShiftDTO> ConvertIdsToDtos(List<string> shiftIDs)
+        {
+            List<ShiftDTO> shiftDtos = new List<ShiftDTO>();
+            foreach (string id in shiftIDs)
+            {
+                shiftDtos.Add(FindShiftDto(id));
+            }
+
+            return shiftDtos;
+        }
+
+        public static ShiftDTO FindShiftDto(string shiftID)
+        {
+            return Data.ScheduleManager_Data.FindShiftDto(shiftID);
         }
     }
 }

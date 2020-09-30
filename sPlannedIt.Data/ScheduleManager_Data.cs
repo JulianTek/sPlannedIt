@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Data.SqlClient;
+using sPlannedIt.Data.Models;
 
 namespace sPlannedIt.Data
 {
@@ -116,6 +117,29 @@ namespace sPlannedIt.Data
                 }
                 connectionString.Dispose();
                 return shiftIds;
+            }
+        }
+
+        public static ShiftDTO FindShiftDto(string shiftID)
+        {
+            using (ConnectionString connectionString = new ConnectionString())
+            {
+                SqlCommand findShiftDto =  new SqlCommand("SELECT * FROM Shift WHERE @ShiftID = ShiftID");
+                findShiftDto.Parameters.AddWithValue("@ShiftID", shiftID);
+                connectionString.sqlConnection.Open();
+                var reader = findShiftDto.ExecuteReader();
+                ShiftDTO shiftDto = new ShiftDTO();
+                while (reader.Read())
+                {
+                    shiftDto.ShiftID = reader.GetString(0);
+                    shiftDto.ScheduleID = reader.GetString(1);
+                    shiftDto.StartTime = reader.GetInt16(2);
+                    shiftDto.EndTime = reader.GetInt16(3);
+                    shiftDto.ShiftDate = reader.GetDateTime(4);
+                    shiftDto.UserID = reader.GetString(5);
+                }
+
+                return shiftDto;
             }
         }
     }

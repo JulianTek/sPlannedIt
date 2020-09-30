@@ -10,6 +10,7 @@ using sPlannedIt.Viewmodels.Account_Viewmodels;
 
 namespace sPlannedIt.Controllers
 {
+    // The following methods just create accounts, i will have to rewrite these to support companies so you can actually use the app
     public class AccountController : Controller
     {
         private readonly UserManager<IdentityUser> _userManager;
@@ -100,7 +101,7 @@ namespace sPlannedIt.Controllers
                 if (result.Succeeded)
                 {
                     // Since UserRole is a list, it will use the first index of the list
-                    return RedirectToAction(string.Concat("index" + role[0], "home"));
+                    return RedirectToAction(string.Concat("index" + role[0]), role[0].ToString());
                 }
 
                 ModelState.AddModelError(string.Empty, "Invalid credentials");
