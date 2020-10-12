@@ -2,12 +2,50 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 
 namespace sPlannedIt.Models
 {
     public class Company
     {
+        public Company(string companyName) 
+        {
+            CompanyID = new Guid().ToString();
+            CompanyName = companyName;
+            Employees = new List<string>();
+        }
+
         public string CompanyID { get; set; }
         public string CompanyName { get; set; }
+        public List<string> Employees { get; set; }
+
+        public Company UpdateCompanyName(string name)
+        {
+            CompanyName = name;
+            return this;
+        }
+
+        public bool AddEmployee(IdentityUser user)
+        {
+            int count = Employees.Count;
+            Employees.Add(user.Id);
+            if (count != Employees.Count)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool RemoveEmployee(string id)
+        {
+            if (Employees.Contains(id))
+            {
+                Employees.Remove(id);
+                return true;
+            }
+
+            return false;
+        }
     }
 }
