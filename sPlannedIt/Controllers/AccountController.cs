@@ -65,7 +65,7 @@ namespace sPlannedIt.Controllers
                             {
                                await _userManager.AddToRoleAsync(user, model.Roles.Roles[i]);
                                await _signInManager.SignInAsync(user, isPersistent: false);
-                               return RedirectToAction(string.Concat("index" + model.Roles.Roles[i]), "home");
+                               return RedirectToAction(string.Concat($"index{model.Roles.Roles[i]}"), "home");
                         }
                         }
 
@@ -101,7 +101,7 @@ namespace sPlannedIt.Controllers
                 if (result.Succeeded)
                 {
                     // Since UserRole is a list, it will use the first index of the list
-                    return RedirectToAction(string.Concat("index" + role[0]), role[0].ToString());
+                    return RedirectToAction(string.Concat($"index{role[0]}"), role[0].ToString());
                 }
 
                 ModelState.AddModelError(string.Empty, "Invalid credentials");

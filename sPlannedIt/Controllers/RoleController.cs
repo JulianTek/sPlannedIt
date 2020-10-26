@@ -163,13 +163,17 @@ namespace sPlannedIt.Controllers
 
                 IdentityResult result = null;
 
-                if (model[i].IsSelected && await _userManager.IsInRoleAsync(user, role.Name))
+                if (model[i].IsSelected && !(await _userManager.IsInRoleAsync(user, role.Name)))
                 {
                    result = await _userManager.AddToRoleAsync(user, role.Name);
                 }
                 else if (!model[i].IsSelected && await _userManager.IsInRoleAsync(user, role.Name))
                 {
                     result = await _userManager.RemoveFromRoleAsync(user, role.Name);
+                }
+                else
+                {
+                    continue;
                 }
 
                 if (result.Succeeded)
@@ -182,6 +186,7 @@ namespace sPlannedIt.Controllers
                     {
                         return RedirectToAction("EditRole", new {Id = roleId});
                     }
+
                 }
             }
 
