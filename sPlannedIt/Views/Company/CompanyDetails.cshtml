@@ -20,6 +20,9 @@
                 <p>@CompanyManager_Logic.GetEmployee(id)</p>
             }
         }
+        <a asp-action="EditUsersInCompany"
+           asp-route-companyId="@Model.CompanyID" class="btn btn-primary">
+        Add or remove users from this role</a>
     </div>
 </div>
 

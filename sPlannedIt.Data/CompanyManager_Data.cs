@@ -61,6 +61,40 @@ namespace sPlannedIt.Data
             }
         }
 
+        public static int CheckIfEmployeeIsInCompany(string userId, string companyId)
+        {
+            using (ConnectionString connectionString = new ConnectionString())
+            {
+                SqlCommand checkEmployee = new SqlCommand("SELECT * FROM UserCompanyLink WHERE @userID = userID AND @companyID = companyID", connectionString.sqlConnection);
+                checkEmployee.Parameters.AddWithValue("@userID", userId);
+                checkEmployee.Parameters.AddWithValue("@companyID", companyId);
+                var result = checkEmployee.ExecuteNonQuery();
+                return result;
+            }
+        }
 
+        public static int AddEmployeeToCompany(string userId, string companyId)
+        {
+            using (ConnectionString connectionString = new ConnectionString())
+            {
+                SqlCommand addEmployee = new SqlCommand("INSERT INTO UserCompanyLink VALUES(@userID, companyID)", connectionString.sqlConnection);
+                addEmployee.Parameters.AddWithValue("@userID", userId);
+                addEmployee.Parameters.AddWithValue("@comapnyID", companyId);
+                var result = addEmployee.ExecuteNonQuery();
+                return result;
+            }
+        }
+
+        public static int RemoveEmployeeFromCompany(string userId, string companyId)
+        {
+            using (ConnectionString connectionString = new ConnectionString())
+            {
+                SqlCommand removeEmployee = new SqlCommand("DELETE FROM UserCompanyLink WHERE @userID = userID AND @companyID = companyID");
+                removeEmployee.Parameters.AddWithValue("@userID", userId);
+                removeEmployee.Parameters.AddWithValue("@companyID", companyId);
+                var result = removeEmployee.ExecuteNonQuery();
+                return result;
+            }
+        }
     }
 }

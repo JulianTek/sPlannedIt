@@ -63,5 +63,26 @@ namespace sPlannedIt.Logic
 
             return companies;
         }
+
+        public static bool CheckIfEmployeeIsInCompany(string userID, string companyID)
+        {
+            int amount = Data.CompanyManager_Data.CheckIfEmployeeIsInCompany(userID, companyID);
+
+            return amount != 0;
+        }
+
+        public static bool AddEmployeeToCompany(string userID, string companyID)
+        {
+            int amount = Data.CompanyManager_Data.AddEmployeeToCompany(userID, companyID);
+
+            return amount != 0;
+        }
+
+        public static bool RemoveEmployeeFromCompany(string userID, string companyID)
+        {
+            int amount = Data.CompanyManager_Data.RemoveEmployeeFromCompany(userID, companyID);
+
+            return amount != 0;
+        }
     }
 }
