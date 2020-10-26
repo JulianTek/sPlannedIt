@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Security.Claims;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using sPlannedIt.Data.Models;
-using sPlannedIt.Models;
+using sPlannedIt.Logic.Models;
 using sPlannedIt.Viewmodels.Homepage_Viewmodels;
 
 namespace sPlannedIt.Controllers

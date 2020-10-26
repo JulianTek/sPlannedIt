@@ -4,13 +4,25 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 
-namespace sPlannedIt.Models
+namespace sPlannedIt.Logic.Models
 {
     public class Company
     {
+        public Company()
+        {
+            Employees = new List<string>();
+        }
+
+        public Company(string id, string name)
+        {
+            CompanyID = id;
+            CompanyName = name;
+            Employees = new List<string>();
+        }
+
         public Company(string companyName) 
         {
-            CompanyID = new Guid().ToString();
+            CompanyID = Guid.NewGuid().ToString();
             CompanyName = companyName;
             Employees = new List<string>();
         }

@@ -437,3 +437,6 @@ C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt\obj\Debug\netcoreapp3.1\Ra
 C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt\obj\Debug\netcoreapp3.1\Razor\Views\Role\EditUsersInRole.cshtml.g.cs
 C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt\obj\Debug\netcoreapp3.1\Razor\Views\Employee\IndexEmployee.cshtml.g.cs
 C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt\obj\Debug\netcoreapp3.1\Razor\Views\Admin\IndexAdmin.cshtml.g.cs
+C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt\obj\Debug\netcoreapp3.1\Razor\Views\Admin\CreateCompany.cshtml.g.cs
+C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt\obj\Debug\netcoreapp3.1\Razor\Views\Admin\ListCompanies.cshtml.g.cs
+C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt\obj\Debug\netcoreapp3.1\Razor\Views\Admin\CompanyDetails.cshtml.g.cs

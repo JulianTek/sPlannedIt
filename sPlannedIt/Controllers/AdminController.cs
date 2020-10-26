@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using sPlannedIt.Data.Models;
+using sPlannedIt.Logic.Models;
 using sPlannedIt.Models;
 using sPlannedIt.Viewmodels.Company_Viewmodels;
 
@@ -11,7 +12,9 @@ namespace sPlannedIt.Controllers
 {
     public class AdminController : Controller
     {
+        private readonly CompanyContainer _container = new CompanyContainer();
 
+  
         public IActionResult IndexAdmin()
         {
             return View();
@@ -27,9 +30,10 @@ namespace sPlannedIt.Controllers
         [HttpPost]
         public IActionResult CreateCompany(CreateCompanyViewModel model)
         {
-            Company company = convertDtOtoCompany(Logic.CompanyManager_Logic.AddCompanyDto(Guid.NewGuid().ToString(), model.CompanyName));
+            Company company = _container.CreateCompany(model.CompanyName);
             if (company != null)
             {
+                Logic.CompanyManager_Logic.AddCompanyDto(company.CompanyID, company.CompanyName);
                 return RedirectToAction("ListCompanies", "Admin");
             }
             
@@ -38,31 +42,16 @@ namespace sPlannedIt.Controllers
 
         public IActionResult ListCompanies()
         {
-            ListCompaniesViewmodel model = new ListCompaniesViewmodel()
-            {
-                Companies = new List<Company>()
-            };
-            foreach (CompanyDTO dto in Logic.CompanyManager_Logic.FindAllCompanies())
-            {
-                model.Companies.Add(convertDtOtoCompany(dto));
-            }
+            var model = _container.AllCompanies;
 
             return View(model);
         }
 
-
-        private Company convertDtOtoCompany(CompanyDTO dto)
+        public IActionResult CompanyDetails(string companyId)
         {
-            if (dto != null)
-            {
-                return new Company()
-                {
-                    CompanyID = dto.CompanyID,
-                    CompanyName = dto.CompanyName
-                };
-            }
-
-            return null;
+            var model = _container.FindCompany(companyId);
+            return View(model);
         }
+
     }
 }

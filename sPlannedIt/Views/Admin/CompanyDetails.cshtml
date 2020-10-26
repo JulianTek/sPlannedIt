@@ -1,0 +1,25 @@
+﻿@using sPlannedIt.Logic
+@model sPlannedIt.Logic.Models.Company
+@{
+    ViewData["Title"] = "CompanyDetails";
+}
+
+<div class="card">
+    <div class="card-header">
+        <h1>@Model.CompanyID</h1>
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Company Name: @Model.CompanyName</h5>
+    </div>
+    <div class="card-footer">
+        <h6>Employees:</h6>
+        @if (Model.Employees.Any())
+        {
+            foreach (string id in Model.Employees)
+            {
+                <p>@CompanyManager_Logic.GetEmployee(id)</p>
+            }
+        }
+    </div>
+</div>
+

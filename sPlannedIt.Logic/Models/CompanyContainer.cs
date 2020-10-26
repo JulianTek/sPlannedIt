@@ -4,10 +4,15 @@ using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace sPlannedIt.Models
+namespace sPlannedIt.Logic.Models
 {
     public class CompanyContainer
     {
+        public CompanyContainer()
+        {
+            AllCompanies = CompanyManager_Logic.ConvertDtoList(CompanyManager_Logic.FindAllCompanies());
+        }
+
         public List<Company> AllCompanies { get; set; }
 
 

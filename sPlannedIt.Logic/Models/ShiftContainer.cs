@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace sPlannedIt.Models
+namespace sPlannedIt.Logic.Models
 {
     public class ShiftContainer
     {

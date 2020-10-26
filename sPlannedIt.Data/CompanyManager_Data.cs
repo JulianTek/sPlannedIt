@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Text;
 using sPlannedIt.Data.Models;
+using Microsoft.Data.SqlClient;
 
 namespace sPlannedIt.Data
 {
@@ -12,7 +12,10 @@ namespace sPlannedIt.Data
         {
             using (ConnectionString connectionString = new ConnectionString())
             {
-                SqlCommand createCompany = new SqlCommand("INSERT INTO Company (CompanyID, CompanyName) VALUES (" + companyID + ", " + name + ")");
+                SqlCommand createCompany = new SqlCommand("INSERT INTO Company (CompanyID, CompanyName) VALUES (@CompanyID, @CompanyName)", connectionString.sqlConnection);
+                createCompany.Parameters.AddWithValue("@CompanyID", companyID);
+                createCompany.Parameters.AddWithValue("@CompanyName", name);
+                connectionString.sqlConnection.Open();
                 var result = createCompany.ExecuteNonQuery();
                 connectionString.Dispose();
                 if (result != 0)
@@ -29,7 +32,7 @@ namespace sPlannedIt.Data
             List<CompanyDTO> companyDtos = new List<CompanyDTO>();
             using (ConnectionString connectionString = new ConnectionString())
             {
-                SqlCommand findAllCompanies = new SqlCommand("SELECT * FROM Company");
+                SqlCommand findAllCompanies = new SqlCommand("SELECT * FROM Company", connectionString.sqlConnection);
                 connectionString.sqlConnection.Open();
                 var reader = findAllCompanies.ExecuteReader();
                 while (reader.Read())
@@ -37,12 +40,27 @@ namespace sPlannedIt.Data
                     companyDtos.Add(new CompanyDTO()
                     {
                         CompanyID = reader.GetString(0),
-                        CompanyName = reader.GetString(0)
+                        CompanyName = reader.GetString(1)
                     });
                 }
                 connectionString.Dispose();
                 return companyDtos;
             }
         }
+
+        public static string GetEmployee(string id)
+        {
+            using (ConnectionString connectionString = new ConnectionString())
+            {
+                SqlCommand getEmployee = new SqlCommand("SELECT Email FROM AspNetUsers WHERE @Id = Id", connectionString.sqlConnection);
+                getEmployee.Parameters.AddWithValue("@Id", id);
+                connectionString.sqlConnection.Open();
+                string result = getEmployee.ExecuteScalar().ToString();
+                connectionString.Dispose();
+                return result;
+            }
+        }
+
+
     }
 }

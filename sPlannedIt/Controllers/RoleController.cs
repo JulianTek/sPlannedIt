@@ -61,9 +61,9 @@ namespace sPlannedIt.Controllers
            return View(model);
         }
 
-        public async Task<IActionResult> EditRole(string roleId)
+        public async Task<IActionResult> EditRole(string id)
         {
-           var role = await _roleManager.FindByIdAsync(roleId);
+           var role = await _roleManager.FindByIdAsync(id);
            if (role == null)
            {
                //Todo: add error view if role is null
@@ -71,7 +71,7 @@ namespace sPlannedIt.Controllers
 
            var model = new EditRoleViewModel()
            {
-               RoleId = roleId,
+               Id = id,
                RoleName = role.Name,
            };
            foreach (var user in await _userManager.Users.ToListAsync())
@@ -83,6 +83,35 @@ namespace sPlannedIt.Controllers
            }
 
            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditRole(EditRoleViewModel model)
+        {
+            var role = await _roleManager.FindByIdAsync(model.Id);
+
+            if (role == null)
+            {
+                //todo: implement notfound
+                return View("NotFound");
+            }
+            else
+            {
+                role.Name = model.RoleName;
+                var result = await _roleManager.UpdateAsync(role);
+
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("ListRoles");
+                }
+
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+
+                return View(model);
+            }
         }
 
         [HttpGet]
@@ -157,6 +186,33 @@ namespace sPlannedIt.Controllers
             }
 
             return RedirectToAction("EditRole", new {Id = roleId});
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteRole(string id)
+        {
+            var role = await _roleManager.FindByIdAsync(id);
+
+            if (role == null)
+            {
+                ViewBag.ErrorMessage = $"Role with Id {id} cannot be found";
+                return View("NotFound");
+            }
+            else
+            {
+                var result = await _roleManager.DeleteAsync(role);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("ListRoles");
+                }
+
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+            }
+
+            return View("ListRoles");
         }
     }
 }

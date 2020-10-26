@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace sPlannedIt.Models
+namespace sPlannedIt.Logic.Models
 {
     public class Schedule
     {
         public Schedule(string companyID)
         {
-            ScheduleID = new Guid().ToString();
+            ScheduleID = Guid.NewGuid().ToString();
             CompanyID = companyID;
             Shifts = new List<Shift>();
         }

@@ -1,0 +1,42 @@
+﻿@using sPlannedIt.Logic.Models
+@model List<sPlannedIt.Logic.Models.Company>
+
+@{
+    ViewData["Title"] = "ListCompanies";
+}
+
+@if (Model.Any())
+{
+    foreach(Company company in Model)
+    {
+        <div class="card">
+            <div class="card-header">
+                Company Id: @company.CompanyID
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Company Name: @company.CompanyName</h5>
+            </div>
+            <div class="card-footer">
+                <a asp-action="CompanyDetails" asp-controller="Admin" class="btn btn-primary" asp-route-companyId="@company.CompanyID">View Details</a>
+                <a href="" class="btn btn-danger">Delete</a>
+            </div>
+        </div>
+    }
+}
+else
+{
+    <div class="card">
+        <div class="card-header">
+            No Companies yet
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">
+                Create a company with the button below
+            </h5>
+            <a class="btn btn-primary" style="width: auto" asp-controller="Admin" asp-action="CreateCompany">
+                Create Role
+            </a>
+        </div>
+    </div>
+}
+
