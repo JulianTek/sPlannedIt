@@ -440,3 +440,4 @@ C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt\obj\Debug\netcoreapp3.1\Ra
 C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt\obj\Debug\netcoreapp3.1\Razor\Views\Admin\CreateCompany.cshtml.g.cs
 C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt\obj\Debug\netcoreapp3.1\Razor\Views\Admin\ListCompanies.cshtml.g.cs
 C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt\obj\Debug\netcoreapp3.1\Razor\Views\Admin\CompanyDetails.cshtml.g.cs
+C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt\obj\Debug\netcoreapp3.1\Razor\Views\Account\MultipleRoleError.cshtml.g.cs
