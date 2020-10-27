@@ -33,7 +33,7 @@ namespace sPlannedIt.Controllers
             if (company != null)
             {
                 Logic.CompanyManager_Logic.AddCompanyDto(company.CompanyID, company.CompanyName);
-                return RedirectToAction("ListCompanies", "Admin");
+                return RedirectToAction("ListCompanies");
             }
 
             return View();
@@ -46,9 +46,11 @@ namespace sPlannedIt.Controllers
             return View(model);
         }
 
+
         public IActionResult CompanyDetails(string companyId)
         {
             var model = _container.FindCompany(companyId);
+            model.Employees = Logic.CompanyManager_Logic.GetEmployeesFromCompany(companyId);
             return View(model);
         }
 
@@ -72,18 +74,30 @@ namespace sPlannedIt.Controllers
                     UserName = user.UserName
                 };
 
-                if (Logic.CompanyManager_Logic.CheckIfEmployeeIsInCompany(userRoleViewModel.UserId, companyId))
-                {
-                    userRoleViewModel.IsSelected = true;
-                }
-                else
-                {
-                    userRoleViewModel.IsSelected = false;
-                }
+                userRoleViewModel.IsSelected = Logic.CompanyManager_Logic.CheckIfEmployeeIsInCompany(userRoleViewModel.UserId, companyId);
                 model.Add(userRoleViewModel);
             }
 
             return View(model);
+        }
+
+        [HttpGet]
+        public IActionResult EditCompany(string companyId)
+        {
+            var company = _container.FindCompany(companyId);
+            EditCompanyViewmodel model = new EditCompanyViewmodel()
+            {
+                CompanyID = company.CompanyID,
+                CompanyName = company.CompanyName
+            };
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult EditCompany(EditCompanyViewmodel model)
+        {
+            Logic.CompanyManager_Logic.EditCompany(model.CompanyID, model.CompanyName);
+            return RedirectToAction("ListCompanies");
         }
 
         [HttpPost]
@@ -100,6 +114,7 @@ namespace sPlannedIt.Controllers
                 var user = await _userManager.FindByIdAsync(model[i].UserId);
 
                 bool result = false;
+
 
                 if (model[i].IsSelected && !Logic.CompanyManager_Logic.CheckIfEmployeeIsInCompany(user.Id, companyId))
                 {
@@ -122,13 +137,13 @@ namespace sPlannedIt.Controllers
                     }
                     else
                     {
-                        return RedirectToAction("CompanyDetails", new { companyId = companyId });
+                        return RedirectToAction("CompanyDetails", new {companyId });
                     }
 
                 }
             }
 
-            return RedirectToAction("CompanyDetails", new { companyId = companyId });
+            return RedirectToAction("CompanyDetails", new {companyId });
         }
     }
 }

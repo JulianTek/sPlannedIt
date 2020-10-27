@@ -17,7 +17,8 @@
                 <h5 class="card-title">Company Name: @company.CompanyName</h5>
             </div>
             <div class="card-footer">
-                <a asp-action="CompanyDetails" asp-controller="Admin" class="btn btn-primary" asp-route-companyId="@company.CompanyID">View Details</a>
+                <a asp-action="CompanyDetails" class="btn btn-primary" asp-route-companyId="@company.CompanyID">View Details</a>
+                <a asp-action="EditCompany" class="btn btn-primary" asp-route-companyId="@company.CompanyID">Edit</a>
                 <a href="" class="btn btn-danger">Delete</a>
             </div>
         </div>

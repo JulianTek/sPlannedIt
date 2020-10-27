@@ -65,10 +65,12 @@ namespace sPlannedIt.Data
         {
             using (ConnectionString connectionString = new ConnectionString())
             {
-                SqlCommand checkEmployee = new SqlCommand("SELECT * FROM UserCompanyLink WHERE @userID = userID AND @companyID = companyID", connectionString.sqlConnection);
+                SqlCommand checkEmployee = new SqlCommand("SELECT COUNT(companyID) FROM UserCompanyLink WHERE @companyID = companyID AND @userID = userID", connectionString.sqlConnection);
                 checkEmployee.Parameters.AddWithValue("@userID", userId);
                 checkEmployee.Parameters.AddWithValue("@companyID", companyId);
-                var result = checkEmployee.ExecuteNonQuery();
+                connectionString.sqlConnection.Open();
+                var result = (int)checkEmployee.ExecuteScalar();
+                connectionString.Dispose();
                 return result;
             }
         }
@@ -77,10 +79,13 @@ namespace sPlannedIt.Data
         {
             using (ConnectionString connectionString = new ConnectionString())
             {
-                SqlCommand addEmployee = new SqlCommand("INSERT INTO UserCompanyLink VALUES(@userID, companyID)", connectionString.sqlConnection);
+                SqlCommand addEmployee = new SqlCommand("INSERT INTO UserCompanyLink (userID, companyID) VALUES (@userID, @companyID)", connectionString.sqlConnection);
                 addEmployee.Parameters.AddWithValue("@userID", userId);
-                addEmployee.Parameters.AddWithValue("@comapnyID", companyId);
-                var result = addEmployee.ExecuteNonQuery();
+                addEmployee.Parameters.AddWithValue("@companyID", companyId);
+                connectionString.sqlConnection.Open();
+                Console.WriteLine(addEmployee.CommandText);
+                int result = addEmployee.ExecuteNonQuery();
+                connectionString.Dispose();
                 return result;
             }
         }
@@ -89,11 +94,44 @@ namespace sPlannedIt.Data
         {
             using (ConnectionString connectionString = new ConnectionString())
             {
-                SqlCommand removeEmployee = new SqlCommand("DELETE FROM UserCompanyLink WHERE @userID = userID AND @companyID = companyID");
+                SqlCommand removeEmployee = new SqlCommand("DELETE FROM UserCompanyLink WHERE @userID = userID AND @companyID = companyID", connectionString.sqlConnection);
                 removeEmployee.Parameters.AddWithValue("@userID", userId);
                 removeEmployee.Parameters.AddWithValue("@companyID", companyId);
+                connectionString.sqlConnection.Open();
                 var result = removeEmployee.ExecuteNonQuery();
+                connectionString.Dispose();
                 return result;
+            }
+        }
+
+        public static List<string> GetEmployees(string companyId)
+        {
+            using (ConnectionString connectionString = new ConnectionString())
+            {
+                List<string> userIds = new List<string>();
+                SqlCommand getEmployees = new SqlCommand("SELECT userID FROM UserCompanyLink WHERE @companyID = companyID", connectionString.sqlConnection);
+                getEmployees.Parameters.AddWithValue("@companyID", companyId);
+                connectionString.sqlConnection.Open();
+                var reader = getEmployees.ExecuteReader();
+                while (reader.Read())
+                {
+                    userIds.Add(reader.GetString(0));
+                }
+                connectionString.Dispose();
+                return userIds;
+            }
+        }
+
+        public static void EditCompany(string id, string name)
+        {
+            using (ConnectionString connectionString = new ConnectionString())
+            {
+                SqlCommand edit = new SqlCommand("UPDATE Company SET CompanyName = @CompanyName WHERE @CompanyID = CompanyID", connectionString.sqlConnection);
+                edit.Parameters.AddWithValue("@CompanyID", id);
+                edit.Parameters.AddWithValue("@CompanyName", name);
+                connectionString.sqlConnection.Open();
+                edit.ExecuteNonQuery();
+                connectionString.Dispose();
             }
         }
     }

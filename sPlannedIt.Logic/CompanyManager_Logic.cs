@@ -75,14 +75,24 @@ namespace sPlannedIt.Logic
         {
             int amount = Data.CompanyManager_Data.AddEmployeeToCompany(userID, companyID);
 
-            return amount != 0;
+            return amount != -1;
         }
 
         public static bool RemoveEmployeeFromCompany(string userID, string companyID)
         {
             int amount = Data.CompanyManager_Data.RemoveEmployeeFromCompany(userID, companyID);
 
-            return amount != 0;
+            return amount != -1;
+        }
+
+        public static List<string> GetEmployeesFromCompany(string companyId)
+        {
+            return Data.CompanyManager_Data.GetEmployees(companyId);
+        }
+
+        public static void EditCompany(string id, string name)
+        {
+            Data.CompanyManager_Data.EditCompany(id, name);
         }
     }
 }

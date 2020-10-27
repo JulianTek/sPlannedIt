@@ -13,6 +13,7 @@ namespace sPlannedIt.Logic.Models
             Employees = new List<string>();
         }
 
+
         public Company(string id, string name)
         {
             CompanyID = id;
@@ -29,7 +30,7 @@ namespace sPlannedIt.Logic.Models
 
         public string CompanyID { get; set; }
         public string CompanyName { get; set; }
-        public List<string> Employees { get; set; }
+        public List<string> Employees{ get; set; }
 
         public Company UpdateCompanyName(string name)
         {
