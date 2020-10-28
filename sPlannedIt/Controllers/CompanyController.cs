@@ -33,7 +33,7 @@ namespace sPlannedIt.Controllers
             if (company != null)
             {
                 Logic.CompanyManager_Logic.AddCompanyDto(company.CompanyID, company.CompanyName);
-                return RedirectToAction("ListCompanies");
+                return RedirectToAction("RegisterEmployer", "Account", new { id = company.CompanyID });
             }
 
             return View();
@@ -46,6 +46,11 @@ namespace sPlannedIt.Controllers
             return View(model);
         }
 
+        public IActionResult DeleteCompany(string id)
+        {
+            Logic.CompanyManager_Logic.DeleteCompany(id);
+            return RedirectToAction("ListCompanies");
+        }
 
         public IActionResult CompanyDetails(string companyId)
         {

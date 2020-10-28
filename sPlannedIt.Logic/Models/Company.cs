@@ -38,10 +38,10 @@ namespace sPlannedIt.Logic.Models
             return this;
         }
 
-        public bool AddEmployee(IdentityUser user)
+        public bool AddEmployee(string id)
         {
             int count = Employees.Count;
-            Employees.Add(user.Id);
+            Employees.Add(id);
             if (count != Employees.Count)
             {
                 return true;

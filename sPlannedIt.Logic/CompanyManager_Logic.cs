@@ -9,6 +9,9 @@ namespace sPlannedIt.Logic
 {
     public class CompanyManager_Logic
     {
+
+        //Todo: Add method that checks if employee already exists in db and program methods that locally add employees if not
+        private static readonly CompanyContainer _container = new CompanyContainer();
         public static CompanyDTO AddCompanyDto(string id, string name)
         {
             var succeeded = CompanyManager_Data.CreateCompany(id, name);
@@ -75,14 +78,14 @@ namespace sPlannedIt.Logic
         {
             int amount = Data.CompanyManager_Data.AddEmployeeToCompany(userID, companyID);
 
-            return amount != -1;
+            return amount != 0;
         }
 
         public static bool RemoveEmployeeFromCompany(string userID, string companyID)
         {
             int amount = Data.CompanyManager_Data.RemoveEmployeeFromCompany(userID, companyID);
 
-            return amount != -1;
+            return amount != 0;
         }
 
         public static List<string> GetEmployeesFromCompany(string companyId)
@@ -93,6 +96,22 @@ namespace sPlannedIt.Logic
         public static void EditCompany(string id, string name)
         {
             Data.CompanyManager_Data.EditCompany(id, name);
+        }
+
+        public static void DeleteCompany(string id)
+        {
+            RemoveAllEmployees(id);
+            Data.CompanyManager_Data.DeleteCompany(id);
+        }
+
+        public static void RemoveAllEmployees(string companyId)
+        {
+            List<string> users = GetEmployeesFromCompany(companyId);
+
+            foreach (string id in users)
+            {
+                RemoveEmployeeFromCompany(id, companyId);
+            }
         }
     }
 }

@@ -134,5 +134,17 @@ namespace sPlannedIt.Data
                 connectionString.Dispose();
             }
         }
+
+        public static void DeleteCompany(string id)
+        {
+            using (ConnectionString connectionString = new ConnectionString())
+            {
+                SqlCommand delete = new SqlCommand("DELETE FROM Company WHERE @CompanyID = CompanyID", connectionString.sqlConnection);
+                delete.Parameters.AddWithValue("@CompanyID", id);
+                connectionString.sqlConnection.Open();
+                delete.ExecuteNonQuery();
+                connectionString.Dispose();
+            }
+        }
     }
 }

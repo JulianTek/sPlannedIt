@@ -22,6 +22,54 @@ namespace sPlannedIt.Controllers
         }
 
         [HttpGet]
+        public IActionResult RegisterEmployer(string id)
+        {
+            RegisterEmployerViewmodel model = new RegisterEmployerViewmodel()
+            {
+                User = new UserData
+                {
+                    Email = null,
+                    Password = null,
+                    ConfirmPwd = null,
+                    RoleName = "Employer"
+                },
+                CompanyId = id
+            };
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RegisterEmployer(RegisterEmployerViewmodel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = new IdentityUser()
+                {
+                    UserName = model.User.Email,
+                    Email = model.User.Email
+                };
+                var result = await _userManager.CreateAsync(user, model.User.Password);
+
+                if (result.Succeeded)
+                {
+                    await _userManager.AddToRoleAsync(user, "Employer");
+                    var addToCompanyResult = Logic.CompanyManager_Logic.AddEmployeeToCompany(user.Id, model.CompanyId);
+                    if (addToCompanyResult)
+                    {
+                        return RedirectToAction("ListCompanies", "Company");
+                    }
+                }
+
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+            }
+
+            return View(model);
+        }
+
+        [HttpGet]
         public IActionResult Register()
         {
             RegisterViewModel model = new RegisterViewModel
@@ -49,32 +97,32 @@ namespace sPlannedIt.Controllers
             if (ModelState.IsValid)
             {
                 var user = new IdentityUser
+                {
+                    UserName = model.User.Email,
+                    Email = model.User.Email
+                };
+
+                var result = await _userManager.CreateAsync(user, model.User.Password);
+
+
+                if (result.Succeeded)
+                {
+                    for (int i = 0; i < model.Roles.Roles.Count; i++)
                     {
-                        UserName = model.User.Email,
-                        Email = model.User.Email
-                    };
-
-                    var result = await _userManager.CreateAsync(user, model.User.Password);
-
-
-                    if (result.Succeeded)
-                    {
-                        for (int i = 0; i < model.Roles.Roles.Count; i++)
+                        if (model.User.RoleName == model.Roles.Roles[i])
                         {
-                            if (model.User.RoleName == model.Roles.Roles[i])
-                            {
-                               await _userManager.AddToRoleAsync(user, model.Roles.Roles[i]);
-                               await _signInManager.SignInAsync(user, isPersistent: false);
-                               return RedirectToAction(string.Concat($"index{model.Roles.Roles[i]}"), "home");
+                            await _userManager.AddToRoleAsync(user, model.Roles.Roles[i]);
+                            await _signInManager.SignInAsync(user, isPersistent: false);
+                            return RedirectToAction(string.Concat($"index{model.Roles.Roles[i]}"), "home");
                         }
-                        }
-
                     }
 
-                    foreach (var error in result.Errors)
-                    {
-                        ModelState.AddModelError(string.Empty, error.Description);
-                    }
+                }
+
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
             }
             return View(model);
         }
