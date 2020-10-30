@@ -109,7 +109,7 @@ namespace sPlannedIt.Logic
             Data.CompanyManager_Data.DeleteCompany(id);
         }
 
-        public static async void RemoveAllEmployees(string companyId)
+        public static void RemoveAllEmployees(string companyId)
         {
             List<string> users = GetEmployeesFromCompany(companyId);
 
@@ -117,6 +117,11 @@ namespace sPlannedIt.Logic
             {
                 RemoveEmployeeFromCompany(id, companyId);
             }
+        }
+
+        public static string GetRole(string id)
+        {
+            return Data.CompanyManager_Data.GetRoleFromEmployee(id);
         }
     }
 }

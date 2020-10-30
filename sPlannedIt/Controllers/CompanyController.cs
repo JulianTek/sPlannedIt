@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using sPlannedIt.Logic.Models;
+using sPlannedIt.Models;
 using sPlannedIt.Viewmodels.Company_Viewmodels;
 using sPlannedIt.Viewmodels.Role_Viewmodels;
 
@@ -13,10 +15,12 @@ namespace sPlannedIt.Controllers
     public class CompanyController : Controller
     {
         private readonly UserManager<IdentityUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public CompanyController(UserManager<IdentityUser> userManager)
+        public CompanyController(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
+            _roleManager = roleManager;
         }
 
         private readonly CompanyContainer _container = new CompanyContainer();
@@ -61,10 +65,23 @@ namespace sPlannedIt.Controllers
             return RedirectToAction("ListCompanies");
         }
 
-        public IActionResult CompanyDetails(string companyId)
+        public async Task<IActionResult> CompanyDetails(string companyId)
         {
-            var model = _container.FindCompany(companyId);
-            model.Employees = Logic.CompanyManager_Logic.GetEmployeesFromCompany(companyId);
+            List<CompanyDetailEmployeeData> data = new List<CompanyDetailEmployeeData>();
+            foreach (string id in Logic.CompanyManager_Logic.GetEmployeesFromCompany(companyId))
+            {
+                data.Add(new CompanyDetailEmployeeData()
+                {
+                    Role = await _roleManager.FindByIdAsync(Logic.CompanyManager_Logic.GetRole(id)),
+                    User = await _userManager.FindByIdAsync(id)
+                });
+            }
+            CompanyDetailsViewmodel model = new CompanyDetailsViewmodel()
+            {
+                Company = _container.FindCompany(companyId),
+                EmployeeData = data
+            };
+            model.Company.Employees = Logic.CompanyManager_Logic.GetEmployeesFromCompany(companyId);
             return View(model);
         }
 

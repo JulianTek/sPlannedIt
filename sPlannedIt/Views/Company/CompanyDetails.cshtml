@@ -1,27 +1,28 @@
 ﻿@using sPlannedIt.Logic
-@model sPlannedIt.Logic.Models.Company
+@model sPlannedIt.Viewmodels.Company_Viewmodels.CompanyDetailsViewmodel
 @{
     ViewData["Title"] = "CompanyDetails";
 }
 
 <div class="card">
     <div class="card-header">
-        <h1>@Model.CompanyID</h1>
+        <h1>@Model.Company.CompanyID</h1>
     </div>
     <div class="card-body">
-        <h5 class="card-title">Company Name: @Model.CompanyName</h5>
+        <h5 class="card-title">Company Name: @Model.Company.CompanyName</h5>
     </div>
     <div class="card-footer">
-        <h6>Employees:</h6>
-        @if (Model.Employees.Any())
+        @if (Model.EmployeeData.Any())
         {
-            foreach (string id in Model.Employees)
+            <h3>Employees:</h3>
+            foreach (var data in Model.EmployeeData)
             {
-                <p>@CompanyManager_Logic.GetEmployee(id)</p>
+                <p>Employee Email: @data.User.Email</p>
+                <p>Employee Role: @data.Role.Name</p>
             }
         }
         <a asp-action="EditUsersInCompany"
-           asp-route-companyId="@Model.CompanyID" class="btn btn-primary">
+           asp-route-companyId="@Model.Company.CompanyID" class="btn btn-primary">
         Add or remove users to this company</a>
     </div>
 </div>

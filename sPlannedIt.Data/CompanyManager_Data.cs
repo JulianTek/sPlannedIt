@@ -147,6 +147,17 @@ namespace sPlannedIt.Data
             }
         }
 
-
+        public static string GetRoleFromEmployee(string userId)
+        {
+            using (ConnectionString connectionString = new ConnectionString())
+            {
+                SqlCommand GetRole = new SqlCommand("SELECT RoleId from AspNetUserRoles WHERE @UserId = UserId", connectionString.SqlConnection);
+                GetRole.Parameters.AddWithValue("@UserId", userId);
+                connectionString.SqlConnection.Open();
+                var result = (string) GetRole.ExecuteScalar();
+                connectionString.Dispose();
+                return result;
+            }
+        }
     }
 }
