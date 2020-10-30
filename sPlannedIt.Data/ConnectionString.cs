@@ -7,7 +7,7 @@ namespace sPlannedIt.Data
 {
     class ConnectionString : IDisposable
     {
-        public SqlConnection sqlConnection = new SqlConnection
+        public SqlConnection SqlConnection = new SqlConnection
         (
             // local db @"Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=sPlannedItLocal;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"
             @"Data Source=(LocalDB)\MSSQLLocalDB;Initial Catalog=sPlannedItLocal;Integrated Security=True;MultipleActiveResultSets=True"
@@ -15,8 +15,8 @@ namespace sPlannedIt.Data
 
         public void Dispose()
         {
-            sqlConnection.Close();
-            sqlConnection.Dispose();
+            SqlConnection.Close();
+            SqlConnection.Dispose();
         }
     }
 }

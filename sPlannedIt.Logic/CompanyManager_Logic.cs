@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.AspNetCore.Identity;
 using sPlannedIt.Data;
 using sPlannedIt.Data.Models;
 using sPlannedIt.Logic.Models;
@@ -9,9 +10,14 @@ namespace sPlannedIt.Logic
 {
     public class CompanyManager_Logic
     {
-
-        //Todo: Add method that checks if employee already exists in db and program methods that locally add employees if not
+        private static UserManager<IdentityUser> _userManager;
         private static readonly CompanyContainer _container = new CompanyContainer();
+
+        public CompanyManager_Logic(UserManager<IdentityUser> userManager)
+        {
+            _userManager = userManager;
+        }
+        //Todo: Add method that checks if employee already exists in db and program methods that locally add employees if not
         public static CompanyDTO AddCompanyDto(string id, string name)
         {
             var succeeded = CompanyManager_Data.CreateCompany(id, name);
@@ -100,11 +106,10 @@ namespace sPlannedIt.Logic
 
         public static void DeleteCompany(string id)
         {
-            RemoveAllEmployees(id);
             Data.CompanyManager_Data.DeleteCompany(id);
         }
 
-        public static void RemoveAllEmployees(string companyId)
+        public static async void RemoveAllEmployees(string companyId)
         {
             List<string> users = GetEmployeesFromCompany(companyId);
 

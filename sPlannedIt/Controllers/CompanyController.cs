@@ -46,8 +46,17 @@ namespace sPlannedIt.Controllers
             return View(model);
         }
 
-        public IActionResult DeleteCompany(string id)
+        [HttpPost]
+        public async Task<IActionResult> DeleteCompany(string id)
         {
+            foreach (var userid in Logic.CompanyManager_Logic.GetEmployeesFromCompany(id))
+            {
+                var user = await _userManager.FindByIdAsync(userid);
+                if (user != null)
+                {
+                    await _userManager.DeleteAsync(user);
+                }
+            }
             Logic.CompanyManager_Logic.DeleteCompany(id);
             return RedirectToAction("ListCompanies");
         }

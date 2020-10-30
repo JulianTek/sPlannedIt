@@ -15,9 +15,9 @@ namespace sPlannedIt.Data
             {
                 List<string> scheduleIDs = new List<string>();
                 SqlCommand getSchedules = new SqlCommand("SELECT ScheduleID from Schedule WHERE @companyID = companyID",
-                    connectionString.sqlConnection);
+                    connectionString.SqlConnection);
                 getSchedules.Parameters.AddWithValue("@companyID", companyID);
-                connectionString.sqlConnection.Open();
+                connectionString.SqlConnection.Open();
                 var reader = getSchedules.ExecuteReader();
                 while (reader.Read())
                 {
@@ -36,9 +36,9 @@ namespace sPlannedIt.Data
             using (ConnectionString connectionString = new ConnectionString())
             {
                 SqlCommand getCompanyID = new SqlCommand("SELECT CompanyID from UserCompanyLink WHERE @userID = userID",
-                    connectionString.sqlConnection);
+                    connectionString.SqlConnection);
                 getCompanyID.Parameters.AddWithValue("@userID", userID);
-                connectionString.sqlConnection.Open();
+                connectionString.SqlConnection.Open();
                 string result = getCompanyID.ExecuteScalar().ToString();
                 connectionString.Dispose();
                 return result;
@@ -52,9 +52,9 @@ namespace sPlannedIt.Data
             using (ConnectionString connectionString = new ConnectionString())
             {
                 List<string> todaysWorkers = new List<string>();
-                SqlCommand getTodaysWorkers = new SqlCommand("SELECT userID from ShiftUserLink WHERE @ScheduleID = ScheduleID", connectionString.sqlConnection);
+                SqlCommand getTodaysWorkers = new SqlCommand("SELECT userID from ShiftUserLink WHERE @ScheduleID = ScheduleID", connectionString.SqlConnection);
                 getTodaysWorkers.Parameters.AddWithValue("@ScheduleID", scheduleID);
-                connectionString.sqlConnection.Open();
+                connectionString.SqlConnection.Open();
                 var reader = getTodaysWorkers.ExecuteReader();
                 while (reader.Read())
                 {
@@ -73,9 +73,9 @@ namespace sPlannedIt.Data
         {
             using (ConnectionString connectionString = new ConnectionString())
             {
-                SqlCommand getShiftID = new SqlCommand("SELECT ScheduleID from Shift WHERE @Date = Date", connectionString.sqlConnection);
+                SqlCommand getShiftID = new SqlCommand("SELECT ScheduleID from Shift WHERE @Date = Date", connectionString.SqlConnection);
                 getShiftID.Parameters.AddWithValue("@Date", dateTime.Date);
-                connectionString.sqlConnection.Open();
+                connectionString.SqlConnection.Open();
                 string result = getShiftID.ExecuteScalar().ToString();
                 connectionString.Dispose();
                 return result;
@@ -89,9 +89,9 @@ namespace sPlannedIt.Data
             using (ConnectionString connectionString = new ConnectionString())
             {
                 List<string> userIDs = new List<string>();
-                SqlCommand getUserIDs = new SqlCommand("SELECT userID from UserCompanyLink WHERE @CompanyID = CompanyID", connectionString.sqlConnection);
+                SqlCommand getUserIDs = new SqlCommand("SELECT userID from UserCompanyLink WHERE @CompanyID = CompanyID", connectionString.SqlConnection);
                 getUserIDs.Parameters.AddWithValue("@CompanyID", companyID);
-                connectionString.sqlConnection.Open();
+                connectionString.SqlConnection.Open();
                 var reader = getUserIDs.ExecuteReader();
                 while (reader.Read())
                 {
@@ -109,7 +109,7 @@ namespace sPlannedIt.Data
                 List<string> shiftIds = new List<string>();
                 SqlCommand getShifts = new SqlCommand("SELECT ShiftID from Shift WHERE @UserID = UserID");
                 getShifts.Parameters.AddWithValue("@UserID", userID);
-                connectionString.sqlConnection.Open();
+                connectionString.SqlConnection.Open();
                 var reader = getShifts.ExecuteReader();
                 while (reader.Read())
                 {
@@ -126,7 +126,7 @@ namespace sPlannedIt.Data
             {
                 SqlCommand findShiftDto =  new SqlCommand("SELECT * FROM Shift WHERE @ShiftID = ShiftID");
                 findShiftDto.Parameters.AddWithValue("@ShiftID", shiftID);
-                connectionString.sqlConnection.Open();
+                connectionString.SqlConnection.Open();
                 var reader = findShiftDto.ExecuteReader();
                 ShiftDTO shiftDto = new ShiftDTO();
                 while (reader.Read())

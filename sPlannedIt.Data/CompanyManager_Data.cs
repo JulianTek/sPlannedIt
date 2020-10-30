@@ -12,10 +12,10 @@ namespace sPlannedIt.Data
         {
             using (ConnectionString connectionString = new ConnectionString())
             {
-                SqlCommand createCompany = new SqlCommand("INSERT INTO Company (CompanyID, CompanyName) VALUES (@CompanyID, @CompanyName)", connectionString.sqlConnection);
+                SqlCommand createCompany = new SqlCommand("INSERT INTO Company (CompanyID, CompanyName) VALUES (@CompanyID, @CompanyName)", connectionString.SqlConnection);
                 createCompany.Parameters.AddWithValue("@CompanyID", companyID);
                 createCompany.Parameters.AddWithValue("@CompanyName", name);
-                connectionString.sqlConnection.Open();
+                connectionString.SqlConnection.Open();
                 var result = createCompany.ExecuteNonQuery();
                 connectionString.Dispose();
                 if (result != 0)
@@ -32,8 +32,8 @@ namespace sPlannedIt.Data
             List<CompanyDTO> companyDtos = new List<CompanyDTO>();
             using (ConnectionString connectionString = new ConnectionString())
             {
-                SqlCommand findAllCompanies = new SqlCommand("SELECT * FROM Company", connectionString.sqlConnection);
-                connectionString.sqlConnection.Open();
+                SqlCommand findAllCompanies = new SqlCommand("SELECT * FROM Company", connectionString.SqlConnection);
+                connectionString.SqlConnection.Open();
                 var reader = findAllCompanies.ExecuteReader();
                 while (reader.Read())
                 {
@@ -52,9 +52,9 @@ namespace sPlannedIt.Data
         {
             using (ConnectionString connectionString = new ConnectionString())
             {
-                SqlCommand getEmployee = new SqlCommand("SELECT Email FROM AspNetUsers WHERE @Id = Id", connectionString.sqlConnection);
+                SqlCommand getEmployee = new SqlCommand("SELECT Email FROM AspNetUsers WHERE @Id = Id", connectionString.SqlConnection);
                 getEmployee.Parameters.AddWithValue("@Id", id);
-                connectionString.sqlConnection.Open();
+                connectionString.SqlConnection.Open();
                 string result = getEmployee.ExecuteScalar().ToString();
                 connectionString.Dispose();
                 return result;
@@ -65,10 +65,10 @@ namespace sPlannedIt.Data
         {
             using (ConnectionString connectionString = new ConnectionString())
             {
-                SqlCommand checkEmployee = new SqlCommand("SELECT COUNT(companyID) FROM UserCompanyLink WHERE @companyID = companyID AND @userID = userID", connectionString.sqlConnection);
+                SqlCommand checkEmployee = new SqlCommand("SELECT COUNT(companyID) FROM UserCompanyLink WHERE @companyID = companyID AND @userID = userID", connectionString.SqlConnection);
                 checkEmployee.Parameters.AddWithValue("@userID", userId);
                 checkEmployee.Parameters.AddWithValue("@companyID", companyId);
-                connectionString.sqlConnection.Open();
+                connectionString.SqlConnection.Open();
                 var result = (int)checkEmployee.ExecuteScalar();
                 connectionString.Dispose();
                 return result;
@@ -79,10 +79,10 @@ namespace sPlannedIt.Data
         {
             using (ConnectionString connectionString = new ConnectionString())
             {
-                SqlCommand addEmployee = new SqlCommand("INSERT INTO UserCompanyLink (userID, companyID) VALUES (@userID, @companyID)", connectionString.sqlConnection);
+                SqlCommand addEmployee = new SqlCommand("INSERT INTO UserCompanyLink (userID, companyID) VALUES (@userID, @companyID)", connectionString.SqlConnection);
                 addEmployee.Parameters.AddWithValue("@userID", userId);
                 addEmployee.Parameters.AddWithValue("@companyID", companyId);
-                connectionString.sqlConnection.Open();
+                connectionString.SqlConnection.Open();
                 Console.WriteLine(addEmployee.CommandText);
                 int result = addEmployee.ExecuteNonQuery();
                 connectionString.Dispose();
@@ -94,10 +94,10 @@ namespace sPlannedIt.Data
         {
             using (ConnectionString connectionString = new ConnectionString())
             {
-                SqlCommand removeEmployee = new SqlCommand("DELETE FROM UserCompanyLink WHERE @userID = userID AND @companyID = companyID", connectionString.sqlConnection);
+                SqlCommand removeEmployee = new SqlCommand("DELETE FROM UserCompanyLink WHERE @userID = userID AND @companyID = companyID", connectionString.SqlConnection);
                 removeEmployee.Parameters.AddWithValue("@userID", userId);
                 removeEmployee.Parameters.AddWithValue("@companyID", companyId);
-                connectionString.sqlConnection.Open();
+                connectionString.SqlConnection.Open();
                 var result = removeEmployee.ExecuteNonQuery();
                 connectionString.Dispose();
                 return result;
@@ -109,9 +109,9 @@ namespace sPlannedIt.Data
             using (ConnectionString connectionString = new ConnectionString())
             {
                 List<string> userIds = new List<string>();
-                SqlCommand getEmployees = new SqlCommand("SELECT userID FROM UserCompanyLink WHERE @companyID = companyID", connectionString.sqlConnection);
+                SqlCommand getEmployees = new SqlCommand("SELECT userID FROM UserCompanyLink WHERE @companyID = companyID", connectionString.SqlConnection);
                 getEmployees.Parameters.AddWithValue("@companyID", companyId);
-                connectionString.sqlConnection.Open();
+                connectionString.SqlConnection.Open();
                 var reader = getEmployees.ExecuteReader();
                 while (reader.Read())
                 {
@@ -126,10 +126,10 @@ namespace sPlannedIt.Data
         {
             using (ConnectionString connectionString = new ConnectionString())
             {
-                SqlCommand edit = new SqlCommand("UPDATE Company SET CompanyName = @CompanyName WHERE @CompanyID = CompanyID", connectionString.sqlConnection);
+                SqlCommand edit = new SqlCommand("UPDATE Company SET CompanyName = @CompanyName WHERE @CompanyID = CompanyID", connectionString.SqlConnection);
                 edit.Parameters.AddWithValue("@CompanyID", id);
                 edit.Parameters.AddWithValue("@CompanyName", name);
-                connectionString.sqlConnection.Open();
+                connectionString.SqlConnection.Open();
                 edit.ExecuteNonQuery();
                 connectionString.Dispose();
             }
@@ -139,12 +139,14 @@ namespace sPlannedIt.Data
         {
             using (ConnectionString connectionString = new ConnectionString())
             {
-                SqlCommand delete = new SqlCommand("DELETE FROM Company WHERE @CompanyID = CompanyID", connectionString.sqlConnection);
+                SqlCommand delete = new SqlCommand("DELETE FROM Company WHERE @CompanyID = CompanyID", connectionString.SqlConnection);
                 delete.Parameters.AddWithValue("@CompanyID", id);
-                connectionString.sqlConnection.Open();
+                connectionString.SqlConnection.Open();
                 delete.ExecuteNonQuery();
                 connectionString.Dispose();
             }
         }
+
+
     }
 }
