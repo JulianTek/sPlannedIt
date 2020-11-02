@@ -1,0 +1,73 @@
+﻿@using Microsoft.CodeAnalysis.CSharp.Syntax
+@using sPlannedIt.Logic.Models
+@model sPlannedIt.Viewmodels.Homepage_Viewmodels.IndexEmployeeViewModel
+@{
+    ViewData["Title"] = "IndexEmployee";
+}
+
+<h1>IndexEmployee</h1>
+<div class="row">
+    <div class="col-sm-6">
+        @if (Model.Shifts.Any())
+        {
+            <table class="table table-striped table-hover">
+                <tbody>
+                    <tr>
+                        <th colspan="3">Planned</th>
+                    </tr>
+                    @foreach (Shift shift in Model.Shifts)
+                    {
+
+                        <tr valign="top">
+                            <td width="100">@shift.ShiftDate.Date</td>
+                            <td>@String.Concat(shift.StartTime + ":00") - @String.Concat(shift.EndTime + ":00")</td>
+                            <td><br></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <table class="table table-striped table-hover">
+                <tbody>
+                <tr>
+                    <th colspan="3">No shifts planned at the moment</th>
+                </tr>
+                </tbody>
+            </table>
+        }
+        
+    </div>
+    <div class="col-sm-6">
+        @if (Model.TodaysWorkers.Any())
+        {
+            <table class="table table-striped table-hover">
+                <tbody>
+                <tr>
+                    <th colspan="3">Working Today</th>
+                </tr>
+                @foreach (Shift shift in Model.TodaysWorkers)
+                {
+
+                    <tr valign="top">
+                        <td width="100">@shift.ShiftDate.Date</td>
+                        <td>@String.Concat(shift.StartTime + ":00") - @String.Concat(shift.EndTime + ":00")</td>
+                        <td><br></td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <table class="table table-striped table-hover">
+                <tbody>
+                <tr>
+                    <th colspan="3">None working today</th>
+                </tr>
+                </tbody>
+            </table>
+        }
+    </div>
+</div>

@@ -1,0 +1,63 @@
+﻿@using sPlannedIt.Logic.Models
+@model List<sPlannedIt.Logic.Models.Company>
+
+@{
+    ViewData["Title"] = "ListCompanies";
+}
+
+@if (Model.Any())
+{
+    foreach (Company company in Model)
+    {
+        <div class="card">
+            <div class="card-header">
+                Company Id: @company.CompanyID
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Company Name: @company.CompanyName</h5>
+            </div>
+            <div class="card-footer">
+                <form asp-action="DeleteCompany" asp-route-id="@company.CompanyID" method="post">
+                    <span id="confirmDeleteSpan_@company.CompanyID" style="display:none">
+                        <span>Are you sure you want to delete @company.CompanyName?</span>
+                        <button type="submit" class="btn btn-danger">Yes</button>
+                        <a href="#" class="btn btn-primary"
+                           onclick="confirmDelete('@company.CompanyID', false)">No</a>
+                    </span>
+
+                    <span id="deleteSpan_@company.CompanyID">
+                        <a href="#" class="btn btn-danger"
+                           onclick="confirmDelete('@company.CompanyID', true)">Delete</a>
+                    </span>
+                </form>
+                <a asp-action="CompanyDetails" class="btn btn-primary" asp-route-companyId="@company.CompanyID">View Details</a>
+                <a asp-action="EditCompany" class="btn btn-primary" asp-route-companyId="@company.CompanyID">Edit</a>
+            </div>
+        </div>
+        <a class="btn btn-primary" style="width: auto" asp-action="CreateCompany">
+            Create Company
+        </a>
+    }
+}
+else
+{
+    <div class="card">
+        <div class="card-header">
+            No Companies yet
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">
+                Create a company with the button below
+            </h5>
+            <a class="btn btn-primary" style="width: auto" asp-action="CreateCompany">
+                Create Company
+            </a>
+        </div>
+    </div>
+}
+
+
+@section Scripts {
+    <script src="~/js/Deletepromt.js"></script>
+}
+

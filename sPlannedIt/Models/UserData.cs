@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-using sPlannedIt.Models.Enums;
 
-namespace sPlannedIt.Viewmodels
+namespace sPlannedIt.Models
 {
-    public class RegisterViewModel
+    public class UserData
     {
         [Required]
         [EmailAddress]
@@ -15,12 +14,12 @@ namespace sPlannedIt.Viewmodels
         [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; }
+
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
         [Compare("Password",
             ErrorMessage = "Passwords do not match")]
         public string ConfirmPwd { get; set; }
-        [Required]
-        public UserRole Role { get; set; }
+        public string RoleName { get; set; }
     }
 }
