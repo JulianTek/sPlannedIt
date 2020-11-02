@@ -55,14 +55,23 @@ namespace sPlannedIt.Data
                 SqlCommand getTodaysWorkers = new SqlCommand("SELECT userID from ShiftUserLink WHERE @ScheduleID = ScheduleID", connectionString.SqlConnection);
                 getTodaysWorkers.Parameters.AddWithValue("@ScheduleID", scheduleID);
                 connectionString.SqlConnection.Open();
-                var reader = getTodaysWorkers.ExecuteReader();
-                while (reader.Read())
+                try
                 {
-                    todaysWorkers.Add(reader.GetString(0));
+                    var reader = getTodaysWorkers.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        todaysWorkers.Add(reader.GetString(0));
+                    }
+                    connectionString.Dispose();
+                    return todaysWorkers;
+                }
+                catch (Exception ex)
+                {
+                    Console.Write(ex);
+                    return new List<string>();
                 }
 
-                connectionString.Dispose();
-                return todaysWorkers;
+
             }
         }
 
@@ -73,12 +82,20 @@ namespace sPlannedIt.Data
         {
             using (ConnectionString connectionString = new ConnectionString())
             {
-                SqlCommand getShiftID = new SqlCommand("SELECT ScheduleID from Shift WHERE @Date = Date", connectionString.SqlConnection);
+                SqlCommand getShiftID = new SqlCommand("SELECT ScheduleID from Shift WHERE @Date = Date",
+                    connectionString.SqlConnection);
                 getShiftID.Parameters.AddWithValue("@Date", dateTime.Date);
                 connectionString.SqlConnection.Open();
-                string result = getShiftID.ExecuteScalar().ToString();
-                connectionString.Dispose();
-                return result;
+                try
+                {
+                    string result = (string)getShiftID.ExecuteScalar();
+                    connectionString.Dispose();
+                    return result;
+                }
+                catch (Exception ex)
+                {
+                    return "null";
+                }
             }
         }
 
@@ -107,7 +124,7 @@ namespace sPlannedIt.Data
             using (ConnectionString connectionString = new ConnectionString())
             {
                 List<string> shiftIds = new List<string>();
-                SqlCommand getShifts = new SqlCommand("SELECT ShiftID from Shift WHERE @UserID = UserID");
+                SqlCommand getShifts = new SqlCommand("SELECT ShiftID from Shift WHERE @UserID = UserID", connectionString.SqlConnection);
                 getShifts.Parameters.AddWithValue("@UserID", userID);
                 connectionString.SqlConnection.Open();
                 var reader = getShifts.ExecuteReader();
