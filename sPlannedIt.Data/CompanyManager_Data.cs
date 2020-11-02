@@ -40,11 +40,34 @@ namespace sPlannedIt.Data
                     companyDtos.Add(new CompanyDTO()
                     {
                         CompanyID = reader.GetString(0),
-                        CompanyName = reader.GetString(1)
+                        CompanyName = reader.GetString(1),
+                        Employees = new List<string>()
                     });
                 }
                 connectionString.Dispose();
                 return companyDtos;
+            }
+        }
+
+        public static CompanyDTO FindCompanyDto(string id)
+        {
+            using (ConnectionString connectionString = new ConnectionString())
+            {
+                CompanyDTO companyDto = new CompanyDTO()
+                {
+                    Employees = new List<string>()
+                };
+                SqlCommand findCompany = new SqlCommand("SELECT * FROM Company WHERE @CompanyID = CompanyID", connectionString.SqlConnection);
+                findCompany.Parameters.AddWithValue("@CompanyID", id);
+                connectionString.SqlConnection.Open();
+                var reader = findCompany.ExecuteReader();
+                while (reader.Read())
+                {
+                    companyDto.CompanyID = reader.GetString(0);
+                    companyDto.CompanyName = reader.GetString(1);
+                }
+                connectionString.Dispose();
+                return companyDto;
             }
         }
 
@@ -154,7 +177,19 @@ namespace sPlannedIt.Data
                 SqlCommand GetRole = new SqlCommand("SELECT RoleId from AspNetUserRoles WHERE @UserId = UserId", connectionString.SqlConnection);
                 GetRole.Parameters.AddWithValue("@UserId", userId);
                 connectionString.SqlConnection.Open();
-                var result = (string) GetRole.ExecuteScalar();
+                var result = (string)GetRole.ExecuteScalar();
+                connectionString.Dispose();
+                return result;
+            }
+        }
+
+        public static int CheckIfCompanyNameExists()
+        {
+            using (ConnectionString connectionString = new ConnectionString())
+            {
+                SqlCommand checkName = new SqlCommand("SELECT COUNT(CompanyName) FROM Company", connectionString.SqlConnection);
+                connectionString.SqlConnection.Open();
+                var result = (int)checkName.ExecuteScalar();
                 connectionString.Dispose();
                 return result;
             }

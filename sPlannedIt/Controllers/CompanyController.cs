@@ -36,8 +36,12 @@ namespace sPlannedIt.Controllers
             Company company = _container.CreateCompany(model.CompanyName);
             if (company != null)
             {
-                Logic.CompanyManager_Logic.AddCompanyDto(company.CompanyID, company.CompanyName);
-                return RedirectToAction("RegisterEmployer", "Account", new { id = company.CompanyID });
+                if (!Logic.CompanyManager_Logic.CheckIfNameExists())
+                {
+                    Logic.CompanyManager_Logic.AddCompanyDto(company.CompanyID, company.CompanyName);
+                    return RedirectToAction("RegisterEmployer", "Account", new { id = company.CompanyID });
+                }
+                ModelState.AddModelError("", "Company name already exists");
             }
 
             return View();

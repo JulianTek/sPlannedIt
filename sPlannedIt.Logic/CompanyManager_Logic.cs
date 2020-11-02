@@ -101,16 +101,32 @@ namespace sPlannedIt.Logic
 
         public static void EditCompany(string id, string name)
         {
+            Company company = _container.FindCompany(id);
+            // If local storage cannot find company
+            if (company == null)
+            {
+                company = ConvertDtOtoCompany(Data.CompanyManager_Data.FindCompanyDto(id));
+            }
+
+            company.UpdateCompanyName(name);
             Data.CompanyManager_Data.EditCompany(id, name);
         }
 
         public static void DeleteCompany(string id)
         {
+
+            _container.RemoveCompany(id);
             Data.CompanyManager_Data.DeleteCompany(id);
         }
 
         public static void RemoveAllEmployees(string companyId)
         {
+            Company company = _container.FindCompany(companyId);
+            if (company == null)
+            {
+                company = ConvertDtOtoCompany(Data.CompanyManager_Data.FindCompanyDto(companyId));
+            }
+            company.Employees.Clear();
             List<string> users = GetEmployeesFromCompany(companyId);
 
             foreach (string id in users)
@@ -122,6 +138,12 @@ namespace sPlannedIt.Logic
         public static string GetRole(string id)
         {
             return Data.CompanyManager_Data.GetRoleFromEmployee(id);
+        }
+
+        public static bool CheckIfNameExists()
+        {
+            var result = Data.CompanyManager_Data.CheckIfCompanyNameExists();
+            return result != 0;
         }
     }
 }
