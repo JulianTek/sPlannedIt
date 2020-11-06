@@ -2,23 +2,29 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using sPlannedIt.Interface;
 
 namespace sPlannedIt.Logic.Models
 {
-    public class Schedule
+    public class Schedule : ISchedule
     {
         public Schedule(string companyID)
         {
             ScheduleID = Guid.NewGuid().ToString();
             CompanyID = companyID;
-            Shifts = new List<Shift>();
+        }
+
+        public Schedule(string scheduleId, string companyId)
+        {
+            ScheduleID = scheduleId;
+            CompanyID = companyId;
         }
 
         public string ScheduleID { get; set; }
         public string CompanyID { get; set; }
-        public List<Shift> Shifts { get; set; }
+        public List<IShift> Shifts { get; set; } = new List<IShift>();
 
-        public bool AddShift(Shift shift)
+        public bool AddShift(IShift shift)
         {
             int shiftIndex = Shifts.Count;
             Shifts.Add(shift);
@@ -30,7 +36,7 @@ namespace sPlannedIt.Logic.Models
             return false;
         }
 
-        public bool RemoveShift(Shift shift)
+        public bool RemoveShift(IShift shift)
         {
             if (Shifts.Contains(shift))
             {
@@ -41,7 +47,7 @@ namespace sPlannedIt.Logic.Models
             return false;
         }
 
-        public Schedule UpdateSchedule(string companyID)
+        public ISchedule UpdateSchedule(string companyID)
         {
             CompanyID = companyID;
             return this;

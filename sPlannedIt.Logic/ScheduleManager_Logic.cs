@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using sPlannedIt.Data.Models;
+using sPlannedIt.Logic.Models;
 
 namespace sPlannedIt.Logic
 {
@@ -70,6 +71,37 @@ namespace sPlannedIt.Logic
         public static ShiftDTO FindShiftDto(string shiftID)
         {
             return Data.ScheduleManager_Data.FindShiftDto(shiftID);
+        }
+
+        public static bool InsertShift(Shift shift)
+        {
+            return Data.ScheduleManager_Data.InsertShift(shift.ShiftID, shift.ScheduleID, shift.StartTime,
+                shift.EndTime, shift.UserID, shift.ShiftDate);
+        }
+
+        public static bool InsertSchedule(Schedule schedule)
+        {
+            return Data.ScheduleManager_Data.InsertSchedule(schedule.ScheduleID, schedule.CompanyID);
+        }
+        public static List<Shift> ConvertIDsToShifts(List<string> ids)
+        {
+            List<Shift> shifts = new List<Shift>();
+            List<ShiftDTO> shiftDtos = Logic.ScheduleManager_Logic.ConvertIdsToDtos(ids);
+            foreach (ShiftDTO shiftDto in shiftDtos)
+            {
+                Shift shift = new Shift()
+                {
+                    ShiftID = shiftDto.ShiftID,
+                    ScheduleID = shiftDto.ScheduleID,
+                    ShiftDate = shiftDto.ShiftDate,
+                    UserID = shiftDto.UserID,
+                    StartTime = shiftDto.StartTime,
+                    EndTime = shiftDto.EndTime
+                };
+                shifts.Add(shift);
+            }
+
+            return shifts;
         }
     }
 }

@@ -7,11 +7,18 @@ namespace sPlannedIt.Logic.Models
 {
     public class ScheduleContainer
     {
-        public List<Schedule> AllSchedules { get; set; }
+        public List<Schedule> AllSchedules { get; set; } = new List<Schedule>();
 
         public Schedule CreateSchedule(string companyID)
         {
             Schedule schedule = new Schedule(companyID);
+            AllSchedules.Add(schedule);
+            return schedule;
+        }
+
+        public Schedule CreateSchedule(string companyId, string scheduleId)
+        {
+            Schedule schedule = new Schedule(scheduleId, companyId);
             AllSchedules.Add(schedule);
             return schedule;
         }

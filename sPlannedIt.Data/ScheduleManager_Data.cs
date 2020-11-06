@@ -52,7 +52,9 @@ namespace sPlannedIt.Data
             using (ConnectionString connectionString = new ConnectionString())
             {
                 List<string> todaysWorkers = new List<string>();
-                SqlCommand getTodaysWorkers = new SqlCommand("SELECT userID from ShiftUserLink WHERE @ScheduleID = ScheduleID", connectionString.SqlConnection);
+                SqlCommand getTodaysWorkers =
+                    new SqlCommand("SELECT userID from ShiftUserLink WHERE @ScheduleID = ScheduleID",
+                        connectionString.SqlConnection);
                 getTodaysWorkers.Parameters.AddWithValue("@ScheduleID", scheduleID);
                 connectionString.SqlConnection.Open();
                 try
@@ -62,6 +64,7 @@ namespace sPlannedIt.Data
                     {
                         todaysWorkers.Add(reader.GetString(0));
                     }
+
                     connectionString.Dispose();
                     return todaysWorkers;
                 }
@@ -106,7 +109,9 @@ namespace sPlannedIt.Data
             using (ConnectionString connectionString = new ConnectionString())
             {
                 List<string> userIDs = new List<string>();
-                SqlCommand getUserIDs = new SqlCommand("SELECT userID from UserCompanyLink WHERE @CompanyID = CompanyID", connectionString.SqlConnection);
+                SqlCommand getUserIDs =
+                    new SqlCommand("SELECT userID from UserCompanyLink WHERE @CompanyID = CompanyID",
+                        connectionString.SqlConnection);
                 getUserIDs.Parameters.AddWithValue("@CompanyID", companyID);
                 connectionString.SqlConnection.Open();
                 var reader = getUserIDs.ExecuteReader();
@@ -114,6 +119,7 @@ namespace sPlannedIt.Data
                 {
                     userIDs.Add(reader.GetString(0));
                 }
+
                 connectionString.Dispose();
                 return userIDs;
             }
@@ -124,7 +130,8 @@ namespace sPlannedIt.Data
             using (ConnectionString connectionString = new ConnectionString())
             {
                 List<string> shiftIds = new List<string>();
-                SqlCommand getShifts = new SqlCommand("SELECT ShiftID from Shift WHERE @UserID = UserID", connectionString.SqlConnection);
+                SqlCommand getShifts = new SqlCommand("SELECT ShiftID from Shift WHERE @UserID = UserID",
+                    connectionString.SqlConnection);
                 getShifts.Parameters.AddWithValue("@UserID", userID);
                 connectionString.SqlConnection.Open();
                 var reader = getShifts.ExecuteReader();
@@ -132,6 +139,7 @@ namespace sPlannedIt.Data
                 {
                     shiftIds.Add(reader.GetString(0));
                 }
+
                 connectionString.Dispose();
                 return shiftIds;
             }
@@ -141,7 +149,7 @@ namespace sPlannedIt.Data
         {
             using (ConnectionString connectionString = new ConnectionString())
             {
-                SqlCommand findShiftDto =  new SqlCommand("SELECT * FROM Shift WHERE @ShiftID = ShiftID");
+                SqlCommand findShiftDto = new SqlCommand("SELECT * FROM Shift WHERE @ShiftID = ShiftID");
                 findShiftDto.Parameters.AddWithValue("@ShiftID", shiftID);
                 connectionString.SqlConnection.Open();
                 var reader = findShiftDto.ExecuteReader();
@@ -157,6 +165,40 @@ namespace sPlannedIt.Data
                 }
 
                 return shiftDto;
+            }
+        }
+
+        public static bool InsertShift(string shiftId, string scheduleId, int startTime, int endTime, string userId,
+            DateTime date)
+        {
+            using (ConnectionString connectionString = new ConnectionString())
+            {
+                SqlCommand insert = new SqlCommand("INSERT INTO Shift(ShiftID, ScheduleID, StartTime, EndTime, Date, UserID) VALUES(@ShiftID, @ScheduleID, @StartTime, @EndTime, @Date, @UserID)", connectionString.SqlConnection);
+                insert.Parameters.AddWithValue("@ShiftID", shiftId);
+                insert.Parameters.AddWithValue("@ScheduleID", scheduleId);
+                insert.Parameters.AddWithValue("StartTime", startTime);
+                insert.Parameters.AddWithValue("@EndTime", endTime);
+                insert.Parameters.AddWithValue("@Date", date.Date);
+                insert.Parameters.AddWithValue("@UserID", userId);
+                connectionString.SqlConnection.Open();
+               var result = insert.ExecuteNonQuery();
+                connectionString.Dispose();
+               return result != 0;
+
+            }
+        }
+
+        public static bool InsertSchedule(string scheduleId, string companyId)
+        {
+            using (ConnectionString connectionString = new ConnectionString())
+            {
+                SqlCommand insert = new SqlCommand("INSERT INTO Schedule(ScheduleID, CompanyID) VALUES(@ScheduleID, @CompanyID)", connectionString.SqlConnection);
+                insert.Parameters.AddWithValue("@ScheduleID", scheduleId);
+                insert.Parameters.AddWithValue("@CompanyID", companyId);
+                connectionString.SqlConnection.Open();
+                var result = insert.ExecuteNonQuery();
+                connectionString.Dispose();
+                return result != 0;
             }
         }
     }

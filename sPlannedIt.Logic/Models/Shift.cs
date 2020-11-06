@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using sPlannedIt.Interface;
 
 namespace sPlannedIt.Logic.Models
 {
-    public class Shift
+    public class Shift : IShift
     {
-        public Shift(string userId, DateTime shiftDate, int startTime, int endTime)
+        public Shift(string userId, DateTime shiftDate, int startTime, int endTime, string scheduleId)
         {
             ShiftID = Guid.NewGuid().ToString();
+            ScheduleID = scheduleId;
             UserID = userId;
             ShiftDate = shiftDate;
             StartTime = startTime;
@@ -40,7 +42,7 @@ namespace sPlannedIt.Logic.Models
         public int EndTime { get; set; }
 
 
-        public Shift UpdateShift(string id, string userId, DateTime shiftDate, int startTime, int endTime)
+        public IShift UpdateShift(string id, string userId, DateTime shiftDate, int startTime, int endTime)
         {
             UserID = userId;
             ShiftDate = shiftDate;

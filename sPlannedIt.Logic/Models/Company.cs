@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
+using sPlannedIt.Interface;
 
 namespace sPlannedIt.Logic.Models
 {
-    public class Company
+    public class Company : ICompany
     {
         public Company()
         {
@@ -32,7 +33,7 @@ namespace sPlannedIt.Logic.Models
         public string CompanyName { get; set; }
         public List<string> Employees{ get; set; }
 
-        public Company UpdateCompanyName(string name)
+        public ICompany UpdateCompanyName(string name)
         {
             CompanyName = name;
             return this;

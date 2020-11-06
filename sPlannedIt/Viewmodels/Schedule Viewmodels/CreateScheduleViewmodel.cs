@@ -8,7 +8,7 @@ namespace sPlannedIt.Viewmodels.Schedule_Viewmodels
 {
     public class CreateScheduleViewmodel
     {
-        public string ShiftId { get; set; }
+        public string ScheduleId { get; set; }
         public string CompanyId { get; set; }
         public List<Shift> Shifts { get; set; }
     }

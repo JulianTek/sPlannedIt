@@ -14,40 +14,55 @@ namespace sPlannedIt.Controllers
 {
     public class EmployerController : Controller
     {
-        private ShiftContainer _container = new ShiftContainer();
+        private readonly ShiftContainer _container = new ShiftContainer();
+        private readonly ScheduleContainer _schedContainer = new ScheduleContainer();
         public IActionResult IndexEmployer()
         {
             string userID = User.FindFirstValue(ClaimTypes.NameIdentifier);
             IndexEmployerViewModel model = new IndexEmployerViewModel()
             {
-
                 CompanyID = Logic.ScheduleManager_Logic.GetCompanyID(userID),
-                TodaysWorkers = ConvertIDsToShifts(Logic.ScheduleManager_Logic.GetTodaysWorkers(Logic.ScheduleManager_Logic.GetScheduleID(DateTime.Today)))
+                TodaysWorkers = Logic.ScheduleManager_Logic.ConvertIDsToShifts(Logic.ScheduleManager_Logic.GetTodaysWorkers(Logic.ScheduleManager_Logic.GetScheduleID(DateTime.Today)))
             };
             return View(model);
         }
 
-
-        // Like before, this is temp code
-        public List<Shift> ConvertIDsToShifts(List<string> ids)
+        [HttpGet]
+        public IActionResult CreateShift()
         {
-            List<Shift> shifts = new List<Shift>();
-            List<ShiftDTO> shiftDtos = Logic.ScheduleManager_Logic.ConvertIdsToDtos(ids);
-            foreach (ShiftDTO shiftDto in shiftDtos)
+            return View();
+        }
+
+
+        [HttpGet]
+        public IActionResult CreateSchedule()
+        {
+            //Temp way of creating viewmodel, will eventually make use of container
+            CreateScheduleViewmodel model = new CreateScheduleViewmodel()
             {
-                Shift shift = new Shift()
+                CompanyId = Logic.ScheduleManager_Logic.GetCompanyID(User.FindFirstValue(ClaimTypes.NameIdentifier)),
+                ScheduleId = Guid.NewGuid().ToString(),
+                Shifts = new List<Shift>()
+            };
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult CreateSchedule(CreateScheduleViewmodel model)
+        {
+            if (ModelState.IsValid)
+            {
+                Schedule schedule = _schedContainer.CreateSchedule(model.CompanyId);
+                var result = Logic.ScheduleManager_Logic.InsertSchedule(schedule);
+                if (result)
                 {
-                    ShiftID = shiftDto.ShiftID,
-                    ScheduleID = shiftDto.ScheduleID,
-                    ShiftDate = shiftDto.ShiftDate,
-                    UserID = shiftDto.UserID,
-                    StartTime = shiftDto.StartTime,
-                    EndTime = shiftDto.EndTime
-                };
-                shifts.Add(shift);
+                    // todo: implement success view
+                    return RedirectToAction("IndexEmployer");
+                }
+                ModelState.AddModelError("", "Cannot create schedule");
             }
 
-            return shifts;
+            return View();
         }
     }
 }

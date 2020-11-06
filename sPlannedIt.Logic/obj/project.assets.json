@@ -1905,6 +1905,16 @@
         "runtime": {
           "bin/placeholder/sPlannedIt.Data.dll": {}
         }
+      },
+      "sPlannedIt.Interface/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "compile": {
+          "bin/placeholder/sPlannedIt.Interface.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/sPlannedIt.Interface.dll": {}
+        }
       }
     }
   },
@@ -6621,12 +6631,18 @@
       "type": "project",
       "path": "../sPlannedIt.Data/sPlannedIt.Data.csproj",
       "msbuildProject": "../sPlannedIt.Data/sPlannedIt.Data.csproj"
+    },
+    "sPlannedIt.Interface/1.0.0": {
+      "type": "project",
+      "path": "../sPlannedIt.Interface/sPlannedIt.Interface.csproj",
+      "msbuildProject": "../sPlannedIt.Interface/sPlannedIt.Interface.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
       "Microsoft.EntityFrameworkCore.Tools >= 3.1.7",
-      "sPlannedIt.Data >= 1.0.0"
+      "sPlannedIt.Data >= 1.0.0",
+      "sPlannedIt.Interface >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -6661,6 +6677,9 @@
           "projectReferences": {
             "C:\\Users\\Julia\\Documents\\GitHub\\sPlannedIt\\sPlannedIt.Data\\sPlannedIt.Data.csproj": {
               "projectPath": "C:\\Users\\Julia\\Documents\\GitHub\\sPlannedIt\\sPlannedIt.Data\\sPlannedIt.Data.csproj"
+            },
+            "C:\\Users\\Julia\\Documents\\GitHub\\sPlannedIt\\sPlannedIt.Interface\\sPlannedIt.Interface.csproj": {
+              "projectPath": "C:\\Users\\Julia\\Documents\\GitHub\\sPlannedIt\\sPlannedIt.Interface\\sPlannedIt.Interface.csproj"
             }
           }
         }

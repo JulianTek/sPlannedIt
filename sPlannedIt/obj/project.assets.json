@@ -3014,11 +3014,22 @@
           "bin/placeholder/sPlannedIt.Data.dll": {}
         }
       },
+      "sPlannedIt.Interface/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "compile": {
+          "bin/placeholder/sPlannedIt.Interface.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/sPlannedIt.Interface.dll": {}
+        }
+      },
       "sPlannedIt.Logic/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
         "dependencies": {
-          "sPlannedIt.Data": "1.0.0"
+          "sPlannedIt.Data": "1.0.0",
+          "sPlannedIt.Interface": "1.0.0"
         },
         "compile": {
           "bin/placeholder/sPlannedIt.Logic.dll": {}
@@ -9424,6 +9435,11 @@
       "type": "project",
       "path": "../sPlannedIt.Data/sPlannedIt.Data.csproj",
       "msbuildProject": "../sPlannedIt.Data/sPlannedIt.Data.csproj"
+    },
+    "sPlannedIt.Interface/1.0.0": {
+      "type": "project",
+      "path": "../sPlannedIt.Interface/sPlannedIt.Interface.csproj",
+      "msbuildProject": "../sPlannedIt.Interface/sPlannedIt.Interface.csproj"
     },
     "sPlannedIt.Logic/1.0.0": {
       "type": "project",
