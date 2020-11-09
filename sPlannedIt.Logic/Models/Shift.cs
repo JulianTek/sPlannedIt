@@ -9,15 +9,6 @@ namespace sPlannedIt.Logic.Models
 {
     public class Shift : IShift
     {
-        public Shift(string userId, DateTime shiftDate, int startTime, int endTime, string scheduleId)
-        {
-            ShiftID = Guid.NewGuid().ToString();
-            ScheduleID = scheduleId;
-            UserID = userId;
-            ShiftDate = shiftDate;
-            StartTime = startTime;
-            EndTime = endTime;
-        }
 
         public Shift(string shiftId, string scheduleId, string userId, DateTime shiftDate, int startTime, int endTime)
         {

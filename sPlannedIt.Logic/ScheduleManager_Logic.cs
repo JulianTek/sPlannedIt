@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
+using sPlannedIt.Data;
 using sPlannedIt.Data.Models;
+using sPlannedIt.Interface;
 using sPlannedIt.Logic.Models;
 
 namespace sPlannedIt.Logic
@@ -11,7 +13,7 @@ namespace sPlannedIt.Logic
     public class ScheduleManager_Logic
     {
         private readonly UserManager<IdentityUser> _userManager;
-
+        private static readonly ScheduleContainer _container = new ScheduleContainer();
         public ScheduleManager_Logic(UserManager<IdentityUser> userManager)
         {
             _userManager = userManager;
@@ -81,11 +83,11 @@ namespace sPlannedIt.Logic
 
         public static bool InsertSchedule(Schedule schedule)
         {
-            return Data.ScheduleManager_Data.InsertSchedule(schedule.ScheduleID, schedule.CompanyID);
+            return Data.ScheduleManager_Data.InsertSchedule(schedule.ScheduleID, schedule.CompanyID, schedule.Name);
         }
-        public static List<Shift> ConvertIDsToShifts(List<string> ids)
+        public static List<IShift> ConvertIDsToShifts(List<string> ids)
         {
-            List<Shift> shifts = new List<Shift>();
+            List<IShift> shifts = new List<IShift>();
             List<ShiftDTO> shiftDtos = Logic.ScheduleManager_Logic.ConvertIdsToDtos(ids);
             foreach (ShiftDTO shiftDto in shiftDtos)
             {
@@ -102,6 +104,36 @@ namespace sPlannedIt.Logic
             }
 
             return shifts;
+        }
+
+        public static List<Schedule> ConvertSchedulesList(List<string> ids)
+        {
+            List<Schedule> schedules = new List<Schedule>();
+            foreach (string id in ids)
+            {
+                Schedule schedule = _container.FindSchedule(id);
+                if (schedule == null)
+                {
+                    ScheduleDTO dto = Data.ScheduleManager_Data.GetSchedule(id);
+                    schedule = _container.CreateSchedule(dto.CompanyID, dto.ScheduleID, dto.Name);
+                }
+                schedules.Add(schedule);
+            }
+
+            return schedules;
+        }
+
+        public static Schedule ConvertSchedule(string id)
+        {
+            Schedule schedule = _container.FindSchedule(id);
+            if (schedule == null)
+            {
+                ScheduleDTO dto = Data.ScheduleManager_Data.GetSchedule(id);
+                schedule = _container.CreateSchedule(dto.CompanyID, dto.ScheduleID, dto.Name);
+                schedule.Shifts = ConvertIDsToShifts(ScheduleManager_Data.GetShiftsFromSched(id));
+            }
+
+            return schedule;
         }
     }
 }

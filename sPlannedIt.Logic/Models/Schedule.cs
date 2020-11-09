@@ -8,18 +8,21 @@ namespace sPlannedIt.Logic.Models
 {
     public class Schedule : ISchedule
     {
-        public Schedule(string companyID)
+        public Schedule(string companyID, string name)
         {
+            Name = name;
             ScheduleID = Guid.NewGuid().ToString();
             CompanyID = companyID;
         }
 
-        public Schedule(string scheduleId, string companyId)
+        public Schedule(string scheduleId, string companyId, string name)
         {
+            Name = name;
             ScheduleID = scheduleId;
             CompanyID = companyId;
         }
 
+        public string Name { get; set; }
         public string ScheduleID { get; set; }
         public string CompanyID { get; set; }
         public List<IShift> Shifts { get; set; } = new List<IShift>();
@@ -47,8 +50,9 @@ namespace sPlannedIt.Logic.Models
             return false;
         }
 
-        public ISchedule UpdateSchedule(string companyID)
+        public ISchedule UpdateSchedule(string companyID, string name)
         {
+            Name = name;
             CompanyID = companyID;
             return this;
         }

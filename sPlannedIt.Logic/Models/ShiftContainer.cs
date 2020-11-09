@@ -14,9 +14,9 @@ namespace sPlannedIt.Logic.Models
         }
         public List<Shift> AllShifts { get; set; }
 
-        public Shift CreateShift(string userId, DateTime shiftDate, int startTime, int endTime, string scheduleId)
+        public Shift CreateShift(string userId, DateTime shiftDate, int startTime, int endTime, string scheduleId, string shiftId)
         {
-            Shift shift =  new Shift(userId, shiftDate, startTime, endTime, scheduleId);
+            Shift shift = new Shift(shiftId, scheduleId, userId, shiftDate, startTime, endTime);
             AllShifts.Add(shift);
             return shift;
         }

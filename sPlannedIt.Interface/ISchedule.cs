@@ -9,6 +9,6 @@ namespace sPlannedIt.Interface
         List<IShift> Shifts { get; set; }
         bool AddShift(IShift shift);
         bool RemoveShift(IShift shift);
-        ISchedule UpdateSchedule(string companyID);
+        ISchedule UpdateSchedule(string companyID, string name);
     }
 }

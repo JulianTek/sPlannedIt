@@ -102,6 +102,25 @@ namespace sPlannedIt.Data
             }
         }
 
+        public static ScheduleDTO GetSchedule(string id)
+        {
+            using (ConnectionString connectionString = new ConnectionString())
+            {
+                ScheduleDTO dto = new ScheduleDTO();
+                SqlCommand find = new SqlCommand("SELECT * FROM Schedule WHERE @ScheduleID = ScheduleID", connectionString.SqlConnection);
+                find.Parameters.AddWithValue("@ScheduleID", id);
+                connectionString.SqlConnection.Open();
+                var reader = find.ExecuteReader();
+                while (reader.Read())
+                {
+                    dto.ScheduleID = reader.GetString(0);
+                    dto.CompanyID = reader.GetString(1);
+                    dto.Name = reader.GetString(2);
+                }
+                connectionString.Dispose();
+                return dto;
+            }
+        }
 
         // Gets all userIDs from a specific company
         public static List<string> GetUserIDs(string companyID)
@@ -145,11 +164,31 @@ namespace sPlannedIt.Data
             }
         }
 
+        public static List<string> GetShiftsFromSched(string scheduleId)
+        {
+            using (ConnectionString connectionString = new ConnectionString())
+            {
+                List<string> shiftIds = new List<string>();
+                SqlCommand getShifts = new SqlCommand("SELECT ShiftID from Shift WHERE @ScheduleId = ScheduleId",
+                    connectionString.SqlConnection);
+                getShifts.Parameters.AddWithValue("@ScheduleID", scheduleId);
+                connectionString.SqlConnection.Open();
+                var reader = getShifts.ExecuteReader();
+                while (reader.Read())
+                {
+                    shiftIds.Add(reader.GetString(0));
+                }
+
+                connectionString.Dispose();
+                return shiftIds;
+            }
+        }
+
         public static ShiftDTO FindShiftDto(string shiftID)
         {
             using (ConnectionString connectionString = new ConnectionString())
             {
-                SqlCommand findShiftDto = new SqlCommand("SELECT * FROM Shift WHERE @ShiftID = ShiftID");
+                SqlCommand findShiftDto = new SqlCommand("SELECT * FROM Shift WHERE @ShiftID = ShiftID", connectionString.SqlConnection);
                 findShiftDto.Parameters.AddWithValue("@ShiftID", shiftID);
                 connectionString.SqlConnection.Open();
                 var reader = findShiftDto.ExecuteReader();
@@ -158,8 +197,8 @@ namespace sPlannedIt.Data
                 {
                     shiftDto.ShiftID = reader.GetString(0);
                     shiftDto.ScheduleID = reader.GetString(1);
-                    shiftDto.StartTime = reader.GetInt16(2);
-                    shiftDto.EndTime = reader.GetInt16(3);
+                    shiftDto.StartTime = reader.GetInt32(2);
+                    shiftDto.EndTime = reader.GetInt32(3);
                     shiftDto.ShiftDate = reader.GetDateTime(4);
                     shiftDto.UserID = reader.GetString(5);
                 }
@@ -188,13 +227,14 @@ namespace sPlannedIt.Data
             }
         }
 
-        public static bool InsertSchedule(string scheduleId, string companyId)
+        public static bool InsertSchedule(string scheduleId, string companyId, string name)
         {
             using (ConnectionString connectionString = new ConnectionString())
             {
-                SqlCommand insert = new SqlCommand("INSERT INTO Schedule(ScheduleID, CompanyID) VALUES(@ScheduleID, @CompanyID)", connectionString.SqlConnection);
+                SqlCommand insert = new SqlCommand("INSERT INTO Schedule(ScheduleID, CompanyID, Name) VALUES(@ScheduleID, @CompanyID, @Name)", connectionString.SqlConnection);
                 insert.Parameters.AddWithValue("@ScheduleID", scheduleId);
                 insert.Parameters.AddWithValue("@CompanyID", companyId);
+                insert.Parameters.AddWithValue("@Name", name);
                 connectionString.SqlConnection.Open();
                 var result = insert.ExecuteNonQuery();
                 connectionString.Dispose();

@@ -9,7 +9,8 @@
       "sPlannedIt.Logic/1.0.0": {
         "dependencies": {
           "Microsoft.EntityFrameworkCore.Tools": "3.1.7",
-          "sPlannedIt.Data": "1.0.0"
+          "sPlannedIt.Data": "1.0.0",
+          "sPlannedIt.Interface": "1.0.0"
         },
         "runtime": {
           "sPlannedIt.Logic.dll": {}
@@ -1398,6 +1399,11 @@
         "runtime": {
           "sPlannedIt.Data.dll": {}
         }
+      },
+      "sPlannedIt.Interface/1.0.0": {
+        "runtime": {
+          "sPlannedIt.Interface.dll": {}
+        }
       }
     }
   },
@@ -2311,6 +2317,11 @@
       "hashPath": "system.xml.xmlserializer.4.3.0.nupkg.sha512"
     },
     "sPlannedIt.Data/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "sPlannedIt.Interface/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

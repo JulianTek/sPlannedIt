@@ -2495,9 +2495,18 @@
           "sPlannedIt.Data.dll": {}
         }
       },
+      "sPlannedIt.Interface/1.0.0": {
+        "runtime": {
+          "sPlannedIt.Interface.dll": {}
+        },
+        "compile": {
+          "sPlannedIt.Interface.dll": {}
+        }
+      },
       "sPlannedIt.Logic/1.0.0": {
         "dependencies": {
-          "sPlannedIt.Data": "1.0.0"
+          "sPlannedIt.Data": "1.0.0",
+          "sPlannedIt.Interface": "1.0.0"
         },
         "runtime": {
           "sPlannedIt.Logic.dll": {}
@@ -5429,6 +5438,11 @@
       "hashPath": "system.xml.xmlserializer.4.3.0.nupkg.sha512"
     },
     "sPlannedIt.Data/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "sPlannedIt.Interface/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

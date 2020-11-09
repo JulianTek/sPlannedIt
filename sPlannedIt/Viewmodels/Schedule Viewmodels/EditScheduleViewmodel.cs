@@ -7,11 +7,11 @@ using sPlannedIt.Logic.Models;
 
 namespace sPlannedIt.Viewmodels.Schedule_Viewmodels
 {
-    public class CreateScheduleViewmodel
+    public class EditScheduleViewmodel
     {
         public string ScheduleId { get; set; }
-        public string CompanyId { get; set; }
         public string Name { get; set; }
+        public string CompanyId { get; set; }
         public List<IShift> Shifts { get; set; }
     }
 }
