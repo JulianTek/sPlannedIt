@@ -9,7 +9,7 @@ namespace sPlannedIt.Data
     {
 
         // Gets all saved schedules from a specific company
-        public static List<string> GetScheduleIDs(string companyID)
+        public static List<string> GetScheduleIDsFromCompany(string companyID)
         {
             using (ConnectionString connectionString = new ConnectionString())
             {
@@ -81,7 +81,7 @@ namespace sPlannedIt.Data
 
         // Gets the schedule ID from today's date
         //Todo: Figure out how to add parameter for company
-        public static string GetScheduleID(DateTime dateTime)
+        public static string GetTodaysScheduleID(DateTime dateTime)
         {
             using (ConnectionString connectionString = new ConnectionString())
             {
@@ -144,7 +144,7 @@ namespace sPlannedIt.Data
             }
         }
 
-        public static List<string> GetShifts(string userID)
+        public static List<string> GetUsersShifts(string userID)
         {
             using (ConnectionString connectionString = new ConnectionString())
             {

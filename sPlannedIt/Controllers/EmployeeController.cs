@@ -17,7 +17,7 @@ namespace sPlannedIt.Controllers
             {
                 CompanyID = Logic.ScheduleManager_Logic.GetCompanyID(userID),
                 Shifts = Logic.ScheduleManager_Logic.ConvertIDsToShifts(Logic.ScheduleManager_Logic.GetShiftIDs(userID)),
-                TodaysWorkers = Logic.ScheduleManager_Logic.ConvertIDsToShifts(Logic.ScheduleManager_Logic.GetTodaysWorkers(Logic.ScheduleManager_Logic.GetScheduleID(DateTime.Today)))
+                TodaysWorkers = Logic.ScheduleManager_Logic.ConvertIDsToShifts(Logic.ScheduleManager_Logic.GetTodaysWorkers(Logic.ScheduleManager_Logic.GetTodaysScheduleID(DateTime.Today)))
             };
             return View(model);
         }

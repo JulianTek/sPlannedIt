@@ -18,12 +18,7 @@ namespace sPlannedIt.Data
                 connectionString.SqlConnection.Open();
                 var result = createCompany.ExecuteNonQuery();
                 connectionString.Dispose();
-                if (result != 0)
-                {
-                    return true;
-                }
-
-                return false;
+                return result != 0;
             }
         }
 

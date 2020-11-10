@@ -29,7 +29,7 @@ namespace sPlannedIt.Controllers
                 {
                     Schedules = schedules,
                     CompanyID = Logic.ScheduleManager_Logic.GetCompanyID(userID),
-                    TodaysWorkers = Logic.ScheduleManager_Logic.ConvertIDsToShifts(Logic.ScheduleManager_Logic.GetTodaysWorkers(Logic.ScheduleManager_Logic.GetScheduleID(DateTime.Today)))
+                    TodaysWorkers = Logic.ScheduleManager_Logic.ConvertIDsToShifts(Logic.ScheduleManager_Logic.GetTodaysWorkers(Logic.ScheduleManager_Logic.GetTodaysScheduleID(DateTime.Today)))
                 };
                 return View(model);
             }
@@ -39,7 +39,7 @@ namespace sPlannedIt.Controllers
                 {
                     Schedules = new List<Schedule>(),
                     CompanyID = Logic.ScheduleManager_Logic.GetCompanyID(userID),
-                    TodaysWorkers = Logic.ScheduleManager_Logic.ConvertIDsToShifts(Logic.ScheduleManager_Logic.GetTodaysWorkers(Logic.ScheduleManager_Logic.GetScheduleID(DateTime.Today)))
+                    TodaysWorkers = Logic.ScheduleManager_Logic.ConvertIDsToShifts(Logic.ScheduleManager_Logic.GetTodaysWorkers(Logic.ScheduleManager_Logic.GetTodaysScheduleID(DateTime.Today)))
                 };
                 return View(model);
             }

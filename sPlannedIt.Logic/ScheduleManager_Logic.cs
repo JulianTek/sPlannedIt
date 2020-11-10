@@ -19,9 +19,9 @@ namespace sPlannedIt.Logic
             _userManager = userManager;
         }
 
-        public static string GetScheduleID(DateTime dateTime)
+        public static string GetTodaysScheduleID(DateTime dateTime)
         {
-            return Data.ScheduleManager_Data.GetScheduleID(dateTime);
+            return Data.ScheduleManager_Data.GetTodaysScheduleID(dateTime);
         }
 
         public static List<string> GetTodaysWorkers(string scheduleID)
@@ -37,7 +37,7 @@ namespace sPlannedIt.Logic
 
         public static List<string> GetScheduleIDs(string companyID)
         {
-            return Data.ScheduleManager_Data.GetScheduleIDs(companyID);
+            return Data.ScheduleManager_Data.GetScheduleIDsFromCompany(companyID);
         }
 
 
@@ -56,7 +56,7 @@ namespace sPlannedIt.Logic
 
         public static List<string> GetShiftIDs(string userID)
         {
-            return Data.ScheduleManager_Data.GetShifts(userID);
+            return Data.ScheduleManager_Data.GetUsersShifts(userID);
         }
 
         public static List<ShiftDTO> ConvertIdsToDtos(List<string> shiftIDs)

@@ -10,13 +10,10 @@ namespace sPlannedIt.Logic
 {
     public class CompanyManager_Logic
     {
-        private static UserManager<IdentityUser> _userManager;
+
         private static readonly CompanyContainer _container = new CompanyContainer();
 
-        public CompanyManager_Logic(UserManager<IdentityUser> userManager)
-        {
-            _userManager = userManager;
-        }
+ 
         //Todo: Add method that checks if employee already exists in db and program methods that locally add employees if not
         public static CompanyDTO AddCompanyDto(string id, string name)
         {
