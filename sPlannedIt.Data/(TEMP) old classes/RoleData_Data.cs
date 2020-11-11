@@ -15,7 +15,7 @@ namespace sPlannedIt.Data.Role_functions
             {
                 List<string> roleNames = new List<string>();
                 SqlCommand getRoles = new SqlCommand("SELECT Name from AspNetRoles", connectionString.SqlConnection);
-                connectionString.SqlConnection.Open();
+                connectionString.Open();
                 var reader = getRoles.ExecuteReader();
                 while (reader.Read())
                 {

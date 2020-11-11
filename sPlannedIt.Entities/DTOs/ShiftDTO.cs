@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace sPlannedIt.Data.Models
+namespace sPlannedIt.Entities.DTOs
 {
     public class ShiftDTO
     {

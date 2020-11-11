@@ -4,7 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using sPlannedIt.Data;
-using sPlannedIt.Data.Models;
+using sPlannedIt.Entities.DTOs;
 using sPlannedIt.Interface;
 using sPlannedIt.Logic.Models;
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.AspNetCore.Identity;
 using sPlannedIt.Data;
-using sPlannedIt.Data.Models;
+using sPlannedIt.Entities.DTOs;
 using sPlannedIt.Logic.Models;
 
 namespace sPlannedIt.Logic

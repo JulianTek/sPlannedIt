@@ -6,7 +6,6 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using sPlannedIt.Data;
-using sPlannedIt.Data.Models;
 using sPlannedIt.Interface;
 using sPlannedIt.Logic.Models;
 using sPlannedIt.Viewmodels.Homepage_Viewmodels;
