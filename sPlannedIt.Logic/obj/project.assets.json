@@ -1918,6 +1918,20 @@
           "bin/placeholder/sPlannedIt.Entities.dll": {}
         }
       },
+      "sPlannedIt.Factories/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "dependencies": {
+          "sPlannedIt.Data": "1.0.0",
+          "sPlannedIt.Interface": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/sPlannedIt.Factories.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/sPlannedIt.Factories.dll": {}
+        }
+      },
       "sPlannedIt.Interface/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
@@ -6652,6 +6666,11 @@
       "path": "../sPlannedIt.Entities/sPlannedIt.Entities.csproj",
       "msbuildProject": "../sPlannedIt.Entities/sPlannedIt.Entities.csproj"
     },
+    "sPlannedIt.Factories/1.0.0": {
+      "type": "project",
+      "path": "../sPlannedIt.Factories/sPlannedIt.Factories.csproj",
+      "msbuildProject": "../sPlannedIt.Factories/sPlannedIt.Factories.csproj"
+    },
     "sPlannedIt.Interface/1.0.0": {
       "type": "project",
       "path": "../sPlannedIt.Interface/sPlannedIt.Interface.csproj",
@@ -6662,6 +6681,7 @@
     ".NETCoreApp,Version=v3.1": [
       "Microsoft.EntityFrameworkCore.Tools >= 3.1.7",
       "sPlannedIt.Data >= 1.0.0",
+      "sPlannedIt.Factories >= 1.0.0",
       "sPlannedIt.Interface >= 1.0.0"
     ]
   },
@@ -6698,6 +6718,9 @@
           "projectReferences": {
             "C:\\Users\\Julia\\Documents\\GitHub\\sPlannedIt\\sPlannedIt.Data\\sPlannedIt.Data.csproj": {
               "projectPath": "C:\\Users\\Julia\\Documents\\GitHub\\sPlannedIt\\sPlannedIt.Data\\sPlannedIt.Data.csproj"
+            },
+            "C:\\Users\\Julia\\Documents\\GitHub\\sPlannedIt\\sPlannedIt.Factories\\sPlannedIt.Factories.csproj": {
+              "projectPath": "C:\\Users\\Julia\\Documents\\GitHub\\sPlannedIt\\sPlannedIt.Factories\\sPlannedIt.Factories.csproj"
             },
             "C:\\Users\\Julia\\Documents\\GitHub\\sPlannedIt\\sPlannedIt.Interface\\sPlannedIt.Interface.csproj": {
               "projectPath": "C:\\Users\\Julia\\Documents\\GitHub\\sPlannedIt\\sPlannedIt.Interface\\sPlannedIt.Interface.csproj"

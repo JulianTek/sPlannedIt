@@ -32,7 +32,7 @@ namespace sPlannedIt.Data
             }
         }
 
-        public void Create(CompanyDTO entity)
+        public bool Create(CompanyDTO entity)
         {
             using (ConnectionString connectionString = new ConnectionString())
             {
@@ -40,12 +40,13 @@ namespace sPlannedIt.Data
                 create.Parameters.AddWithValue("@CompanyID", entity.CompanyID);
                 create.Parameters.AddWithValue("@CompanyName", entity.CompanyName);
                 connectionString.Open();
-                create.ExecuteNonQuery();
+                var result = create.ExecuteNonQuery();
                 connectionString.Dispose();
+                return result != 0;
             }
         }
 
-        public void Update(CompanyDTO entity)
+        public bool Update(CompanyDTO entity)
         {
             using (ConnectionString connectionString = new ConnectionString())
             {
@@ -53,20 +54,22 @@ namespace sPlannedIt.Data
                 update.Parameters.AddWithValue("@CompanyID", entity.CompanyID);
                 update.Parameters.AddWithValue("@CompanyName", entity.CompanyName);
                 connectionString.Open();
-                update.ExecuteNonQuery();
+                var result = update.ExecuteNonQuery();
                 connectionString.Dispose();
+                return result != 0;
             }
         }
 
-        public void Delete(string id)
+        public bool Delete(string id)
         {
             using (ConnectionString connectionString = new ConnectionString())
             {
                 SqlCommand delete = new SqlCommand("DELETE Company WHERE CompanyID = @CompanyID", connectionString.SqlConnection);
                 delete.Parameters.AddWithValue("@CompanyID", id);
                 connectionString.Open();
-                delete.ExecuteNonQuery();
+                var result = delete.ExecuteNonQuery();
                 connectionString.Dispose();
+                return result != 0;
             }
         }
 
@@ -90,28 +93,43 @@ namespace sPlannedIt.Data
             }
         }
 
-        public void AddEmployee(UserDTO user, CompanyDTO company)
+        public CompanyDTO GetCompanyFromUser(string userId)
+        {
+            using (ConnectionString connectionString = new ConnectionString())
+            {
+                SqlCommand get = new SqlCommand("SELECT CompanyID FROM UserCompanyLink WHERE UserID = @UserID", connectionString.SqlConnection);
+                get.Parameters.AddWithValue("@UserID", userId);
+                connectionString.Open();
+                var companyId = (string)get.ExecuteScalar();
+                connectionString.Dispose();
+                return GetById(companyId);
+            }
+        }
+
+        public bool AddEmployee(string userId, CompanyDTO company)
         {
             using (ConnectionString connectionString = new ConnectionString())
             {
                 SqlCommand addEmployee = new SqlCommand("INSERT INTO UserCompanyLink(UserID, CompanyID) VALUES(@UserID, @CompanyID)", connectionString.SqlConnection);
-                addEmployee.Parameters.AddWithValue("@UserID", user.UserId);
+                addEmployee.Parameters.AddWithValue("@UserID", userId);
                 addEmployee.Parameters.AddWithValue("@CompanyID", company.CompanyID);
                 connectionString.Open();
-                addEmployee.ExecuteNonQuery();
+                var result = addEmployee.ExecuteNonQuery();
                 connectionString.Dispose();
+                return result != 0;
             }
         }
 
-        public void RemoveEmployee(string id)
+        public bool RemoveEmployee(string id)
         {
             using (ConnectionString connectionString = new ConnectionString())
             {
                 SqlCommand removeEmployee = new SqlCommand("DELETE FROM UserCompanyLink WHERE UserID = @UserID", connectionString.SqlConnection);
                 removeEmployee.Parameters.AddWithValue("@UserID", id);
                 connectionString.Open();
-                removeEmployee.ExecuteNonQuery();
+                var result = removeEmployee.ExecuteNonQuery();
                 connectionString.Dispose();
+                return result != 0;
             }
         }
 
@@ -138,6 +156,33 @@ namespace sPlannedIt.Data
             foreach (string id in ids)
             {
                 RemoveEmployee(id);
+            }
+        }
+
+        public bool CheckIfCompanyNameExists(string name)
+        {
+            using (ConnectionString connectionString = new ConnectionString())
+            {
+                SqlCommand checkName = new SqlCommand("SELECT COUNT (CompanyName) FROM Company WHERE CompanyName = @CompanyName", connectionString.SqlConnection);
+                checkName.Parameters.AddWithValue("@CompanyName", name);
+                connectionString.Open();
+                var result = (int)checkName.ExecuteScalar();
+                connectionString.Dispose();
+                return result != 0;
+            }
+        }
+
+        public bool CheckIfEmployeeInCompany(string userId, string companyId)
+        {
+            using (ConnectionString connectionString = new ConnectionString())
+            {
+                SqlCommand checkEmployee = new SqlCommand("SELECT COUNT (UserID) FROM UserCompanyLink WHERE UserID = @UserID AND CompanyID = @CompanyID", connectionString.SqlConnection);
+                checkEmployee.Parameters.AddWithValue("@CompanyID", companyId);
+                checkEmployee.Parameters.AddWithValue("@UserID", userId);
+                connectionString.Open();
+                var result = (int)checkEmployee.ExecuteScalar();
+                connectionString.Dispose();
+                return result != 0;
             }
         }
     }

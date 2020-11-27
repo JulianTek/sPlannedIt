@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
+using sPlannedIt.Logic;
 using sPlannedIt.Logic.Models;
 using sPlannedIt.Viewmodels.Homepage_Viewmodels;
 
@@ -9,14 +10,24 @@ namespace sPlannedIt.Controllers
 {
     public class EmployeeController : Controller
     {
+        private readonly CompanyCollection _companyCollection;
+        private readonly ScheduleCollection _schedCollection;
+        private readonly ShiftCollection _shiftCollection;
+        public EmployeeController()
+        {
+            _companyCollection = new CompanyCollection();
+            _schedCollection = new ScheduleCollection();
+            _shiftCollection = new ShiftCollection();
+        }
+
         public IActionResult IndexEmployee()
         {
-            string userID = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             IndexEmployeeViewModel model = new IndexEmployeeViewModel()
             {
-                CompanyID = Logic.ScheduleManager_Logic.GetCompanyID(userID),
-                Shifts = Logic.ScheduleManager_Logic.ConvertIDsToShifts(Logic.ScheduleManager_Logic.GetShiftIDs(userID)),
-                TodaysWorkers = Logic.ScheduleManager_Logic.ConvertIDsToShifts(Logic.ScheduleManager_Logic.GetTodaysWorkers(Logic.ScheduleManager_Logic.GetTodaysScheduleID(DateTime.Today)))
+                CompanyID = _companyCollection.GetCompanyFromUser(userId).CompanyID,
+                Shifts = _shiftCollection.GetShiftsFromUser(userId),
+                TodaysWorkers = _schedCollection.GetTodaysShifts(_companyCollection.GetCompanyFromUser(userId).CompanyID)
             };
             return View(model);
         }

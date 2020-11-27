@@ -12,6 +12,6 @@ namespace sPlannedIt.Viewmodels.Homepage_Viewmodels
         public string CompanyID { get; set; }
 
         public List<Schedule> Schedules { get; set; }
-        public List<IShift> TodaysWorkers { get; set; }
+        public List<Shift> TodaysWorkers { get; set; }
     }
 }

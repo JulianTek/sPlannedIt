@@ -7,7 +7,7 @@ using sPlannedIt.Interface;
 
 namespace sPlannedIt.Logic.Models
 {
-    public class Shift : IShift
+    public class Shift 
     {
 
         public Shift(string shiftId, string scheduleId, string userId, DateTime shiftDate, int startTime, int endTime)
@@ -31,15 +31,5 @@ namespace sPlannedIt.Logic.Models
         public DateTime ShiftDate { get; set; }
         public int StartTime { get; set; }
         public int EndTime { get; set; }
-
-
-        public IShift UpdateShift(string id, string userId, DateTime shiftDate, int startTime, int endTime)
-        {
-            UserID = userId;
-            ShiftDate = shiftDate;
-            StartTime = startTime;
-            EndTime = endTime;
-            return this;
-        }
     }
 }

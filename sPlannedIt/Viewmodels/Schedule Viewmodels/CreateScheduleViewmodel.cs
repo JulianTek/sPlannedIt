@@ -12,6 +12,6 @@ namespace sPlannedIt.Viewmodels.Schedule_Viewmodels
         public string ScheduleId { get; set; }
         public string CompanyId { get; set; }
         public string Name { get; set; }
-        public List<IShift> Shifts { get; set; }
+        public List<Shift> Shifts { get; set; }
     }
 }

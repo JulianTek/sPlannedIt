@@ -7,7 +7,7 @@ using sPlannedIt.Interface;
 
 namespace sPlannedIt.Logic.Models
 {
-    public class Company : ICompany
+    public class Company
     {
         public Company()
         {
@@ -33,33 +33,5 @@ namespace sPlannedIt.Logic.Models
         public string CompanyName { get; set; }
         public List<string> Employees{ get; set; }
 
-        public ICompany UpdateCompanyName(string name)
-        {
-            CompanyName = name;
-            return this;
-        }
-
-        public bool AddEmployee(string id)
-        {
-            int count = Employees.Count;
-            Employees.Add(id);
-            if (count != Employees.Count)
-            {
-                return true;
-            }
-
-            return false;
-        }
-
-        public bool RemoveEmployee(string id)
-        {
-            if (Employees.Contains(id))
-            {
-                Employees.Remove(id);
-                return true;
-            }
-
-            return false;
-        }
     }
 }

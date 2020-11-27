@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using System.Text;
 using Microsoft.Data.SqlClient;
 using sPlannedIt.Entities.DTOs;
@@ -7,7 +8,7 @@ using sPlannedIt.Interface.DAL;
 
 namespace sPlannedIt.Data
 {
-    class ShiftHandler : IShiftHandler
+    public class ShiftHandler : IShiftHandler
     {
         public List<ShiftDTO> GetAll()
         {
@@ -35,7 +36,7 @@ namespace sPlannedIt.Data
             }
         }
 
-        public void Create(ShiftDTO entity)
+        public bool Create(ShiftDTO entity)
         {
             using (ConnectionString connectionString = new ConnectionString())
             {
@@ -47,12 +48,13 @@ namespace sPlannedIt.Data
                 create.Parameters.AddWithValue("@Date", entity.ShiftDate.Date);
                 create.Parameters.AddWithValue("@UserID", entity.UserID);
                 connectionString.Open();
-                create.ExecuteNonQuery();
+                var result = create.ExecuteNonQuery();
                 connectionString.Dispose();
+                return result != 0;
             }
         }
 
-        public void Update(ShiftDTO entity)
+        public bool Update(ShiftDTO entity)
         {
             using (ConnectionString connectionString = new ConnectionString())
             {
@@ -62,20 +64,22 @@ namespace sPlannedIt.Data
                 update.Parameters.AddWithValue("@Date", entity.ShiftDate.Date);
                 update.Parameters.AddWithValue("@UserID", entity.UserID);
                 connectionString.Open();
-                update.ExecuteNonQuery();
+                var result = update.ExecuteNonQuery();
                 connectionString.Dispose();
+                return result != 0;
             }
         }
 
-        public void Delete(string id)
+        public bool Delete(string id)
         {
             using (ConnectionString connectionString = new ConnectionString())
             {
                 SqlCommand delete = new SqlCommand("DELETE FROM Shift WHERE ShiftID = @ShiftID", connectionString.SqlConnection);
                 delete.Parameters.AddWithValue("@ShiftID", id);
                 connectionString.Open();
-                delete.ExecuteNonQuery();
+               var result = delete.ExecuteNonQuery();
                 connectionString.Dispose();
+                return result != 0;
             }
         }
 
@@ -110,6 +114,33 @@ namespace sPlannedIt.Data
                 getUser.Parameters.AddWithValue("@ShiftID", id);
                 var result = (string) getUser.ExecuteScalar();
                 return result;
+            }
+        }
+
+        public List<ShiftDTO> GetShiftsFromUser(string userId)
+        {
+            List<ShiftDTO> shiftDtos = new List<ShiftDTO>();
+            using (ConnectionString connectionString = new ConnectionString())
+            {
+                SqlCommand getShift = new SqlCommand("SELECT * FROM Shift WHERE UserID = @UserID", connectionString.SqlConnection);
+                getShift.Parameters.AddWithValue("@UserID", userId);
+                connectionString.Open();
+                var reader = getShift.ExecuteReader();
+                while (reader.Read())
+                {
+                    ShiftDTO dto = new ShiftDTO()
+                    {
+                        ShiftID = reader.GetString(0),
+                        ScheduleID = reader.GetString(1),
+                        StartTime = reader.GetInt32(2),
+                        EndTime = reader.GetInt32(3),
+                        ShiftDate = reader.GetDateTime(4),
+                        UserID = reader.GetString(5)
+                    };
+                    shiftDtos.Add(dto);
+                }
+                connectionString.Dispose();
+                return shiftDtos;
             }
         }
     }

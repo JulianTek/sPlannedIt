@@ -5,6 +5,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using sPlannedIt.Logic;
 using sPlannedIt.Logic.Models;
 using sPlannedIt.Models;
 using sPlannedIt.Viewmodels.Company_Viewmodels;
@@ -16,14 +17,14 @@ namespace sPlannedIt.Controllers
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly CompanyCollection _collection;
 
         public CompanyController(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _roleManager = roleManager;
+            _collection = new CompanyCollection();
         }
-
-        private readonly CompanyContainer _container = new CompanyContainer();
         [HttpGet]
         public IActionResult CreateCompany()
         {
@@ -33,12 +34,12 @@ namespace sPlannedIt.Controllers
         [HttpPost]
         public IActionResult CreateCompany(CreateCompanyViewModel model)
         {
-            Company company = _container.CreateCompany(model.CompanyName);
+            Company company = new Company(model.CompanyName);
             if (company != null)
             {
-                if (!Logic.CompanyManager_Logic.CheckIfNameExists())
+                if (!_collection.CheckIfCompanyNameExists(company))
                 {
-                    Logic.CompanyManager_Logic.AddCompanyDto(company.CompanyID, company.CompanyName);
+                    _collection.Create(company);
                     return RedirectToAction("RegisterEmployer", "Account", new { id = company.CompanyID });
                 }
                 ModelState.AddModelError("", "Company name already exists");
@@ -49,7 +50,7 @@ namespace sPlannedIt.Controllers
 
         public IActionResult ListCompanies()
         {
-            var model = _container.AllCompanies;
+            var model = _collection.GetAll();
 
             return View(model);
         }
@@ -57,7 +58,7 @@ namespace sPlannedIt.Controllers
         [HttpPost]
         public async Task<IActionResult> DeleteCompany(string id)
         {
-            foreach (var userid in Logic.CompanyManager_Logic.GetEmployeesFromCompany(id))
+            foreach (var userid in _collection.GetAllEmployees(_collection.GetCompany(id)))
             {
                 var user = await _userManager.FindByIdAsync(userid);
                 if (user != null)
@@ -65,27 +66,27 @@ namespace sPlannedIt.Controllers
                     await _userManager.DeleteAsync(user);
                 }
             }
-            Logic.CompanyManager_Logic.DeleteCompany(id);
+            _collection.Delete(_collection.GetCompany(id));
             return RedirectToAction("ListCompanies");
         }
 
         public async Task<IActionResult> CompanyDetails(string companyId)
         {
+            Company company = _collection.GetCompany(companyId);
             List<CompanyDetailEmployeeData> data = new List<CompanyDetailEmployeeData>();
-            foreach (string id in Logic.CompanyManager_Logic.GetEmployeesFromCompany(companyId))
+            foreach (string id in _collection.GetAllEmployees(company))
             {
                 data.Add(new CompanyDetailEmployeeData()
                 {
-                    Role = await _roleManager.FindByIdAsync(Logic.CompanyManager_Logic.GetRole(id)),
                     User = await _userManager.FindByIdAsync(id)
                 });
             }
             CompanyDetailsViewmodel model = new CompanyDetailsViewmodel()
             {
-                Company = _container.FindCompany(companyId),
+                Company = company,
                 EmployeeData = data
             };
-            model.Company.Employees = Logic.CompanyManager_Logic.GetEmployeesFromCompany(companyId);
+            model.Company.Employees = _collection.GetAllEmployees(company);
             return View(model);
         }
 
@@ -94,7 +95,7 @@ namespace sPlannedIt.Controllers
         {
             ViewBag.companyId = companyId;
 
-            var company = _container.FindCompany(companyId);
+            var company = _collection.GetCompany(companyId);
             if (company == null)
             {
                 //Todo: implement error view
@@ -109,7 +110,7 @@ namespace sPlannedIt.Controllers
                     UserName = user.UserName
                 };
 
-                userRoleViewModel.IsSelected = Logic.CompanyManager_Logic.CheckIfEmployeeIsInCompany(userRoleViewModel.UserId, companyId);
+                userRoleViewModel.IsSelected = _collection.CheckIfEmployeeIsInCompany(company, user.Id);
                 model.Add(userRoleViewModel);
             }
 
@@ -119,7 +120,7 @@ namespace sPlannedIt.Controllers
         [HttpGet]
         public IActionResult EditCompany(string companyId)
         {
-            var company = _container.FindCompany(companyId);
+            var company = _collection.GetCompany(companyId);
             EditCompanyViewmodel model = new EditCompanyViewmodel()
             {
                 CompanyID = company.CompanyID,
@@ -131,14 +132,15 @@ namespace sPlannedIt.Controllers
         [HttpPost]
         public IActionResult EditCompany(EditCompanyViewmodel model)
         {
-            Logic.CompanyManager_Logic.EditCompany(model.CompanyID, model.CompanyName);
+            var company = new Company(model.CompanyID, model.CompanyName);
+            _collection.Update(company);
             return RedirectToAction("ListCompanies");
         }
 
         [HttpPost]
         public async Task<IActionResult> EditUsersInCompany(List<UserRoleViewModel> model, string companyId)
         {
-            var company = _container.FindCompany(companyId);
+            var company = _collection.GetCompany(companyId);
             if (company == null)
             {
                 //Todo: implement error view
@@ -151,13 +153,13 @@ namespace sPlannedIt.Controllers
                 bool result = false;
 
 
-                if (model[i].IsSelected && !Logic.CompanyManager_Logic.CheckIfEmployeeIsInCompany(user.Id, companyId))
+                if (model[i].IsSelected && !_collection.CheckIfEmployeeIsInCompany(company, user.Id))
                 {
-                    result = Logic.CompanyManager_Logic.AddEmployeeToCompany(user.Id, companyId);
+                    result = _collection.AddEmployee(user.Id, company);
                 }
-                else if (!model[i].IsSelected && Logic.CompanyManager_Logic.CheckIfEmployeeIsInCompany(user.Id, companyId))
+                else if (!model[i].IsSelected && _collection.CheckIfEmployeeIsInCompany(company, user.Id))
                 {
-                    result = Logic.CompanyManager_Logic.RemoveEmployeeFromCompany(user.Id, companyId);
+                    result = _collection.RemoveEmployee(user.Id);
                 }
                 else
                 {

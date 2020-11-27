@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "sPlannedIt.Data", "..\sPlan
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "sPlannedIt.Interface", "..\sPlannedIt.Interface\sPlannedIt.Interface.csproj", "{BFEEBED8-089C-45DD-B639-0FA0CEF49D66}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sPlannedIt.Entities", "..\sPlannedIt.Entities\sPlannedIt.Entities.csproj", "{85F5A654-B6E8-4C53-8C0C-B3349BFB1743}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "sPlannedIt.Entities", "..\sPlannedIt.Entities\sPlannedIt.Entities.csproj", "{85F5A654-B6E8-4C53-8C0C-B3349BFB1743}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sPlannedIt.Factories", "..\sPlannedIt.Factories\sPlannedIt.Factories.csproj", "{4B6FB3DE-A548-4FCC-851A-C202DAF5C88F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{85F5A654-B6E8-4C53-8C0C-B3349BFB1743}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{85F5A654-B6E8-4C53-8C0C-B3349BFB1743}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{85F5A654-B6E8-4C53-8C0C-B3349BFB1743}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B6FB3DE-A548-4FCC-851A-C202DAF5C88F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B6FB3DE-A548-4FCC-851A-C202DAF5C88F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B6FB3DE-A548-4FCC-851A-C202DAF5C88F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B6FB3DE-A548-4FCC-851A-C202DAF5C88F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

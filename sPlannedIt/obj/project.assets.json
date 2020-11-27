@@ -3026,6 +3026,20 @@
           "bin/placeholder/sPlannedIt.Entities.dll": {}
         }
       },
+      "sPlannedIt.Factories/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "dependencies": {
+          "sPlannedIt.Data": "1.0.0",
+          "sPlannedIt.Interface": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/sPlannedIt.Factories.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/sPlannedIt.Factories.dll": {}
+        }
+      },
       "sPlannedIt.Interface/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
@@ -3044,6 +3058,7 @@
         "framework": ".NETCoreApp,Version=v3.1",
         "dependencies": {
           "sPlannedIt.Data": "1.0.0",
+          "sPlannedIt.Factories": "1.0.0",
           "sPlannedIt.Interface": "1.0.0"
         },
         "compile": {
@@ -9455,6 +9470,11 @@
       "type": "project",
       "path": "../sPlannedIt.Entities/sPlannedIt.Entities.csproj",
       "msbuildProject": "../sPlannedIt.Entities/sPlannedIt.Entities.csproj"
+    },
+    "sPlannedIt.Factories/1.0.0": {
+      "type": "project",
+      "path": "../sPlannedIt.Factories/sPlannedIt.Factories.csproj",
+      "msbuildProject": "../sPlannedIt.Factories/sPlannedIt.Factories.csproj"
     },
     "sPlannedIt.Interface/1.0.0": {
       "type": "project",

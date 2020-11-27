@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using sPlannedIt.Data;
 using sPlannedIt.Interface;
+using sPlannedIt.Logic;
 using sPlannedIt.Logic.Models;
 using sPlannedIt.Viewmodels.Homepage_Viewmodels;
 using sPlannedIt.Viewmodels.Schedule_Viewmodels;
@@ -15,20 +16,30 @@ namespace sPlannedIt.Controllers
 {
     public class EmployerController : Controller
     {
-        private readonly ShiftContainer _container = new ShiftContainer();
-        private readonly ScheduleContainer _schedContainer = new ScheduleContainer();
+        private readonly ScheduleCollection _schedCollection;
+        private readonly ShiftCollection _shiftCollection;
+        private readonly CompanyCollection _compCollection;
+
+        public EmployerController()
+        {
+            _schedCollection = new ScheduleCollection();
+            _shiftCollection = new ShiftCollection();
+            _compCollection = new CompanyCollection();
+        }
+
         public IActionResult IndexEmployer()
         {
-            string userID = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            List<Schedule> schedules = Logic.ScheduleManager_Logic.ConvertSchedulesList(
-                Logic.ScheduleManager_Logic.GetScheduleIDs(Logic.ScheduleManager_Logic.GetCompanyID(userID)));
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            string companyId = _compCollection.GetCompanyFromUser(userId).CompanyID;
+            List<Schedule> schedules =
+                _schedCollection.GetSchedulesFromCompany(companyId);
             if (schedules.Count > 0)
             {
                 IndexEmployerViewModel model = new IndexEmployerViewModel()
                 {
                     Schedules = schedules,
-                    CompanyID = Logic.ScheduleManager_Logic.GetCompanyID(userID),
-                    TodaysWorkers = Logic.ScheduleManager_Logic.ConvertIDsToShifts(Logic.ScheduleManager_Logic.GetTodaysWorkers(Logic.ScheduleManager_Logic.GetTodaysScheduleID(DateTime.Today)))
+                    CompanyID = companyId,
+                    TodaysWorkers = _schedCollection.GetTodaysShifts(companyId)
                 };
                 return View(model);
             }
@@ -37,8 +48,8 @@ namespace sPlannedIt.Controllers
                 IndexEmployerViewModel model = new IndexEmployerViewModel()
                 {
                     Schedules = new List<Schedule>(),
-                    CompanyID = Logic.ScheduleManager_Logic.GetCompanyID(userID),
-                    TodaysWorkers = Logic.ScheduleManager_Logic.ConvertIDsToShifts(Logic.ScheduleManager_Logic.GetTodaysWorkers(Logic.ScheduleManager_Logic.GetTodaysScheduleID(DateTime.Today)))
+                    CompanyID = companyId,
+                        TodaysWorkers = _schedCollection.GetTodaysShifts(companyId)
                 };
                 return View(model);
             }
@@ -60,14 +71,15 @@ namespace sPlannedIt.Controllers
         {
             if (ModelState.IsValid)
             {
-                Shift shift = _container.CreateShift(model.UserId, model.DateTime, model.StartTime, model.EndTime,
-                    model.ScheduleId, model.ShiftId);
-                var result = Logic.ScheduleManager_Logic.InsertShift(shift);
+                Shift shift = new Shift(model.ShiftId, model.ScheduleId, model.UserId, model.DateTime, model.StartTime,
+                    model.EndTime);
+                var result = _shiftCollection.Create(shift);
                 if (result)
                 {
-                    return RedirectToAction("EditSchedule", new { id = model.ScheduleId });
+                    return RedirectToAction("EditSchedule", new {id = model.ScheduleId});
                 }
             }
+
             return View(model);
         }
 
@@ -78,7 +90,7 @@ namespace sPlannedIt.Controllers
             {
                 CompanyId = id,
                 ScheduleId = Guid.NewGuid().ToString(),
-                Shifts = new List<IShift>()
+                Shifts = new List<Shift>()
             };
             return View(model);
         }
@@ -88,13 +100,14 @@ namespace sPlannedIt.Controllers
         {
             if (ModelState.IsValid)
             {
-                Schedule schedule = _schedContainer.CreateSchedule(model.CompanyId, model.ScheduleId, model.Name);
-                var result = Logic.ScheduleManager_Logic.InsertSchedule(schedule);
+                Schedule schedule = new Schedule(model.ScheduleId, model.CompanyId, model.Name);
+                var result = _schedCollection.Create(schedule);
                 if (result)
                 {
                     // todo: implement success view
                     return RedirectToAction("IndexEmployer");
                 }
+
                 ModelState.AddModelError("", "Cannot create schedule");
             }
 
@@ -104,14 +117,14 @@ namespace sPlannedIt.Controllers
         [HttpGet]
         public IActionResult EditSchedule(string id)
         {
-            Schedule schedule = Logic.ScheduleManager_Logic.ConvertSchedule(id);
+            Schedule schedule = _schedCollection.GetSchedule(id);
             EditScheduleViewmodel model = new EditScheduleViewmodel()
             {
                 CompanyId = schedule.CompanyID,
                 Name = schedule.Name,
                 ScheduleId = schedule.ScheduleID,
-                Shifts = Logic.ScheduleManager_Logic.ConvertIDsToShifts(ScheduleManager_Data.GetShiftsFromSched(id))
-        };
+                Shifts = _schedCollection.GetShiftsFromSchedule(id)
+            };
 
             return View(model);
         }
@@ -119,8 +132,14 @@ namespace sPlannedIt.Controllers
         [HttpPost]
         public IActionResult EditSchedule(EditScheduleViewmodel model)
         {
-            Schedule schedule = Logic.ScheduleManager_Logic.ConvertSchedule(model.ScheduleId);
-            schedule.UpdateSchedule(model.CompanyId, model.Name);
+            Schedule schedule = new Schedule()
+            {
+                CompanyID = model.CompanyId,
+                Name = model.Name,
+                ScheduleID = model.ScheduleId, 
+                Shifts = model.Shifts
+            };
+            _schedCollection.Update(schedule);
             return RedirectToAction("IndexEmployer");
         }
     }
