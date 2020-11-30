@@ -10,3 +10,8 @@ C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt.Data\obj\Debug\netcoreapp3
 C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt.Data\obj\Debug\netcoreapp3.1\sPlannedIt.Data.pdb
 C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt.Data\obj\Debug\netcoreapp3.1\sPlannedIt.Data.genruntimeconfig.cache
 C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt.Data\obj\Debug\netcoreapp3.1\sPlannedIt.Data.csproj.CoreCompileInputs.cache
+C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt.Data\bin\Debug\netcoreapp3.1\sPlannedIt.Entities.dll
+C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt.Data\bin\Debug\netcoreapp3.1\sPlannedIt.Interface.dll
+C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt.Data\bin\Debug\netcoreapp3.1\sPlannedIt.Entities.pdb
+C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt.Data\bin\Debug\netcoreapp3.1\sPlannedIt.Interface.pdb
+C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt.Data\obj\Debug\netcoreapp3.1\sPlannedIt.Data.csproj.CopyComplete

@@ -9,6 +9,5 @@ namespace sPlannedIt.Models
     public class CompanyDetailEmployeeData
     {
         public IdentityUser User { get; set; }
-        public IdentityRole Role { get; set; }
     }
 }

@@ -9,7 +9,9 @@
       "sPlannedIt.Logic/1.0.0": {
         "dependencies": {
           "Microsoft.EntityFrameworkCore.Tools": "3.1.7",
-          "sPlannedIt.Data": "1.0.0"
+          "sPlannedIt.Data": "1.0.0",
+          "sPlannedIt.Factories": "1.0.0",
+          "sPlannedIt.Interface": "1.0.0"
         },
         "runtime": {
           "sPlannedIt.Logic.dll": {}
@@ -1393,10 +1395,34 @@
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "3.1.7",
           "Microsoft.EntityFrameworkCore": "3.1.7",
           "Microsoft.EntityFrameworkCore.SqlServer": "3.1.7",
-          "System.Data.SqlClient": "4.8.2"
+          "System.Data.SqlClient": "4.8.2",
+          "sPlannedIt.Entities": "1.0.0",
+          "sPlannedIt.Interface": "1.0.0"
         },
         "runtime": {
           "sPlannedIt.Data.dll": {}
+        }
+      },
+      "sPlannedIt.Entities/1.0.0": {
+        "runtime": {
+          "sPlannedIt.Entities.dll": {}
+        }
+      },
+      "sPlannedIt.Factories/1.0.0": {
+        "dependencies": {
+          "sPlannedIt.Data": "1.0.0",
+          "sPlannedIt.Interface": "1.0.0"
+        },
+        "runtime": {
+          "sPlannedIt.Factories.dll": {}
+        }
+      },
+      "sPlannedIt.Interface/1.0.0": {
+        "dependencies": {
+          "sPlannedIt.Entities": "1.0.0"
+        },
+        "runtime": {
+          "sPlannedIt.Interface.dll": {}
         }
       }
     }
@@ -2311,6 +2337,21 @@
       "hashPath": "system.xml.xmlserializer.4.3.0.nupkg.sha512"
     },
     "sPlannedIt.Data/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "sPlannedIt.Entities/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "sPlannedIt.Factories/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "sPlannedIt.Interface/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

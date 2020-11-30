@@ -1,0 +1,9 @@
+C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt.Entities\bin\Debug\netcoreapp3.1\sPlannedIt.Entities.deps.json
+C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt.Entities\bin\Debug\netcoreapp3.1\sPlannedIt.Entities.dll
+C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt.Entities\bin\Debug\netcoreapp3.1\sPlannedIt.Entities.pdb
+C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt.Entities\obj\Debug\netcoreapp3.1\sPlannedIt.Entities.AssemblyInfoInputs.cache
+C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt.Entities\obj\Debug\netcoreapp3.1\sPlannedIt.Entities.AssemblyInfo.cs
+C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt.Entities\obj\Debug\netcoreapp3.1\sPlannedIt.Entities.csproj.CoreCompileInputs.cache
+C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt.Entities\obj\Debug\netcoreapp3.1\sPlannedIt.Entities.dll
+C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt.Entities\obj\Debug\netcoreapp3.1\sPlannedIt.Entities.pdb
+C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt.Entities\obj\Debug\netcoreapp3.1\sPlannedIt.Entities.csprojAssemblyReference.cache

@@ -8,7 +8,8 @@
     ".NETCoreApp,Version=v3.1": {
       "sPlannedIt.Interface/1.0.0": {
         "dependencies": {
-          "Microsoft.EntityFrameworkCore.Tools": "3.1.7"
+          "Microsoft.EntityFrameworkCore.Tools": "3.1.7",
+          "sPlannedIt.Entities": "1.0.0"
         },
         "runtime": {
           "sPlannedIt.Interface.dll": {}
@@ -223,6 +224,11 @@
             "fileVersion": "4.700.20.21406"
           }
         }
+      },
+      "sPlannedIt.Entities/1.0.0": {
+        "runtime": {
+          "sPlannedIt.Entities.dll": {}
+        }
       }
     }
   },
@@ -392,6 +398,11 @@
       "sha512": "sha512-j81Lovt90PDAq8kLpaJfJKV/rWdWuEk6jfV+MBkee33vzYLEUsy4gXK8laa9V2nZlLM9VM9yA/OOQxxPEJKAMw==",
       "path": "system.diagnostics.diagnosticsource/4.7.1",
       "hashPath": "system.diagnostics.diagnosticsource.4.7.1.nupkg.sha512"
+    },
+    "sPlannedIt.Entities/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     }
   }
 }

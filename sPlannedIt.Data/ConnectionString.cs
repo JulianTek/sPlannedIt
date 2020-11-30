@@ -18,5 +18,10 @@ namespace sPlannedIt.Data
             SqlConnection.Close();
             SqlConnection.Dispose();
         }
+
+        public void Open()
+        {
+            SqlConnection.Open();
+        }
     }
 }

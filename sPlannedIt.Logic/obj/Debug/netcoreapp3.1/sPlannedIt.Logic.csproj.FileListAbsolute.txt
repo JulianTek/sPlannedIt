@@ -13,3 +13,9 @@ C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt.Logic\obj\Debug\netcoreapp
 C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt.Logic\bin\Debug\netcoreapp3.1\sPlannedIt.Data.dll
 C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt.Logic\bin\Debug\netcoreapp3.1\sPlannedIt.Data.pdb
 C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt.Logic\obj\Debug\netcoreapp3.1\sPlannedIt.Logic.csproj.CopyComplete
+C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt.Logic\bin\Debug\netcoreapp3.1\sPlannedIt.Interface.dll
+C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt.Logic\bin\Debug\netcoreapp3.1\sPlannedIt.Interface.pdb
+C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt.Logic\bin\Debug\netcoreapp3.1\sPlannedIt.Entities.dll
+C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt.Logic\bin\Debug\netcoreapp3.1\sPlannedIt.Entities.pdb
+C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt.Logic\bin\Debug\netcoreapp3.1\sPlannedIt.Factories.dll
+C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt.Logic\bin\Debug\netcoreapp3.1\sPlannedIt.Factories.pdb

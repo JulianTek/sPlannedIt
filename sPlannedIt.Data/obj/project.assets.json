@@ -1888,6 +1888,29 @@
         "runtime": {
           "lib/netstandard1.3/System.Xml.XmlSerializer.dll": {}
         }
+      },
+      "sPlannedIt.Entities/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "compile": {
+          "bin/placeholder/sPlannedIt.Entities.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/sPlannedIt.Entities.dll": {}
+        }
+      },
+      "sPlannedIt.Interface/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "dependencies": {
+          "sPlannedIt.Entities": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/sPlannedIt.Interface.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/sPlannedIt.Interface.dll": {}
+        }
       }
     }
   },
@@ -6599,6 +6622,16 @@
         "system.xml.xmlserializer.4.3.0.nupkg.sha512",
         "system.xml.xmlserializer.nuspec"
       ]
+    },
+    "sPlannedIt.Entities/1.0.0": {
+      "type": "project",
+      "path": "../sPlannedIt.Entities/sPlannedIt.Entities.csproj",
+      "msbuildProject": "../sPlannedIt.Entities/sPlannedIt.Entities.csproj"
+    },
+    "sPlannedIt.Interface/1.0.0": {
+      "type": "project",
+      "path": "../sPlannedIt.Interface/sPlannedIt.Interface.csproj",
+      "msbuildProject": "../sPlannedIt.Interface/sPlannedIt.Interface.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -6608,7 +6641,9 @@
       "Microsoft.EntityFrameworkCore >= 3.1.7",
       "Microsoft.EntityFrameworkCore.SqlServer >= 3.1.7",
       "Microsoft.EntityFrameworkCore.Tools >= 3.1.7",
-      "System.Data.SqlClient >= 4.8.2"
+      "System.Data.SqlClient >= 4.8.2",
+      "sPlannedIt.Entities >= 1.0.0",
+      "sPlannedIt.Interface >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -6640,7 +6675,15 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
-          "projectReferences": {}
+          "targetAlias": "netcoreapp3.1",
+          "projectReferences": {
+            "C:\\Users\\Julia\\Documents\\GitHub\\sPlannedIt\\sPlannedIt.Entities\\sPlannedIt.Entities.csproj": {
+              "projectPath": "C:\\Users\\Julia\\Documents\\GitHub\\sPlannedIt\\sPlannedIt.Entities\\sPlannedIt.Entities.csproj"
+            },
+            "C:\\Users\\Julia\\Documents\\GitHub\\sPlannedIt\\sPlannedIt.Interface\\sPlannedIt.Interface.csproj": {
+              "projectPath": "C:\\Users\\Julia\\Documents\\GitHub\\sPlannedIt\\sPlannedIt.Interface\\sPlannedIt.Interface.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
@@ -6651,6 +6694,7 @@
     },
     "frameworks": {
       "netcoreapp3.1": {
+        "targetAlias": "netcoreapp3.1",
         "dependencies": {
           "Microsoft.AspNetCore.Identity": {
             "target": "Package",
@@ -6694,7 +6738,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.403\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
       }
     }
   }

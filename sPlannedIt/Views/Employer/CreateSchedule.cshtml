@@ -1,0 +1,48 @@
+﻿@using sPlannedIt.Logic.Models
+@model sPlannedIt.Viewmodels.Schedule_Viewmodels.CreateScheduleViewmodel
+
+@{
+    ViewData["Title"] = "CreateSchedule";
+}
+
+<h1>CreateSchedule</h1>
+
+<h4>CreateScheduleViewmodel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateSchedule">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ScheduleId" class="control-label"></label>
+                <input asp-for="ScheduleId" readonly class="form-control" />
+                <span asp-validation-for="ScheduleId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CompanyId" class="control-label"></label>
+                <input asp-for="CompanyId" readonly class="form-control" />
+                <span asp-validation-for="CompanyId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            @if (Model.Shifts.Any())
+            {
+                foreach (Shift shift in Model.Shifts)
+                {
+                    <p>@shift.UserID works from @shift.StartTime-@shift.EndTime on @shift.ShiftDate.Date</p>
+                }
+            }
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="IndexEmployer">Back to List</a>
+</div>
+

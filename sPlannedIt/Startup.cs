@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using sPlannedIt.Data;
+using sPlannedIt.Interface.DAL;
 
 namespace sPlannedIt
 {
@@ -31,6 +32,10 @@ namespace sPlannedIt
             services.AddDbContextPool<AppDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("LocalDb")));
             services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<Data.AppDbContext>();
+
+            services.AddScoped<IScheduleHandler, ScheduleHandler>();
+            services.AddScoped<ICompanyHandler, CompanyHandler>();
+            services.AddScoped<IShiftHandler, ShiftHandler>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
