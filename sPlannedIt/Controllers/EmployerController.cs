@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using sPlannedIt.Data;
 using sPlannedIt.Interface;
@@ -16,12 +17,14 @@ namespace sPlannedIt.Controllers
 {
     public class EmployerController : Controller
     {
+        private readonly UserManager<IdentityUser> _userManager;
         private readonly ScheduleCollection _schedCollection;
         private readonly ShiftCollection _shiftCollection;
         private readonly CompanyCollection _compCollection;
 
-        public EmployerController()
+        public EmployerController(UserManager<IdentityUser> userManager)
         {
+            _userManager = userManager;
             _schedCollection = new ScheduleCollection();
             _shiftCollection = new ShiftCollection();
             _compCollection = new CompanyCollection();
@@ -56,10 +59,19 @@ namespace sPlannedIt.Controllers
         }
 
         [HttpGet]
-        public IActionResult CreateShift(string id)
+        public async Task<IActionResult> CreateShift(string id)
         {
+            string companyId = _compCollection.GetCompanyFromUser(User.FindFirstValue(ClaimTypes.NameIdentifier)).CompanyID;
+            List<string> userIds = _compCollection.GetAllEmployees(_compCollection.GetCompany(companyId));
+            List<string> userEmails = new List<string>();
+            foreach (string userId in userIds)
+            {
+                var user = await _userManager.FindByIdAsync(userId);
+                userEmails.Add(user.Email);
+            }
             CreateShiftViewmodel model = new CreateShiftViewmodel()
             {
+                EmployeeEmails = userEmails,
                 ShiftId = Guid.NewGuid().ToString(),
                 ScheduleId = id
             };
@@ -67,11 +79,12 @@ namespace sPlannedIt.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateShift(CreateShiftViewmodel model)
+        public async Task<IActionResult> CreateShift(CreateShiftViewmodel model)
         {
             if (ModelState.IsValid)
             {
-                Shift shift = new Shift(model.ShiftId, model.ScheduleId, model.UserId, model.DateTime, model.StartTime,
+                var user = await _userManager.FindByEmailAsync(model.UserEmail);
+                Shift shift = new Shift(model.ShiftId, model.ScheduleId, user.Id, model.DateTime, model.StartTime,
                     model.EndTime);
                 var result = _shiftCollection.Create(shift);
                 if (result)

@@ -7,11 +7,12 @@ namespace sPlannedIt.Viewmodels.Schedule_Viewmodels
 {
     public class CreateShiftViewmodel
     {
+        public List<string> EmployeeEmails { get; set; }
         public string ShiftId { get; set; }
         public string ScheduleId { get; set; }
         public int StartTime { get; set; }
         public int EndTime { get; set; }
-        public string UserId { get; set; }
+        public string UserEmail { get; set; }
         public DateTime DateTime { get; set; }
     }
 }

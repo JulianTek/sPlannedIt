@@ -33,13 +33,17 @@
                 <span asp-validation-for="EndTime" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="UserId" class="control-label"></label>
-                <input asp-for="UserId" class="form-control" />
-                <span asp-validation-for="UserId" class="text-danger"></span>
+                <label asp-for="UserEmail" class="control-label">User Email</label>
+                <select asp-for="UserEmail">
+                    @foreach (string email in Model.EmployeeEmails)
+                    {
+                        <option value="@email">@email</option>
+                    }
+                </select>
             </div>
             <div class="form-group">
                 <label asp-for="DateTime" class="control-label"></label>
-                <input asp-for="DateTime" type="datetime" class="form-control" />
+                <input asp-for="DateTime" type="date" class="form-control" />
                 <span asp-validation-for="DateTime" class="text-danger"></span>
             </div>
             <div class="form-group">

@@ -34,7 +34,7 @@
                 @foreach (Shift shift in Model.Shifts)
                 {
                     <tr valign="top">
-                        <td width="100">@shift.ShiftDate.Date</td>
+                        <td width="100">@String.Concat(shift.ShiftDate.Day + "-" + shift.ShiftDate.Month + "-" + shift.ShiftDate.Year)</td>
                         <td>@String.Concat(shift.StartTime + ":00") - @String.Concat(shift.EndTime + ":00")</td>
                         <td><br></td>
                     </tr>
