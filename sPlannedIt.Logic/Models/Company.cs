@@ -17,21 +17,33 @@ namespace sPlannedIt.Logic.Models
 
         public Company(string id, string name)
         {
-            CompanyID = id;
+            CompanyId = id;
             CompanyName = name;
             Employees = new List<string>();
         }
 
+        public Company(string id, string name, List<string> employees)
+        {
+            CompanyId = id;
+            CompanyName = name;
+            Employees = employees;
+        }
+
         public Company(string companyName) 
         {
-            CompanyID = Guid.NewGuid().ToString();
+            CompanyId = Guid.NewGuid().ToString();
             CompanyName = companyName;
             Employees = new List<string>();
         }
 
-        public string CompanyID { get; set; }
-        public string CompanyName { get; set; }
-        public List<string> Employees{ get; set; }
+        public string CompanyId { get; private set; }
+        public string CompanyName { get; private set; }
+        public List<string> Employees{ get; private set; }
 
+
+        public void SetEmployees(List<string> emlpoyees)
+        {
+            Employees = emlpoyees;
+        }
     }
 }

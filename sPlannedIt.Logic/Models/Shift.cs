@@ -12,9 +12,9 @@ namespace sPlannedIt.Logic.Models
 
         public Shift(string shiftId, string scheduleId, string userId, DateTime shiftDate, int startTime, int endTime)
         {
-            ShiftID = shiftId;
-            ScheduleID = scheduleId;
-            UserID = userId;
+            ShiftId = shiftId;
+            ScheduleId = scheduleId;
+            UserId = userId;
             ShiftDate = shiftDate;
             StartTime = startTime;
             EndTime = endTime;
@@ -25,11 +25,11 @@ namespace sPlannedIt.Logic.Models
             
         }
 
-        public string ShiftID { get; set; }
-        public string ScheduleID { get; set; }
-        public string UserID { get; set; }
-        public DateTime ShiftDate { get; set; }
-        public int StartTime { get; set; }
-        public int EndTime { get; set; }
+        public string ShiftId { get; private set; }
+        public string ScheduleId { get; private set; }
+        public string UserId { get; private set; }
+        public DateTime ShiftDate { get; private set; }
+        public int StartTime { get; private set; }
+        public int EndTime { get; private set; }
     }
 }

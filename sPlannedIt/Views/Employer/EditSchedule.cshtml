@@ -16,7 +16,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="ScheduleId" class="control-label"></label>
-                <input asp-for="ScheduleId"  readonly class="form-control" />
+                <input asp-for="ScheduleId" readonly class="form-control" />
                 <span asp-validation-for="ScheduleId" readonly class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -29,27 +29,48 @@
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
-            @if (Model.Shifts.Any())
-            {
-                @foreach (Shift shift in Model.Shifts)
-                {
-                    <tr valign="top">
-                        <td width="100">@String.Concat(shift.ShiftDate.Day + "-" + shift.ShiftDate.Month + "-" + shift.ShiftDate.Year)</td>
-                        <td>@String.Concat(shift.StartTime + ":00") - @String.Concat(shift.EndTime + ":00")</td>
-                        <td><br></td>
-                    </tr>
-                }
-            }
-            else
-            {
-                <p>No shifts added</p>
-            }
-            <p>Add a shift using the button below:</p>
-            <a asp-action="CreateShift" asp-route-id="@Model.ScheduleId" class="btn btn-primary">Add Shift</a>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
+        <table class="table table-striped table-hover" style="outline: black">
+            <tbody>
+                @if (Model.Shifts.Any())
+                {
+                    @foreach (Shift shift in Model.Shifts)
+                    {
+                        var user = await _userManager.FindByIdAsync(shift.UserId);
+                        <tr align="top">
+                            <td width="100">@String.Concat(shift.ShiftDate.Day + "-" + shift.ShiftDate.Month + "-" + shift.ShiftDate.Year)</td>
+                            <td>@String.Concat(shift.StartTime + ":00") - @String.Concat(shift.EndTime + ":00")</td>
+                            <td>@user.Email</td>
+                        </tr>
+                        <tr style="width: auto" align="top">
+                            <td>
+                                <a asp-action="EditShift" asp-route-id="@shift.ShiftId" class="btn btn-primary">Edit Shift</a>
+                            </td>
+                            <td>
+                                <form asp-action="DeleteShift" asp-route-id="@shift.ShiftId" method="post">
+                                    <span id="confirmDeleteSpan_@shift.ShiftId" style="display: none">
+                                        <span>Are you sure you want to delete @shift.ShiftId?</span>
+                                        <button type="submit" class="btn btn-danger">Yes</button>
+                                        <a href="#" class="btn btn-primary"
+                                           onclick="confirmDelete('@shift.ShiftId', false)">No</a>
+                                    </span>
+
+                                    <span id="deleteSpan_@shift.ShiftId">
+                                        <a href="#" class="btn btn-danger"
+                                           onclick="confirmDelete('@shift.ShiftId', true)">Delete</a>
+                                    </span>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+        <p>Add a shift using the button below:</p>
+        <a asp-action="CreateShift" asp-route-id="@Model.ScheduleId" class="btn btn-primary">Add Shift</a>
     </div>
 </div>
 
@@ -57,3 +78,6 @@
     <a asp-action="IndexEmployer">Back to List</a>
 </div>
 
+@section Scripts {
+    <script src="~/js/Deletepromt.js"></script>
+}

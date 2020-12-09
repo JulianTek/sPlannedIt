@@ -25,9 +25,9 @@ namespace sPlannedIt.Controllers
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             IndexEmployeeViewModel model = new IndexEmployeeViewModel()
             {
-                CompanyID = _companyCollection.GetCompanyFromUser(userId).CompanyID,
+                CompanyID = _companyCollection.GetCompanyFromUser(userId).CompanyId,
                 Shifts = _shiftCollection.GetShiftsFromUser(userId),
-                TodaysWorkers = _schedCollection.GetTodaysShifts(_companyCollection.GetCompanyFromUser(userId).CompanyID)
+                TodaysWorkers = _schedCollection.GetTodaysShifts(_companyCollection.GetCompanyFromUser(userId).CompanyId)
             };
             return View(model);
         }

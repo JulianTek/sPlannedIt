@@ -95,7 +95,7 @@ namespace sPlannedIt.Controllers
             // VERY MUCH A TEMP SOLUTION TO A PROBLEM I DEFINITELY CREATED
             model.Roles = new RolesData
             {
-                Roles = Logic.RoleData_Logic.GetRoleNames()
+                Roles = RoleData_Logic.GetRoleNames()
             };
             if (ModelState.IsValid)
             {
@@ -110,16 +110,15 @@ namespace sPlannedIt.Controllers
 
                 if (result.Succeeded)
                 {
-                    for (int i = 0; i < model.Roles.Roles.Count; i++)
+                    foreach (var role in model.Roles.Roles)
                     {
-                        if (model.User.RoleName == model.Roles.Roles[i])
+                        if (model.User.RoleName == role)
                         {
-                            await _userManager.AddToRoleAsync(user, model.Roles.Roles[i]);
+                            await _userManager.AddToRoleAsync(user, role);
                             await _signInManager.SignInAsync(user, isPersistent: false);
-                            return RedirectToAction(string.Concat($"index{model.Roles.Roles[i]}"), "home");
+                            return RedirectToAction(string.Concat($"index{role}"), role);
                         }
                     }
-
                 }
 
                 foreach (var error in result.Errors)
@@ -152,7 +151,7 @@ namespace sPlannedIt.Controllers
                 if (result.Succeeded)
                 {
                     // Since UserRole is a list, it will use the first index of the list
-                    return RedirectToAction(string.Concat($"index{role[0]}"), role[0].ToString());
+                    return RedirectToAction(string.Concat($"index{role[0]}"), role[0]);
                 }
 
                 ModelState.AddModelError(string.Empty, "Invalid credentials");

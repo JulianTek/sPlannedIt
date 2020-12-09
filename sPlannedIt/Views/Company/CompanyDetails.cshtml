@@ -6,7 +6,7 @@
 
 <div class="card">
     <div class="card-header">
-        <h1>@Model.Company.CompanyID</h1>
+        <h1>@Model.Company.CompanyId</h1>
     </div>
     <div class="card-body">
         <h5 class="card-title">Company Name: @Model.Company.CompanyName</h5>
@@ -22,7 +22,7 @@
             }
         }
         <a asp-action="EditUsersInCompany"
-           asp-route-companyId="@Model.Company.CompanyID" class="btn btn-primary">
+           asp-route-companyId="@Model.Company.CompanyId" class="btn btn-primary">
         Add or remove users to this company</a>
     </div>
 </div>

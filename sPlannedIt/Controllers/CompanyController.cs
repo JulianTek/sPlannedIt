@@ -40,7 +40,7 @@ namespace sPlannedIt.Controllers
                 if (!_collection.CheckIfCompanyNameExists(company))
                 {
                     _collection.Create(company);
-                    return RedirectToAction("RegisterEmployer", "Account", new { id = company.CompanyID });
+                    return RedirectToAction("RegisterEmployer", "Account", new { id = company.CompanyId });
                 }
                 ModelState.AddModelError("", "Company name already exists");
             }
@@ -86,7 +86,7 @@ namespace sPlannedIt.Controllers
                 Company = company,
                 EmployeeData = data
             };
-            model.Company.Employees = _collection.GetAllEmployees(company);
+            model.Company.SetEmployees(_collection.GetAllEmployees(company));
             return View(model);
         }
 
@@ -123,7 +123,7 @@ namespace sPlannedIt.Controllers
             var company = _collection.GetCompany(companyId);
             EditCompanyViewmodel model = new EditCompanyViewmodel()
             {
-                CompanyID = company.CompanyID,
+                CompanyID = company.CompanyId,
                 CompanyName = company.CompanyName
             };
             return View(model);

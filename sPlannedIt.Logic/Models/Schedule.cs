@@ -15,20 +15,28 @@ namespace sPlannedIt.Logic.Models
         public Schedule(string companyID, string name)
         {
             Name = name;
-            ScheduleID = Guid.NewGuid().ToString();
-            CompanyID = companyID;
+            ScheduleId = Guid.NewGuid().ToString();
+            CompanyId = companyID;
         }
 
         public Schedule(string scheduleId, string companyId, string name)
         {
             Name = name;
-            ScheduleID = scheduleId;
-            CompanyID = companyId;
+            ScheduleId = scheduleId;
+            CompanyId = companyId;
         }
 
-        public string Name { get; set; }
-        public string ScheduleID { get; set; }
-        public string CompanyID { get; set; }
-        public List<Shift> Shifts { get; set; } = new List<Shift>();
+        public Schedule(string scheduleId, string companyId, string name, List<Shift> shifts)
+        {
+            ScheduleId = scheduleId;
+            CompanyId = companyId;
+            Name = name;
+            Shifts = shifts;
+        }
+
+        public string Name { get; private set; }
+        public string ScheduleId { get; private set; }
+        public string CompanyId { get; private set; }
+        public List<Shift> Shifts { get; private set; } = new List<Shift>();
     }
 }

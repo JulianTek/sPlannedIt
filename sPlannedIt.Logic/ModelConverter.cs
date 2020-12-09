@@ -17,74 +17,38 @@ namespace sPlannedIt.Logic
 
         public static Company ConvertCompanyDtoToModel(CompanyDTO dto)
         {
-            _company = new Company()
-            {
-                CompanyID = dto.CompanyID,
-                CompanyName = dto.CompanyName,
-                Employees = dto.Employees
-            };
+            _company = new Company(dto.CompanyId, dto.CompanyName, dto.Employees);
             return _company;
         }
 
         public static CompanyDTO ConvertModelToCompanyDto(Company company)
         {
-            _companyDto = new CompanyDTO()
-            {
-                CompanyID = company.CompanyID,
-                CompanyName = company.CompanyName,
-                Employees = company.Employees
-            };
+            _companyDto = new CompanyDTO(company.CompanyId, company.CompanyName, company.Employees);
             return _companyDto;
         }
 
         public static Schedule ConvertScheduleDtoToModel(ScheduleDTO dto)
         {
-            _schedule = new Schedule()
-            { 
-                CompanyID = dto.CompanyID,
-                Name = dto.Name,
-                ScheduleID = dto.ScheduleID,
-                //todo: implement getting shifts
-            };
+            _schedule = new Schedule(dto.ScheduleId, dto.CompanyId, dto.Name);
             return _schedule;
         }
 
         public static ScheduleDTO ConvertScheduleModelToDto(Schedule schedule)
         {
-            _scheduleDto = new ScheduleDTO()
-            {
-                CompanyID = schedule.CompanyID,
-                Name = schedule.Name,
-                ScheduleID = schedule.ScheduleID
-            };
+            _scheduleDto = new ScheduleDTO(schedule.Name, schedule.ScheduleId, schedule.CompanyId);
+
             return _scheduleDto;
         }
 
         public static Shift ConvertShiftDtoToModel(ShiftDTO dto)
         {
-            _shift = new Shift()
-            {
-                ScheduleID = dto.ScheduleID,
-                ShiftID = dto.ShiftID,
-                StartTime = dto.StartTime,
-                EndTime = dto.EndTime,
-                ShiftDate = dto.ShiftDate,
-                UserID = dto.UserID
-            };
+            _shift = new Shift(dto.ShiftId, dto.ScheduleId, dto.UserId, dto.ShiftDate, dto.StartTime, dto.EndTime);
             return _shift;
         }
 
         public static ShiftDTO ConvertShiftModelToDto(Shift shift)
         {
-            _shiftDto = new ShiftDTO()
-            {
-                ScheduleID = shift.ScheduleID,
-                ShiftID = shift.ShiftID,
-                StartTime = shift.StartTime,
-                EndTime = shift.EndTime,
-                ShiftDate = shift.ShiftDate,
-                UserID = shift.UserID
-            };
+            _shiftDto = new ShiftDTO(shift.ShiftId, shift.ScheduleId, shift.UserId, shift.ShiftDate, shift.StartTime, shift.EndTime);
             return _shiftDto;
         }
 

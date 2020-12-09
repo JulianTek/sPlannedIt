@@ -43,7 +43,7 @@ namespace sPlannedIt.Logic
         public bool Delete(Company company)
         {
             var dto = ModelConverter.ConvertModelToCompanyDto(company);
-           return CompanyFactory.CompanyHandler.Delete(dto.CompanyID);
+           return CompanyFactory.CompanyHandler.Delete(dto.CompanyId);
         }
 
         public Company GetCompanyFromUser(string userId)
@@ -54,7 +54,7 @@ namespace sPlannedIt.Logic
         public List<string> GetAllEmployees(Company company)
         {
             var dto = ModelConverter.ConvertModelToCompanyDto(company);
-            List<string> userDtos = CompanyFactory.CompanyHandler.GetAllEmployees(dto.CompanyID);
+            List<string> userDtos = CompanyFactory.CompanyHandler.GetAllEmployees(dto.CompanyId);
             return userDtos;
         }
 
@@ -76,7 +76,7 @@ namespace sPlannedIt.Logic
 
         public bool CheckIfEmployeeIsInCompany(Company company, string userId)
         {
-            return CompanyFactory.CompanyHandler.CheckIfEmployeeInCompany(userId, company.CompanyID);
+            return CompanyFactory.CompanyHandler.CheckIfEmployeeInCompany(userId, company.CompanyId);
         }
 
         public bool CheckIfCompanyNameExists(Company company)

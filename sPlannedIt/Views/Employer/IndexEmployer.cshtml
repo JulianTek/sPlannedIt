@@ -14,9 +14,23 @@
                     @foreach (Schedule sched in Model.Schedules)
                     {
                         <p>@sched.Name</p>
-                        <a asp-action="EditSchedule" asp-route-id="@sched.ScheduleID" class="btn btn-primary" style="color: white;">Edit Schedule</a>
+                        <a asp-action="EditSchedule" asp-route-id="@sched.ScheduleId" class="btn btn-primary" style="color: white;">Edit Schedule</a>
+                        <form asp-action="DeleteSchedule" asp-route-id="@sched.ScheduleId" method="post">
+                            <span id="confirmDeleteSpan_@sched.ScheduleId" style="display:none">
+                                <span>Are you sure you want to delete @sched.Name?</span>
+                                <button type="submit" class="btn btn-danger">Yes</button>
+                                <a href="#" class="btn btn-primary"
+                                   onclick="confirmDelete('@sched.ScheduleId', false)">No</a>
+                            </span>
+
+                            <span id="deleteSpan_@sched.ScheduleId">
+                                <a href="#" class="btn btn-danger"
+                                   onclick="confirmDelete('@sched.ScheduleId', true)">Delete</a>
+                            </span>
+                        </form>
                     }
                 }
+                <br />
                 <a asp-action="CreateSchedule" asp-route-id="@Model.CompanyID" class="btn btn-primary">Create Schedule</a>
             </div>
         </div>
@@ -33,7 +47,7 @@
                     {
 
                         <tr valign="top">
-                            <td width="100">@shift.ShiftDate.Date</td>
+                            <td width="100">@String.Concat(@shift.ShiftDate.Date.Day + "-" + @shift.ShiftDate.Date.Month)</td>
                             <td>@String.Concat(shift.StartTime + ":00") - @String.Concat(shift.EndTime + ":00")</td>
                             <td><br></td>
                         </tr>
@@ -53,3 +67,7 @@
         }
     </div>
 </div>
+
+@section Scripts {
+    <script src="~/js/Deletepromt.js"></script>
+}

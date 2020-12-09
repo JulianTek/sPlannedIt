@@ -20,12 +20,7 @@ namespace sPlannedIt.Data
                 var reader = getAll.ExecuteReader();
                 while (reader.Read())
                 {
-                    ScheduleDTO dto = new ScheduleDTO()
-                    {
-                        ScheduleID = reader.GetString(1),
-                        CompanyID = reader.GetString(2),
-                        Name = reader.GetString(3)
-                    };
+                    ScheduleDTO dto = new ScheduleDTO(reader.GetString(0), reader.GetString(1), reader.GetString(2));
                     dtos.Add(dto);
                 }
                 connectionString.Dispose();
@@ -37,9 +32,9 @@ namespace sPlannedIt.Data
         {
             using (ConnectionString connectionString = new ConnectionString())
             {
-                SqlCommand create = new SqlCommand("INSERT INTO Schedule(ScheduleID, CompanyID, Name) VALUES (@ScheduleID, @CompanyID, @Name)", connectionString.SqlConnection);
-                create.Parameters.AddWithValue("@ScheduleID", entity.ScheduleID);
-                create.Parameters.AddWithValue("@CompanyID", entity.CompanyID);
+                SqlCommand create = new SqlCommand("INSERT INTO Schedule(ScheduleId, CompanyId, Name) VALUES (@ScheduleId, @CompanyId, @Name)", connectionString.SqlConnection);
+                create.Parameters.AddWithValue("@ScheduleId", entity.ScheduleId);
+                create.Parameters.AddWithValue("@CompanyId", entity.CompanyId);
                 create.Parameters.AddWithValue("@Name", entity.Name);
                 connectionString.Open();
                 var result = create.ExecuteNonQuery();
@@ -52,9 +47,9 @@ namespace sPlannedIt.Data
         {
             using (ConnectionString connectionString = new ConnectionString())
             {
-                SqlCommand update = new SqlCommand("UPDATE Schedule SET Name = @Name WHERE ScheduleID = @ScheduleID", connectionString.SqlConnection);
+                SqlCommand update = new SqlCommand("UPDATE Schedule SET Name = @Name WHERE ScheduleId = @ScheduleId", connectionString.SqlConnection);
                 update.Parameters.AddWithValue("@Name", entity.Name);
-                update.Parameters.AddWithValue("@ScheduleID", entity.ScheduleID);
+                update.Parameters.AddWithValue("@ScheduleId", entity.ScheduleId);
                 connectionString.Open();
                 var result = update.ExecuteNonQuery();
                 connectionString.Dispose();
@@ -66,8 +61,8 @@ namespace sPlannedIt.Data
         {
             using (ConnectionString connectionString = new ConnectionString())
             {
-                SqlCommand delete = new SqlCommand("DELETE FROM Schedule WHERE ScheduleID = @ScheduleID", connectionString.SqlConnection);
-                delete.Parameters.AddWithValue("@ScheduleID", id);
+                SqlCommand delete = new SqlCommand("DELETE FROM Schedule WHERE ScheduleId = @ScheduleId", connectionString.SqlConnection);
+                delete.Parameters.AddWithValue("@ScheduleId", id);
                 connectionString.Open();
                 var result = delete.ExecuteNonQuery();
                 connectionString.Dispose();
@@ -79,19 +74,19 @@ namespace sPlannedIt.Data
         {
             using (ConnectionString connectionString = new ConnectionString())
             {
-                ScheduleDTO dto = new ScheduleDTO();
-                SqlCommand getSchedule = new SqlCommand("SELECT * FROM Schedule WHERE ScheduleID = @ScheduleID", connectionString.SqlConnection);
-                getSchedule.Parameters.AddWithValue("@ScheduleID", id);
+
+                SqlCommand getSchedule = new SqlCommand("SELECT * FROM Schedule WHERE ScheduleId = @ScheduleId", connectionString.SqlConnection);
+                getSchedule.Parameters.AddWithValue("@ScheduleId", id);
                 connectionString.Open();
                 var reader = getSchedule.ExecuteReader();
                 while (reader.Read())
                 {
-                    dto.ScheduleID = reader.GetString(0);
-                    dto.CompanyID = reader.GetString(1);
-                    dto.Name = reader.GetString(2);
+                    ScheduleDTO dto = new ScheduleDTO(reader.GetString(2), reader.GetString(0), reader.GetString(1));
+                    connectionString.Dispose();
+                    return dto;
                 }
                 connectionString.Dispose();
-                return dto;
+                return new ScheduleDTO();
             }
         }
 
@@ -100,21 +95,14 @@ namespace sPlannedIt.Data
             List<ShiftDTO> dtos = new List<ShiftDTO>();
             using (ConnectionString connectionString = new ConnectionString())
             {
-                SqlCommand getShifts = new SqlCommand("SELECT * FROM Shift WHERE ScheduleID = @ScheduleID", connectionString.SqlConnection);
-                getShifts.Parameters.AddWithValue("@ScheduleID", id);
+                SqlCommand getShifts = new SqlCommand("SELECT * FROM Shift WHERE ScheduleId = @ScheduleId", connectionString.SqlConnection);
+                getShifts.Parameters.AddWithValue("@ScheduleId", id);
                 connectionString.Open();
                 var reader = getShifts.ExecuteReader();
                 while (reader.Read())
                 {
-                    ShiftDTO dto = new ShiftDTO()
-                    {
-                        ShiftID = reader.GetString(0),
-                        ScheduleID = reader.GetString(1),
-                        StartTime = reader.GetInt32(2),
-                        EndTime = reader.GetInt32(3),
-                        ShiftDate = reader.GetDateTime(4),
-                        UserID = reader.GetString(5)
-                    };
+                    ShiftDTO dto = new ShiftDTO(reader.GetString(0), reader.GetString(1),
+                        reader.GetString(5), reader.GetDateTime(4), reader.GetInt32(2) , reader.GetInt32(3));
                     dtos.Add(dto);
                 }
                 connectionString.Dispose();
@@ -125,32 +113,27 @@ namespace sPlannedIt.Data
         public List<ShiftDTO> GetTodaysShifts(string id, DateTime date)
         {
             List<ShiftDTO> dtos = new List<ShiftDTO>();
-            List<ScheduleDTO> scheduleDtos = GetSchedulesFromCompany(id); 
+            List<ScheduleDTO> scheduleDtos = GetSchedulesFromCompany(id);
             using (ConnectionString connectionString = new ConnectionString())
             {
                 SqlCommand getTodayShifts = new SqlCommand("SELECT * FROM Shift WHERE Date = @Date", connectionString.SqlConnection);
-                getTodayShifts.Parameters.AddWithValue("@CompanyID", id);
                 getTodayShifts.Parameters.AddWithValue("@Date", date.Date);
                 connectionString.Open();
                 var reader = getTodayShifts.ExecuteReader();
                 while (reader.Read())
                 {
-                    if (scheduleDtos.Contains(GetById(reader.GetString(1))))
+                    foreach (ScheduleDTO sched in scheduleDtos)
                     {
-                        ShiftDTO dto = new ShiftDTO()
+                        if (sched.ScheduleId == reader.GetString(1))
                         {
-                            ShiftID = reader.GetString(0),
-                            ScheduleID = reader.GetString(1),
-                            StartTime = reader.GetInt32(2),
-                            EndTime = reader.GetInt32(3),
-                            ShiftDate = reader.GetDateTime(4),
-                            UserID = reader.GetString(5)
-                        };
-                        dtos.Add(dto);
-                    }
-                    else
-                    {
-                        break;
+                            ShiftDTO dto = new ShiftDTO(reader.GetString(0), reader.GetString(1),
+                                reader.GetString(5), reader.GetDateTime(4), reader.GetInt32(2), reader.GetInt32(3));
+                            dtos.Add(dto);
+                        }
+                        else
+                        {
+                            break;
+                        }
                     }
                 }
                 connectionString.Dispose();
@@ -163,8 +146,8 @@ namespace sPlannedIt.Data
             List<ScheduleDTO> dtos = new List<ScheduleDTO>();
             using (ConnectionString connectionString = new ConnectionString())
             {
-                SqlCommand getSchedules = new SqlCommand("SELECT * From Schedule WHERE CompanyID = @CompanyID", connectionString.SqlConnection);
-                getSchedules.Parameters.AddWithValue("@CompanyID", id);
+                SqlCommand getSchedules = new SqlCommand("SELECT * From Schedule WHERE CompanyId = @CompanyId", connectionString.SqlConnection);
+                getSchedules.Parameters.AddWithValue("@CompanyId", id);
                 connectionString.Open();
                 var reader = getSchedules.ExecuteReader();
                 while (reader.Read())
