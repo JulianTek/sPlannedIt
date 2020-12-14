@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using sPlannedIt.Interface.DAL;
 using sPlannedIt.Logic;
 using sPlannedIt.Logic.Models;
 using sPlannedIt.Models;
@@ -16,14 +14,12 @@ namespace sPlannedIt.Controllers
     public class CompanyController : Controller
     {
         private readonly UserManager<IdentityUser> _userManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
-        private readonly CompanyCollection _collection;
+        private readonly ICompanyHandler _companyHandler;
 
-        public CompanyController(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
+        public CompanyController(UserManager<IdentityUser> userManager, ICompanyHandler companyHandler)
         {
             _userManager = userManager;
-            _roleManager = roleManager;
-            _collection = new CompanyCollection();
+            _companyHandler = companyHandler;
         }
         [HttpGet]
         public IActionResult CreateCompany()
@@ -37,9 +33,9 @@ namespace sPlannedIt.Controllers
             Company company = new Company(model.CompanyName);
             if (company != null)
             {
-                if (!_collection.CheckIfCompanyNameExists(company))
+                if (!_companyHandler.CheckIfCompanyNameExists(company.CompanyName))
                 {
-                    _collection.Create(company);
+                    _companyHandler.Create(ModelConverter.ConvertModelToCompanyDto(company));
                     return RedirectToAction("RegisterEmployer", "Account", new { id = company.CompanyId });
                 }
                 ModelState.AddModelError("", "Company name already exists");
@@ -50,7 +46,7 @@ namespace sPlannedIt.Controllers
 
         public IActionResult ListCompanies()
         {
-            var model = _collection.GetAll();
+            var model = _companyHandler.GetAll();
 
             return View(model);
         }
@@ -58,7 +54,7 @@ namespace sPlannedIt.Controllers
         [HttpPost]
         public async Task<IActionResult> DeleteCompany(string id)
         {
-            foreach (var userid in _collection.GetAllEmployees(_collection.GetCompany(id)))
+            foreach (var userid in _companyHandler.GetAllEmployees(_companyHandler.GetById(id).CompanyId))
             {
                 var user = await _userManager.FindByIdAsync(userid);
                 if (user != null)
@@ -66,15 +62,15 @@ namespace sPlannedIt.Controllers
                     await _userManager.DeleteAsync(user);
                 }
             }
-            _collection.Delete(_collection.GetCompany(id));
+            _companyHandler.Delete(_companyHandler.GetById(id).CompanyId);
             return RedirectToAction("ListCompanies");
         }
 
         public async Task<IActionResult> CompanyDetails(string companyId)
         {
-            Company company = _collection.GetCompany(companyId);
+            Company company = ModelConverter.ConvertCompanyDtoToModel(_companyHandler.GetById(companyId));
             List<CompanyDetailEmployeeData> data = new List<CompanyDetailEmployeeData>();
-            foreach (string id in _collection.GetAllEmployees(company))
+            foreach (string id in _companyHandler.GetAllEmployees(ModelConverter.ConvertModelToCompanyDto(company).CompanyId))
             {
                 data.Add(new CompanyDetailEmployeeData()
                 {
@@ -86,7 +82,7 @@ namespace sPlannedIt.Controllers
                 Company = company,
                 EmployeeData = data
             };
-            model.Company.SetEmployees(_collection.GetAllEmployees(company));
+            model.Company.SetEmployees(_companyHandler.GetAllEmployees(company.CompanyId));
             return View(model);
         }
 
@@ -95,7 +91,7 @@ namespace sPlannedIt.Controllers
         {
             ViewBag.companyId = companyId;
 
-            var company = _collection.GetCompany(companyId);
+            var company = ModelConverter.ConvertCompanyDtoToModel(_companyHandler.GetById(companyId));
             if (company == null)
             {
                 //Todo: implement error view
@@ -110,7 +106,7 @@ namespace sPlannedIt.Controllers
                     UserName = user.UserName
                 };
 
-                userRoleViewModel.IsSelected = _collection.CheckIfEmployeeIsInCompany(company, user.Id);
+                userRoleViewModel.IsSelected = _companyHandler.CheckIfEmployeeInCompany(user.Id, company.CompanyId);
                 model.Add(userRoleViewModel);
             }
 
@@ -120,7 +116,7 @@ namespace sPlannedIt.Controllers
         [HttpGet]
         public IActionResult EditCompany(string companyId)
         {
-            var company = _collection.GetCompany(companyId);
+            var company = _companyHandler.GetById(companyId);
             EditCompanyViewmodel model = new EditCompanyViewmodel()
             {
                 CompanyID = company.CompanyId,
@@ -133,14 +129,14 @@ namespace sPlannedIt.Controllers
         public IActionResult EditCompany(EditCompanyViewmodel model)
         {
             var company = new Company(model.CompanyID, model.CompanyName);
-            _collection.Update(company);
+            _companyHandler.Update(ModelConverter.ConvertModelToCompanyDto(company));
             return RedirectToAction("ListCompanies");
         }
 
         [HttpPost]
         public async Task<IActionResult> EditUsersInCompany(List<UserRoleViewModel> model, string companyId)
         {
-            var company = _collection.GetCompany(companyId);
+            var company = ModelConverter.ConvertCompanyDtoToModel(_companyHandler.GetById(companyId));
             if (company == null)
             {
                 //Todo: implement error view
@@ -153,13 +149,13 @@ namespace sPlannedIt.Controllers
                 bool result = false;
 
 
-                if (model[i].IsSelected && !_collection.CheckIfEmployeeIsInCompany(company, user.Id))
+                if (model[i].IsSelected && !_companyHandler.CheckIfEmployeeInCompany(user.Id, companyId))
                 {
-                    result = _collection.AddEmployee(user.Id, company);
+                    result = _companyHandler.AddEmployee(user.Id, ModelConverter.ConvertModelToCompanyDto(company));
                 }
-                else if (!model[i].IsSelected && _collection.CheckIfEmployeeIsInCompany(company, user.Id))
+                else if (!model[i].IsSelected && _companyHandler.CheckIfEmployeeInCompany(user.Id, companyId))
                 {
-                    result = _collection.RemoveEmployee(user.Id);
+                    result = _companyHandler.RemoveEmployee(user.Id);
                 }
                 else
                 {

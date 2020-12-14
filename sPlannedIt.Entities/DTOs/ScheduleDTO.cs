@@ -8,7 +8,7 @@ namespace sPlannedIt.Entities.DTOs
     {
         public ScheduleDTO()
         {
-            
+
         }
 
         public ScheduleDTO(string name, string scheduleId, string companyId)
@@ -18,8 +18,8 @@ namespace sPlannedIt.Entities.DTOs
             CompanyId = companyId;
         }
 
-        public string Name { get; private set; }
-        public string ScheduleId { get; private set; }
-        public string CompanyId { get; private set; }
+        public string Name { get; set; }
+        public string ScheduleId { get; set; }
+        public string CompanyId { get; set; }
     }
 }

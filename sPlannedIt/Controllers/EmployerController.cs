@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using sPlannedIt.Data;
 using sPlannedIt.Interface;
+using sPlannedIt.Interface.DAL;
 using sPlannedIt.Logic;
 using sPlannedIt.Logic.Models;
 using sPlannedIt.Viewmodels.Homepage_Viewmodels;
@@ -19,31 +20,31 @@ namespace sPlannedIt.Controllers
     public class EmployerController : Controller
     {
         private readonly UserManager<IdentityUser> _userManager;
-        private readonly ScheduleCollection _schedCollection;
-        private readonly ShiftCollection _shiftCollection;
-        private readonly CompanyCollection _compCollection;
+        private readonly IScheduleHandler _scheduleHandler;
+        private readonly ICompanyHandler _companyHandler;
+        private readonly IShiftHandler _shiftHandler;
 
-        public EmployerController(UserManager<IdentityUser> userManager)
+        public EmployerController(UserManager<IdentityUser> userManager, IShiftHandler shiftHandler, IScheduleHandler scheduleHandler, ICompanyHandler companyHandler)
         {
             _userManager = userManager;
-            _schedCollection = new ScheduleCollection();
-            _shiftCollection = new ShiftCollection();
-            _compCollection = new CompanyCollection();
+            _shiftHandler = shiftHandler;
+            _scheduleHandler = scheduleHandler;
+            _companyHandler = companyHandler;
         }
 
         public IActionResult IndexEmployer()
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            string companyId = _compCollection.GetCompanyFromUser(userId).CompanyId;
+            string companyId = _companyHandler.GetCompanyFromUser(userId).CompanyId;
             List<Schedule> schedules =
-                _schedCollection.GetSchedulesFromCompany(companyId);
+                ModelConverter.ConvertScheduleDtoListToScheduleModelList(_scheduleHandler.GetSchedulesFromCompany(companyId));
             if (schedules.Count > 0)
             {
                 IndexEmployerViewModel model = new IndexEmployerViewModel()
                 {
                     Schedules = schedules,
                     CompanyID = companyId,
-                    TodaysWorkers = _schedCollection.GetTodaysShifts(companyId)
+                    TodaysWorkers = ModelConverter.ConvertShiftDtoListToShiftModelList(_scheduleHandler.GetTodaysShifts(companyId, DateTime.Today))
                 };
                 return View(model);
             }
@@ -53,7 +54,7 @@ namespace sPlannedIt.Controllers
                 {
                     Schedules = new List<Schedule>(),
                     CompanyID = companyId,
-                        TodaysWorkers = _schedCollection.GetTodaysShifts(companyId)
+                        TodaysWorkers = ModelConverter.ConvertShiftDtoListToShiftModelList(_scheduleHandler.GetTodaysShifts(companyId, DateTime.Today))
                 };
                 return View(model);
             }
@@ -88,7 +89,7 @@ namespace sPlannedIt.Controllers
                         var user = await _userManager.FindByEmailAsync(model.UserEmail);
                         Shift shift = new Shift(model.ShiftId, model.ScheduleId, user.Id, model.DateTime, model.StartTime,
                             model.EndTime);
-                        var result = _shiftCollection.Create(shift);
+                        var result = _shiftHandler.Create(ModelConverter.ConvertShiftModelToDto(shift));
                         if (result)
                         {
                             return RedirectToAction("EditSchedule", new { id = model.ScheduleId });
@@ -125,7 +126,7 @@ namespace sPlannedIt.Controllers
             if (ModelState.IsValid)
             {
                 Schedule schedule = new Schedule(model.ScheduleId, model.CompanyId, model.Name);
-                var result = _schedCollection.Create(schedule);
+                var result = _scheduleHandler.Create(ModelConverter.ConvertScheduleModelToDto(schedule));
                 if (result)
                 {
                     // todo: implement success view
@@ -141,13 +142,13 @@ namespace sPlannedIt.Controllers
         [HttpGet]
         public IActionResult EditSchedule(string id)
         {
-            Schedule schedule = _schedCollection.GetSchedule(id);
+            Schedule schedule = ModelConverter.ConvertScheduleDtoToModel(_scheduleHandler.GetById(id));
             EditScheduleViewmodel model = new EditScheduleViewmodel()
             {
                 CompanyId = schedule.CompanyId,
                 Name = schedule.Name,
                 ScheduleId = schedule.ScheduleId,
-                Shifts = _schedCollection.GetShiftsFromSchedule(id)
+                Shifts = ModelConverter.ConvertShiftDtoListToShiftModelList(_scheduleHandler.GetShiftsFromSchedule(id))
             };
 
             return View(model);
@@ -157,14 +158,14 @@ namespace sPlannedIt.Controllers
         public IActionResult EditSchedule(EditScheduleViewmodel model)
         {
             Schedule schedule = new Schedule(model.ScheduleId, model.CompanyId, model.Name);
-            _schedCollection.Update(schedule);
+            _scheduleHandler.Update(ModelConverter.ConvertScheduleModelToDto(schedule));
             return RedirectToAction("IndexEmployer");
         }
 
         [HttpGet]
         public async Task<IActionResult> EditShift(string id)
         {
-            Shift shift = _shiftCollection.GetById(id);
+            Shift shift = ModelConverter.ConvertShiftDtoToModel(_shiftHandler.GetById(id));
             EditShiftViewModel model = new EditShiftViewModel()
             {
                 EmployeeEmails = await GetUserEmails(),
@@ -183,7 +184,7 @@ namespace sPlannedIt.Controllers
         {
             var user = await _userManager.FindByEmailAsync(model.UserEmail);
             Shift shift = new Shift(model.ShiftId, model.ScheduleId, user.Id, model.DateTime, model.StartTime, model.EndTime);
-            var result = _shiftCollection.Update(shift);
+            var result = _shiftHandler.Update(ModelConverter.ConvertShiftModelToDto(shift));
             if (result)
             {
                 return RedirectToAction("EditSchedule", new {id = model.ScheduleId});
@@ -196,9 +197,9 @@ namespace sPlannedIt.Controllers
         [HttpPost]
         public IActionResult DeleteShift(string id)
         {
-            var shift = _shiftCollection.GetById(id);
+            var shift = _shiftHandler.GetById(id);
             var scheduleId = shift.ScheduleId;
-            var result = _shiftCollection.Delete(id);
+            var result = _shiftHandler.Delete(id);
             if (result)
             {
                 return RedirectToAction("EditSchedule", new {id = scheduleId});
@@ -210,19 +211,19 @@ namespace sPlannedIt.Controllers
         [HttpPost]
         public IActionResult DeleteSchedule(string id)
         {
-            List <Shift> shifts = _schedCollection.GetShiftsFromSchedule(id);
+            List <Shift> shifts = ModelConverter.ConvertShiftDtoListToShiftModelList(_scheduleHandler.GetShiftsFromSchedule(id));
             foreach (Shift shift in shifts)
             {
-                _shiftCollection.Delete(shift.ShiftId);
+                _shiftHandler.Delete(shift.ShiftId);
             }
-            _schedCollection.Delete(id);
+            _scheduleHandler.Delete(id);
             return RedirectToAction("IndexEmployer");
         }
 
         private async Task<List<string>> GetUserEmails()
         {
-            string companyId = _compCollection.GetCompanyFromUser(User.FindFirstValue(ClaimTypes.NameIdentifier)).CompanyId;
-            List<string> userIds = _compCollection.GetAllEmployees(_compCollection.GetCompany(companyId));
+            string companyId = _companyHandler.GetCompanyFromUser(User.FindFirstValue(ClaimTypes.NameIdentifier)).CompanyId;
+            List<string> userIds = _companyHandler.GetAllEmployees(_companyHandler.GetById(companyId).CompanyId);
             List<string> userEmails = new List<string>();
             foreach (string userId in userIds)
             {

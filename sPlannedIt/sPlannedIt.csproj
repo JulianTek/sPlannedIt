@@ -17,7 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\sPlannedIt.Data\sPlannedIt.Data.csproj" />
     <ProjectReference Include="..\sPlannedIt.Logic\sPlannedIt.Logic.csproj" />
   </ItemGroup>
 

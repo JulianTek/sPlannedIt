@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
+using sPlannedIt.Interface.DAL;
 using sPlannedIt.Logic;
 using sPlannedIt.Logic.Models;
 using sPlannedIt.Viewmodels.Homepage_Viewmodels;
@@ -10,14 +11,14 @@ namespace sPlannedIt.Controllers
 {
     public class EmployeeController : Controller
     {
-        private readonly CompanyCollection _companyCollection;
-        private readonly ScheduleCollection _schedCollection;
-        private readonly ShiftCollection _shiftCollection;
-        public EmployeeController()
+        private readonly IShiftHandler _shiftHandler;
+        private readonly IScheduleHandler _scheduleHandler;
+        private readonly ICompanyHandler _companyHandler;
+        public EmployeeController(IShiftHandler shiftHandler, IScheduleHandler scheduleHandler, ICompanyHandler companyHandler)
         {
-            _companyCollection = new CompanyCollection();
-            _schedCollection = new ScheduleCollection();
-            _shiftCollection = new ShiftCollection();
+            _shiftHandler = shiftHandler;
+            _scheduleHandler = scheduleHandler;
+            _companyHandler = companyHandler;
         }
 
         public IActionResult IndexEmployee()
@@ -25,9 +26,9 @@ namespace sPlannedIt.Controllers
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             IndexEmployeeViewModel model = new IndexEmployeeViewModel()
             {
-                CompanyID = _companyCollection.GetCompanyFromUser(userId).CompanyId,
-                Shifts = _shiftCollection.GetShiftsFromUser(userId),
-                TodaysWorkers = _schedCollection.GetTodaysShifts(_companyCollection.GetCompanyFromUser(userId).CompanyId)
+                CompanyID = _companyHandler.GetCompanyFromUser(userId).CompanyId,
+                Shifts = ModelConverter.ConvertShiftDtoListToShiftModelList(_shiftHandler.GetShiftsFromUser(userId)),
+                TodaysWorkers = ModelConverter.ConvertShiftDtoListToShiftModelList(_scheduleHandler.GetTodaysShifts(_companyHandler.GetCompanyFromUser(userId).CompanyId, DateTime.Today))
             };
             return View(model);
         }

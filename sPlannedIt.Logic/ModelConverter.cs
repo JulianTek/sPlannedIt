@@ -62,5 +62,16 @@ namespace sPlannedIt.Logic
 
             return models;
         }
+
+        public static List<Schedule> ConvertScheduleDtoListToScheduleModelList(List<ScheduleDTO> dtos)
+        {
+            List<Schedule> models = new List<Schedule>();
+            foreach (var dto in dtos)
+            {
+                models.Add(ConvertScheduleDtoToModel(dto));
+            }
+
+            return models;
+        } 
     }
 }

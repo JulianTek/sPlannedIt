@@ -10,7 +10,6 @@
         "dependencies": {
           "Microsoft.EntityFrameworkCore.Tools": "3.1.7",
           "sPlannedIt.Data": "1.0.0",
-          "sPlannedIt.Factories": "1.0.0",
           "sPlannedIt.Interface": "1.0.0"
         },
         "runtime": {
@@ -1408,15 +1407,6 @@
           "sPlannedIt.Entities.dll": {}
         }
       },
-      "sPlannedIt.Factories/1.0.0": {
-        "dependencies": {
-          "sPlannedIt.Data": "1.0.0",
-          "sPlannedIt.Interface": "1.0.0"
-        },
-        "runtime": {
-          "sPlannedIt.Factories.dll": {}
-        }
-      },
       "sPlannedIt.Interface/1.0.0": {
         "dependencies": {
           "sPlannedIt.Entities": "1.0.0"
@@ -2342,11 +2332,6 @@
       "sha512": ""
     },
     "sPlannedIt.Entities/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "sPlannedIt.Factories/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

@@ -8,7 +8,7 @@ namespace sPlannedIt.Entities.DTOs
     {
         public CompanyDTO()
         {
-            
+
         }
 
 
@@ -26,8 +26,8 @@ namespace sPlannedIt.Entities.DTOs
             Employees = employees;
         }
 
-        public string CompanyId { get; private set; }
-        public string CompanyName { get; private set; }
-        public List<string> Employees { get; private set; }
+        public string CompanyId { get; set; }
+        public string CompanyName { get; set; }
+        public List<string> Employees { get; set; }
     }
 }

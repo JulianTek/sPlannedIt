@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using sPlannedIt.Interface.DAL;
 using sPlannedIt.Logic;
 using sPlannedIt.Models;
 using sPlannedIt.Viewmodels;
@@ -16,12 +17,13 @@ namespace sPlannedIt.Controllers
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly CompanyCollection _collection;
-        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+        private readonly ICompanyHandler _companyHandler;
+
+        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, ICompanyHandler companyHandler)
         {
             _userManager = userManager;
-            _collection = new CompanyCollection();
             _signInManager = signInManager;
+            _companyHandler = companyHandler;
         }
 
         [HttpGet]
@@ -56,7 +58,7 @@ namespace sPlannedIt.Controllers
                 if (result.Succeeded)
                 {
                     await _userManager.AddToRoleAsync(user, "Employer");
-                    var addToCompanyResult = _collection.AddEmployee(user.Id, _collection.GetCompany(model.CompanyId));
+                    var addToCompanyResult = _companyHandler.AddEmployee(user.Id, _companyHandler.GetById(model.CompanyId));
                     if (addToCompanyResult)
                     {
                         return RedirectToAction("ListCompanies", "Company");

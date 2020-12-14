@@ -29,7 +29,6 @@
           "Microsoft.EntityFrameworkCore.SqlServer": "3.1.7",
           "Microsoft.EntityFrameworkCore.Tools": "3.1.7",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "3.1.4",
-          "sPlannedIt.Data": "1.0.0",
           "sPlannedIt.Logic": "1.0.0",
           "Microsoft.AspNetCore.Antiforgery": "3.1.0.0",
           "Microsoft.AspNetCore.Authentication.Abstractions.Reference": "3.1.0.0",
@@ -2505,18 +2504,6 @@
           "sPlannedIt.Entities.dll": {}
         }
       },
-      "sPlannedIt.Factories/1.0.0": {
-        "dependencies": {
-          "sPlannedIt.Data": "1.0.0",
-          "sPlannedIt.Interface": "1.0.0"
-        },
-        "runtime": {
-          "sPlannedIt.Factories.dll": {}
-        },
-        "compile": {
-          "sPlannedIt.Factories.dll": {}
-        }
-      },
       "sPlannedIt.Interface/1.0.0": {
         "dependencies": {
           "sPlannedIt.Entities": "1.0.0"
@@ -2531,7 +2518,6 @@
       "sPlannedIt.Logic/1.0.0": {
         "dependencies": {
           "sPlannedIt.Data": "1.0.0",
-          "sPlannedIt.Factories": "1.0.0",
           "sPlannedIt.Interface": "1.0.0"
         },
         "runtime": {
@@ -5469,11 +5455,6 @@
       "sha512": ""
     },
     "sPlannedIt.Entities/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "sPlannedIt.Factories/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

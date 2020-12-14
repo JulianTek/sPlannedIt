@@ -1,0 +1,480 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\Julia\\Documents\\GitHub\\sPlannedIt\\sPlannedIt.Tests\\sPlannedIt.Tests.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\Julia\\Documents\\GitHub\\sPlannedIt\\sPlannedIt.Data\\sPlannedIt.Data.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Julia\\Documents\\GitHub\\sPlannedIt\\sPlannedIt.Data\\sPlannedIt.Data.csproj",
+        "projectName": "sPlannedIt.Data",
+        "projectPath": "C:\\Users\\Julia\\Documents\\GitHub\\sPlannedIt\\sPlannedIt.Data\\sPlannedIt.Data.csproj",
+        "packagesPath": "C:\\Users\\Julia\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Julia\\Documents\\GitHub\\sPlannedIt\\sPlannedIt.Data\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Julia\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
+            "projectReferences": {
+              "C:\\Users\\Julia\\Documents\\GitHub\\sPlannedIt\\sPlannedIt.Entities\\sPlannedIt.Entities.csproj": {
+                "projectPath": "C:\\Users\\Julia\\Documents\\GitHub\\sPlannedIt\\sPlannedIt.Entities\\sPlannedIt.Entities.csproj"
+              },
+              "C:\\Users\\Julia\\Documents\\GitHub\\sPlannedIt\\sPlannedIt.Interface\\sPlannedIt.Interface.csproj": {
+                "projectPath": "C:\\Users\\Julia\\Documents\\GitHub\\sPlannedIt\\sPlannedIt.Interface\\sPlannedIt.Interface.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
+          "dependencies": {
+            "Microsoft.AspNetCore.Identity": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[3.1.7, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[3.1.7, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[3.1.7, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[3.1.7, )"
+            },
+            "System.Data.SqlClient": {
+              "target": "Package",
+              "version": "[4.8.2, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\Julia\\Documents\\GitHub\\sPlannedIt\\sPlannedIt.Entities\\sPlannedIt.Entities.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Julia\\Documents\\GitHub\\sPlannedIt\\sPlannedIt.Entities\\sPlannedIt.Entities.csproj",
+        "projectName": "sPlannedIt.Entities",
+        "projectPath": "C:\\Users\\Julia\\Documents\\GitHub\\sPlannedIt\\sPlannedIt.Entities\\sPlannedIt.Entities.csproj",
+        "packagesPath": "C:\\Users\\Julia\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Julia\\Documents\\GitHub\\sPlannedIt\\sPlannedIt.Entities\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Julia\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\Julia\\Documents\\GitHub\\sPlannedIt\\sPlannedIt.Interface\\sPlannedIt.Interface.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Julia\\Documents\\GitHub\\sPlannedIt\\sPlannedIt.Interface\\sPlannedIt.Interface.csproj",
+        "projectName": "sPlannedIt.Interface",
+        "projectPath": "C:\\Users\\Julia\\Documents\\GitHub\\sPlannedIt\\sPlannedIt.Interface\\sPlannedIt.Interface.csproj",
+        "packagesPath": "C:\\Users\\Julia\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Julia\\Documents\\GitHub\\sPlannedIt\\sPlannedIt.Interface\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Julia\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
+            "projectReferences": {
+              "C:\\Users\\Julia\\Documents\\GitHub\\sPlannedIt\\sPlannedIt.Entities\\sPlannedIt.Entities.csproj": {
+                "projectPath": "C:\\Users\\Julia\\Documents\\GitHub\\sPlannedIt\\sPlannedIt.Entities\\sPlannedIt.Entities.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[3.1.7, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\Julia\\Documents\\GitHub\\sPlannedIt\\sPlannedIt.Logic\\sPlannedIt.Logic.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Julia\\Documents\\GitHub\\sPlannedIt\\sPlannedIt.Logic\\sPlannedIt.Logic.csproj",
+        "projectName": "sPlannedIt.Logic",
+        "projectPath": "C:\\Users\\Julia\\Documents\\GitHub\\sPlannedIt\\sPlannedIt.Logic\\sPlannedIt.Logic.csproj",
+        "packagesPath": "C:\\Users\\Julia\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Julia\\Documents\\GitHub\\sPlannedIt\\sPlannedIt.Logic\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Julia\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
+            "projectReferences": {
+              "C:\\Users\\Julia\\Documents\\GitHub\\sPlannedIt\\sPlannedIt.Data\\sPlannedIt.Data.csproj": {
+                "projectPath": "C:\\Users\\Julia\\Documents\\GitHub\\sPlannedIt\\sPlannedIt.Data\\sPlannedIt.Data.csproj"
+              },
+              "C:\\Users\\Julia\\Documents\\GitHub\\sPlannedIt\\sPlannedIt.Interface\\sPlannedIt.Interface.csproj": {
+                "projectPath": "C:\\Users\\Julia\\Documents\\GitHub\\sPlannedIt\\sPlannedIt.Interface\\sPlannedIt.Interface.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[3.1.7, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\Julia\\Documents\\GitHub\\sPlannedIt\\sPlannedIt.Tests\\sPlannedIt.Tests.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Julia\\Documents\\GitHub\\sPlannedIt\\sPlannedIt.Tests\\sPlannedIt.Tests.csproj",
+        "projectName": "sPlannedIt.Tests",
+        "projectPath": "C:\\Users\\Julia\\Documents\\GitHub\\sPlannedIt\\sPlannedIt.Tests\\sPlannedIt.Tests.csproj",
+        "packagesPath": "C:\\Users\\Julia\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Julia\\Documents\\GitHub\\sPlannedIt\\sPlannedIt.Tests\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Julia\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
+            "projectReferences": {
+              "C:\\Users\\Julia\\Documents\\GitHub\\sPlannedIt\\sPlannedIt.Data\\sPlannedIt.Data.csproj": {
+                "projectPath": "C:\\Users\\Julia\\Documents\\GitHub\\sPlannedIt\\sPlannedIt.Data\\sPlannedIt.Data.csproj"
+              },
+              "C:\\Users\\Julia\\Documents\\GitHub\\sPlannedIt\\sPlannedIt.Entities\\sPlannedIt.Entities.csproj": {
+                "projectPath": "C:\\Users\\Julia\\Documents\\GitHub\\sPlannedIt\\sPlannedIt.Entities\\sPlannedIt.Entities.csproj"
+              },
+              "C:\\Users\\Julia\\Documents\\GitHub\\sPlannedIt\\sPlannedIt.Interface\\sPlannedIt.Interface.csproj": {
+                "projectPath": "C:\\Users\\Julia\\Documents\\GitHub\\sPlannedIt\\sPlannedIt.Interface\\sPlannedIt.Interface.csproj"
+              },
+              "C:\\Users\\Julia\\Documents\\GitHub\\sPlannedIt\\sPlannedIt.Logic\\sPlannedIt.Logic.csproj": {
+                "projectPath": "C:\\Users\\Julia\\Documents\\GitHub\\sPlannedIt\\sPlannedIt.Logic\\sPlannedIt.Logic.csproj"
+              },
+              "C:\\Users\\Julia\\Documents\\GitHub\\sPlannedIt\\sPlannedIt\\sPlannedIt.csproj": {
+                "projectPath": "C:\\Users\\Julia\\Documents\\GitHub\\sPlannedIt\\sPlannedIt\\sPlannedIt.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
+          "dependencies": {
+            "MSTest.TestAdapter": {
+              "target": "Package",
+              "version": "[2.1.1, )"
+            },
+            "MSTest.TestFramework": {
+              "target": "Package",
+              "version": "[2.1.1, )"
+            },
+            "Microsoft.NET.Test.Sdk": {
+              "target": "Package",
+              "version": "[16.7.1, )"
+            },
+            "coverlet.collector": {
+              "target": "Package",
+              "version": "[1.3.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\Julia\\Documents\\GitHub\\sPlannedIt\\sPlannedIt\\sPlannedIt.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Julia\\Documents\\GitHub\\sPlannedIt\\sPlannedIt\\sPlannedIt.csproj",
+        "projectName": "sPlannedIt",
+        "projectPath": "C:\\Users\\Julia\\Documents\\GitHub\\sPlannedIt\\sPlannedIt\\sPlannedIt.csproj",
+        "packagesPath": "C:\\Users\\Julia\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Julia\\Documents\\GitHub\\sPlannedIt\\sPlannedIt\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Julia\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
+            "projectReferences": {
+              "C:\\Users\\Julia\\Documents\\GitHub\\sPlannedIt\\sPlannedIt.Logic\\sPlannedIt.Logic.csproj": {
+                "projectPath": "C:\\Users\\Julia\\Documents\\GitHub\\sPlannedIt\\sPlannedIt.Logic\\sPlannedIt.Logic.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
+          "dependencies": {
+            "Microsoft.AspNetCore.Identity": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": {
+              "target": "Package",
+              "version": "[3.1.7, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[3.1.7, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[3.1.7, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[3.1.4, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

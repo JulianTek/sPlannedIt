@@ -3026,20 +3026,6 @@
           "bin/placeholder/sPlannedIt.Entities.dll": {}
         }
       },
-      "sPlannedIt.Factories/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v3.1",
-        "dependencies": {
-          "sPlannedIt.Data": "1.0.0",
-          "sPlannedIt.Interface": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/sPlannedIt.Factories.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/sPlannedIt.Factories.dll": {}
-        }
-      },
       "sPlannedIt.Interface/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
@@ -3058,7 +3044,6 @@
         "framework": ".NETCoreApp,Version=v3.1",
         "dependencies": {
           "sPlannedIt.Data": "1.0.0",
-          "sPlannedIt.Factories": "1.0.0",
           "sPlannedIt.Interface": "1.0.0"
         },
         "compile": {
@@ -9471,11 +9456,6 @@
       "path": "../sPlannedIt.Entities/sPlannedIt.Entities.csproj",
       "msbuildProject": "../sPlannedIt.Entities/sPlannedIt.Entities.csproj"
     },
-    "sPlannedIt.Factories/1.0.0": {
-      "type": "project",
-      "path": "../sPlannedIt.Factories/sPlannedIt.Factories.csproj",
-      "msbuildProject": "../sPlannedIt.Factories/sPlannedIt.Factories.csproj"
-    },
     "sPlannedIt.Interface/1.0.0": {
       "type": "project",
       "path": "../sPlannedIt.Interface/sPlannedIt.Interface.csproj",
@@ -9494,7 +9474,6 @@
       "Microsoft.EntityFrameworkCore.SqlServer >= 3.1.7",
       "Microsoft.EntityFrameworkCore.Tools >= 3.1.7",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 3.1.4",
-      "sPlannedIt.Data >= 1.0.0",
       "sPlannedIt.Logic >= 1.0.0"
     ]
   },
@@ -9529,9 +9508,6 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "projectReferences": {
-            "C:\\Users\\Julia\\Documents\\GitHub\\sPlannedIt\\sPlannedIt.Data\\sPlannedIt.Data.csproj": {
-              "projectPath": "C:\\Users\\Julia\\Documents\\GitHub\\sPlannedIt\\sPlannedIt.Data\\sPlannedIt.Data.csproj"
-            },
             "C:\\Users\\Julia\\Documents\\GitHub\\sPlannedIt\\sPlannedIt.Logic\\sPlannedIt.Logic.csproj": {
               "projectPath": "C:\\Users\\Julia\\Documents\\GitHub\\sPlannedIt\\sPlannedIt.Logic\\sPlannedIt.Logic.csproj"
             }
@@ -9589,7 +9565,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -451,7 +451,5 @@ C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt\bin\Debug\netcoreapp3.1\sP
 C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt\obj\Debug\netcoreapp3.1\Razor\Views\Employer\EditSchedule.cshtml.g.cs
 C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt\obj\Debug\netcoreapp3.1\scopedcss\bundle\sPlannedIt.styles.css
 C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt\bin\Debug\netcoreapp3.1\sPlannedIt.Entities.dll
-C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt\bin\Debug\netcoreapp3.1\sPlannedIt.Factories.dll
 C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt\bin\Debug\netcoreapp3.1\sPlannedIt.Entities.pdb
-C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt\bin\Debug\netcoreapp3.1\sPlannedIt.Factories.pdb
 C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt\obj\Debug\netcoreapp3.1\Razor\Views\Employer\EditShift.cshtml.g.cs

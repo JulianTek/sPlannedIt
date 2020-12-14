@@ -21,11 +21,11 @@ namespace sPlannedIt.Entities.DTOs
             EndTime = endTime;
         }
 
-        public string ShiftId { get; private set; }
-        public string ScheduleId { get; private set; }
+        public string ShiftId { get; set; }
+        public string ScheduleId { get; set; }
         public string UserId { get; set; }
-        public DateTime ShiftDate { get; private set; }
-        public int StartTime { get; private set; }
-        public int EndTime { get; private set; }
+        public DateTime ShiftDate { get; set; }
+        public int StartTime { get; set; }
+        public int EndTime { get; set; }
     }
 }
