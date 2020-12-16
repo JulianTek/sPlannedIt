@@ -494,3 +494,5 @@ C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt.Tests\obj\Debug\netcoreapp
 C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt.Tests\obj\Debug\netcoreapp3.1\sPlannedIt.Tests.dll
 C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt.Tests\obj\Debug\netcoreapp3.1\sPlannedIt.Tests.pdb
 C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt.Tests\obj\Debug\netcoreapp3.1\sPlannedIt.Tests.genruntimeconfig.cache
+C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt.Tests\bin\Debug\netcoreapp3.1\Castle.Core.dll
+C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt.Tests\bin\Debug\netcoreapp3.1\Moq.dll

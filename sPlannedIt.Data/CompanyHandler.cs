@@ -28,7 +28,7 @@ namespace sPlannedIt.Data
             }
         }
 
-        public bool Create(CompanyDTO entity)
+        public CompanyDTO Create(CompanyDTO entity)
         {
             using (ConnectionString connectionString = new ConnectionString())
             {
@@ -38,11 +38,15 @@ namespace sPlannedIt.Data
                 connectionString.Open();
                 var result = create.ExecuteNonQuery();
                 connectionString.Dispose();
-                return result != 0;
+                if (result != 0)
+                {
+                    return entity;
+                }
+                return null;
             }
         }
 
-        public bool Update(CompanyDTO entity)
+        public CompanyDTO Update(CompanyDTO entity)
         {
             using (ConnectionString connectionString = new ConnectionString())
             {
@@ -52,7 +56,12 @@ namespace sPlannedIt.Data
                 connectionString.Open();
                 var result = update.ExecuteNonQuery();
                 connectionString.Dispose();
-                return result != 0;
+                if (result != 0)
+                {
+                    return entity;
+                }
+
+                return null;
             }
         }
 

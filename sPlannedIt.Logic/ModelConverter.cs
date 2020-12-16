@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using sPlannedIt.Entities.DTOs;
-using sPlannedIt.Logic.Models;
+using sPlannedIt.Entities.Models;
 
 namespace sPlannedIt.Logic
 {

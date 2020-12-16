@@ -6,7 +6,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using sPlannedIt.Data;
+using sPlannedIt.Interface;
 using sPlannedIt.Interface.DAL;
+using sPlannedIt.Logic;
 
 namespace sPlannedIt
 {
@@ -31,6 +33,7 @@ namespace sPlannedIt
             services.AddScoped<IScheduleHandler, ScheduleHandler>();
             services.AddScoped<ICompanyHandler, CompanyHandler>();
             services.AddScoped<IShiftHandler, ShiftHandler>();
+            services.AddScoped<IScheduleCollection, ScheduleCollection>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -28,7 +28,7 @@ namespace sPlannedIt.Data
             }
         }
 
-        public bool Create(ScheduleDTO entity)
+        public ScheduleDTO Create(ScheduleDTO entity)
         {
             using (ConnectionString connectionString = new ConnectionString())
             {
@@ -39,11 +39,16 @@ namespace sPlannedIt.Data
                 connectionString.Open();
                 var result = create.ExecuteNonQuery();
                 connectionString.Dispose();
-                return result != 0;
+                if (result != 0)
+                {
+                    return entity;
+                }
+
+                return null;
             }
         }
 
-        public bool Update(ScheduleDTO entity)
+        public ScheduleDTO Update(ScheduleDTO entity)
         {
             using (ConnectionString connectionString = new ConnectionString())
             {
@@ -53,7 +58,12 @@ namespace sPlannedIt.Data
                 connectionString.Open();
                 var result = update.ExecuteNonQuery();
                 connectionString.Dispose();
-                return result != 0;
+                if (result != 0)
+                {
+                    return entity;
+                }
+
+                return null;
             }
         }
 
@@ -102,7 +112,7 @@ namespace sPlannedIt.Data
                 while (reader.Read())
                 {
                     ShiftDTO dto = new ShiftDTO(reader.GetString(0), reader.GetString(1),
-                        reader.GetString(5), reader.GetDateTime(4), reader.GetInt32(2) , reader.GetInt32(3));
+                        reader.GetString(5), reader.GetDateTime(4), reader.GetInt32(2), reader.GetInt32(3));
                     dtos.Add(dto);
                 }
                 connectionString.Dispose();

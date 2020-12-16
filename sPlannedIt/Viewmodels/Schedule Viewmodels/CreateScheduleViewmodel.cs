@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using sPlannedIt.Entities.Models;
 using sPlannedIt.Interface;
-using sPlannedIt.Logic.Models;
 
 namespace sPlannedIt.Viewmodels.Schedule_Viewmodels
 {

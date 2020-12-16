@@ -4,7 +4,6 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
 using sPlannedIt.Interface.DAL;
 using sPlannedIt.Logic;
-using sPlannedIt.Logic.Models;
 using sPlannedIt.Viewmodels.Homepage_Viewmodels;
 
 namespace sPlannedIt.Controllers

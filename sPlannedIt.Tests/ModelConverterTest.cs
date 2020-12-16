@@ -2,8 +2,8 @@ using System;
 using Microsoft.AspNetCore.Components.RenderTree;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using sPlannedIt.Entities.DTOs;
+using sPlannedIt.Entities.Models;
 using sPlannedIt.Logic;
-using sPlannedIt.Logic.Models;
 
 namespace sPlannedIt.Tests
 {

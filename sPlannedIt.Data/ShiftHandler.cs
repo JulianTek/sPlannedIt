@@ -29,7 +29,7 @@ namespace sPlannedIt.Data
             }
         }
 
-        public bool Create(ShiftDTO entity)
+        public ShiftDTO Create(ShiftDTO entity)
         {
             using (ConnectionString connectionString = new ConnectionString())
             {
@@ -43,11 +43,16 @@ namespace sPlannedIt.Data
                 connectionString.Open();
                 var result = create.ExecuteNonQuery();
                 connectionString.Dispose();
-                return result != 0;
+                if (result != 0)
+                {
+                    return entity;
+                }
+
+                return null;
             }
         }
 
-        public bool Update(ShiftDTO entity)
+        public ShiftDTO Update(ShiftDTO entity)
         {
             using (ConnectionString connectionString = new ConnectionString())
             {
@@ -59,7 +64,12 @@ namespace sPlannedIt.Data
                 connectionString.Open();
                 var result = update.ExecuteNonQuery();
                 connectionString.Dispose();
-                return result != 0;
+                if (result != 0)
+                {
+                    return entity;
+                }
+
+                return null;
             }
         }
 

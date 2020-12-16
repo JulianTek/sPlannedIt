@@ -2,9 +2,9 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using sPlannedIt.Entities.Models;
 using sPlannedIt.Interface.DAL;
 using sPlannedIt.Logic;
-using sPlannedIt.Logic.Models;
 using sPlannedIt.Models;
 using sPlannedIt.Viewmodels.Company_Viewmodels;
 using sPlannedIt.Viewmodels.Role_Viewmodels;

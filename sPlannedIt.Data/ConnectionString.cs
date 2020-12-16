@@ -4,14 +4,13 @@ using System.Text;
 using Microsoft.Data.SqlClient;
 
 namespace sPlannedIt.Data
-{
+{ 
     class ConnectionString : IDisposable
     {
-        public SqlConnection SqlConnection = new SqlConnection
-        (
-            // local db @"Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=sPlannedItLocal;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"
-            @"Data Source=(LocalDB)\MSSQLLocalDB;Initial Catalog=sPlannedItLocal;Integrated Security=True;MultipleActiveResultSets=True"
-        );
+
+
+        public SqlConnection SqlConnection = new SqlConnection(@"Data Source=mssql.fhict.local;User ID=dbi431603_sPlannedIt;Password=G70847 371t3!;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+
 
         public void Dispose()
         {
@@ -24,4 +23,9 @@ namespace sPlannedIt.Data
             SqlConnection.Open();
         }
     }
+
+
+
+    // local db @"Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=sPlannedItLocal;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"
+    // test db Data Source=mssql.fhict.local;Initial Catalog=dbi431603_sitests;User ID=dbi431603_sitests;Password=G70847 371t3!;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False
 }
