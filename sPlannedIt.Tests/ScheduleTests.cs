@@ -6,6 +6,7 @@ using sPlannedIt.Data;
 using sPlannedIt.Entities.DTOs;
 using sPlannedIt.Entities.Models;
 using sPlannedIt.Interface;
+using sPlannedIt.Interface.BLL;
 using sPlannedIt.Logic;
 using sPlannedIt.Interface.DAL;
 
@@ -17,6 +18,7 @@ namespace sPlannedIt.Tests
         // Mocking the neccessary interfaces here
         private readonly ScheduleCollection _schedCol;
         private readonly Mock<IScheduleHandler> _mockHandler = new Mock<IScheduleHandler>();
+        private readonly Mock<IScheduleCollection> _mockCollection = new Mock<IScheduleCollection>();
 
         public ScheduleTests()
         {
@@ -72,7 +74,6 @@ namespace sPlannedIt.Tests
             Assert.AreEqual(expected.Name, actual.Name);
         }
 
-        // Unit test for creating a schedule, checks if the schedule is returned
         [TestMethod]
         public void CreatingSchedule_ReturnsSchedule()
         {
@@ -80,10 +81,10 @@ namespace sPlannedIt.Tests
             var companyId = "nintendo";
             var name = "super mario";
             ScheduleDTO scheduleDto = new ScheduleDTO(name, id, companyId);
-            Schedule schedule = new Schedule(name, id, companyId);
+            Schedule schedule = new Schedule(id, companyId, name);
 
             // Mock the interface and implementation
-            _mockHandler.Setup(x => x.Create(scheduleDto)).Returns(scheduleDto);
+            _mockHandler.Setup(x => x.Create(It.IsAny<ScheduleDTO>())).Returns(scheduleDto);
 
             // Act
             var actual = _schedCol.Create(schedule);
@@ -96,8 +97,8 @@ namespace sPlannedIt.Tests
         }
 
 
-        // This unit test checks whether an updated schedule is actually updated and not the old one
-        [TestMethod]
+        //This unit test checks whether an updated schedule is actually updated and not the old one
+       [TestMethod]
         public void UpdatingSchedule_ReturnsNewSchedule()
         {
             // Arrange
@@ -106,16 +107,16 @@ namespace sPlannedIt.Tests
             var newCompany = "ghi";
             var newId = "jkl";
             var newSchedDto = new ScheduleDTO(newName, newId, newCompany);
-            var newSched = new Schedule(newName, newId, newCompany);
+            var newSched = new Schedule(newId, newCompany, newName);
 
             // Mock the interface and implementation
-            _mockHandler.Setup(x => x.Update(newSchedDto)).Returns(newSchedDto);
+            _mockHandler.Setup(x => x.Update(It.IsAny<ScheduleDTO>())).Returns(newSchedDto);
 
             // Act
             var actual = _schedCol.Update(newSched);
 
             // Assert
-               // Asserting that the value is actually updated and is not the old schedule
+            // Asserting that the value is actually updated and is not the old schedule
             Assert.AreEqual(newSched.Name, actual.Name);
             Assert.AreNotEqual(old.Name, actual.Name);
             Assert.AreEqual(newSched.CompanyId, actual.CompanyId);
