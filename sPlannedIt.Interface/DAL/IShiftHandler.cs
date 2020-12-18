@@ -6,6 +6,7 @@ namespace sPlannedIt.Interface.DAL
     public interface IShiftHandler : IHandler<ShiftDTO>
     {
         public string GetUserFromShift(string id);
+        public string GetUserEmailFromShift(string id);
         public List<ShiftDTO> GetShiftsFromUser(string userId);
     }
 }

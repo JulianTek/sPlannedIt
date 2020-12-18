@@ -154,6 +154,24 @@ namespace sPlannedIt.Data
             }
         }
 
+        public List<string> GetAllEmployeeEmails(string id)
+        {
+            List<string> emails = new List<string>();
+            using (ConnectionString connectionString = new ConnectionString())
+            {
+                SqlCommand getEmails = new SqlCommand("SELECT Users.Email FROM UserCompanyLink AS Link INNER JOIN AspNetUsers AS Users ON Link.UserID = Users.Id WHERE CompanyId = @CompanyId", connectionString.SqlConnection);
+                getEmails.Parameters.AddWithValue("@CompanyId", id);
+                connectionString.Open();
+                var reader = getEmails.ExecuteReader();
+                while (reader.Read())
+                {
+                    emails.Add(reader.GetString(0));
+                }
+                connectionString.Dispose();
+                return emails;
+            }
+        }
+
         public void RemoveAllEmployees(List<string> ids)
         {
             foreach (string id in ids)

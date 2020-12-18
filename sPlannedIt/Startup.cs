@@ -7,8 +7,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using sPlannedIt.Data;
 using sPlannedIt.Interface;
+using sPlannedIt.Interface.BLL;
 using sPlannedIt.Interface.DAL;
 using sPlannedIt.Logic;
+using sPlannedIt.Models;
 
 namespace sPlannedIt
 {
@@ -28,12 +30,14 @@ namespace sPlannedIt
             services.AddRazorPages().AddRazorRuntimeCompilation();
             services.AddDbContextPool<AppDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("LocalDb")));
-            services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<Data.AppDbContext>();
+            services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
 
             services.AddScoped<IScheduleHandler, ScheduleHandler>();
             services.AddScoped<ICompanyHandler, CompanyHandler>();
             services.AddScoped<IShiftHandler, ShiftHandler>();
+
             services.AddScoped<IScheduleCollection, ScheduleCollection>();
+            services.AddScoped<IShiftCollection, ShiftCollection>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

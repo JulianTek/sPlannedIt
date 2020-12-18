@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using sPlannedIt.Data;
 
 namespace sPlannedIt.Logic
 {
@@ -9,7 +10,7 @@ namespace sPlannedIt.Logic
 
         public static List<string> GetRoleNames()
         {
-            return Data.Role_functions.RoleData_Data.GetRoleNames();
+            return RoleData_Data.GetRoleNames();
         }
     }
 }

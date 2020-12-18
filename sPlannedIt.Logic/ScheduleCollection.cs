@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using sPlannedIt.Entities.Models;
 using sPlannedIt.Interface;
+using sPlannedIt.Interface.BLL;
 using sPlannedIt.Interface.DAL;
 
 namespace sPlannedIt.Logic
@@ -27,8 +28,9 @@ namespace sPlannedIt.Logic
 
         public Schedule Create(Schedule schedule)
         {
-            return ModelConverter.ConvertScheduleDtoToModel(
+            var sched = ModelConverter.ConvertScheduleDtoToModel(
                 _scheduleHandler.Create(ModelConverter.ConvertScheduleModelToDto(schedule)));
+            return sched;
         }
 
         public Schedule Update(Schedule schedule)

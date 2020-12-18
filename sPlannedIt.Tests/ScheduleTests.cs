@@ -4,6 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using sPlannedIt.Data;
 using sPlannedIt.Entities.DTOs;
+using sPlannedIt.Entities.Models;
 using sPlannedIt.Interface;
 using sPlannedIt.Logic;
 using sPlannedIt.Interface.DAL;
@@ -33,15 +34,18 @@ namespace sPlannedIt.Tests
             ScheduleDTO dto3 = new ScheduleDTO("3", "3", "3");
             List<ScheduleDTO> dtos = new List<ScheduleDTO>() {dto1, dto2, dto3};
 
-               // Mocking the repo and implementation
-            var mock = new Mock<IScheduleHandler>();
-            mock.Setup(x => x.GetAll()).Returns(dtos);
+            // Mocking the repo and implementation
+               _mockHandler.Setup(x => x.GetAll()).Returns(dtos);
 
             // Act
             var actual = _schedCol.GetAll();
 
             // Assert
-            CollectionAssert.AreEquivalent(dtos, actual);
+            for (int i = 0; i < dtos.Count; i++)
+            {
+                Assert.AreEqual(dtos[i].Name, actual[i].Name);
+                Assert.AreEqual(dtos[i].CompanyId, actual[i].CompanyId);
+            }
 
 
         }
@@ -59,14 +63,12 @@ namespace sPlannedIt.Tests
             var expected = new ScheduleDTO(name, id, companyId);
 
                // Mock the interface and expected result
-            var mock = new Mock<IScheduleHandler>();
-            mock.Setup(x => x.GetById(id)).Returns(expected);
+               _mockHandler.Setup(x => x.GetById(id)).Returns(expected);
 
             // Act
-            var actual = mock.Object.GetById(id);
+            var actual = ModelConverter.ConvertScheduleModelToDto(_schedCol.GetById("testId")); 
 
             // Assert
-            Assert.AreSame(expected, actual);
             Assert.AreEqual(expected.Name, actual.Name);
         }
 
@@ -77,41 +79,22 @@ namespace sPlannedIt.Tests
             var id = "beans";
             var companyId = "nintendo";
             var name = "super mario";
-            var schedule = new ScheduleDTO(name, id, companyId);
-
-
-            // Mock the interface and implementation
-            var mock = new Mock<IScheduleHandler>();
-            mock.Setup(x => x.Create(schedule)).Returns(schedule);
-
-            // Act
-            var actual = mock.Object.Create(schedule);
-
-            // Assert
-            Assert.AreSame(schedule, actual);
-        }
-
-        // This method checks that when an invalid entity is sent, null is returned
-        [TestMethod]
-        public void CreatingInvalidSchedule_ReturnsNull()
-        {
-            var id = "beans";
-            var companyId = "nintendo";
-            var name = "super mario";
-            var schedule = new ScheduleDTO(name, id, companyId);
-            var invalidSchedule = new ScheduleDTO(null, null, null);
-
+            ScheduleDTO scheduleDto = new ScheduleDTO(name, id, companyId);
+            Schedule schedule = new Schedule(name, id, companyId);
 
             // Mock the interface and implementation
-            var mock = new Mock<IScheduleHandler>();
-            mock.Setup(x => x.Create(schedule)).Returns(schedule);
+            _mockHandler.Setup(x => x.Create(scheduleDto)).Returns(scheduleDto);
 
             // Act
-            var actual = mock.Object.Create(invalidSchedule);
+            var actual = _schedCol.Create(schedule);
 
             // Assert
-            Assert.IsNull(actual);
+            Assert.IsNotNull(actual);
+            Assert.AreEqual(schedule.ScheduleId, actual.ScheduleId);
+            Assert.AreEqual(schedule.CompanyId, actual.CompanyId);
+            Assert.AreEqual(schedule.CompanyId, actual.CompanyId);
         }
+
 
         // This unit test checks whether an updated schedule is actually updated and not the old one
         [TestMethod]
@@ -122,19 +105,23 @@ namespace sPlannedIt.Tests
             var newName = "def";
             var newCompany = "ghi";
             var newId = "jkl";
-            var newSched = new ScheduleDTO(newName, newId, newCompany);
+            var newSchedDto = new ScheduleDTO(newName, newId, newCompany);
+            var newSched = new Schedule(newName, newId, newCompany);
 
-               // Mock the interface and implementation
-            var mock = new Mock<IScheduleHandler>();
-            mock.Setup(x => x.Update(newSched)).Returns(newSched);
+            // Mock the interface and implementation
+            _mockHandler.Setup(x => x.Update(newSchedDto)).Returns(newSchedDto);
 
             // Act
-            var actual = mock.Object.Update(newSched);
+            var actual = _schedCol.Update(newSched);
 
             // Assert
                // Asserting that the value is actually updated and is not the old schedule
-            Assert.AreSame(newSched, actual);
-            Assert.AreNotSame(old, actual);
+            Assert.AreEqual(newSched.Name, actual.Name);
+            Assert.AreNotEqual(old.Name, actual.Name);
+            Assert.AreEqual(newSched.CompanyId, actual.CompanyId);
+            Assert.AreNotEqual(old.CompanyId, actual.CompanyId);
+            Assert.AreEqual(newSched.ScheduleId, actual.ScheduleId);
+            Assert.AreNotEqual(old.ScheduleId, actual.ScheduleId);
         }
 
         // This test checks whether a schedule gets deleted, and whether the correct schedule gets deleted
@@ -144,12 +131,11 @@ namespace sPlannedIt.Tests
             // Arrange
             ScheduleDTO toDelete = new ScheduleDTO("delete this", "4", "4");
 
-            // Mock the interface and implementation (including one for getting all schedules)
-            var mock = new Mock<IScheduleHandler>();
-            mock.Setup(x => x.Delete("4")).Returns(true);
+            // Mock the interface and implementation (including one for getting all schedules
+            _mockHandler.Setup(x => x.Delete("4")).Returns(true);
 
             // Act
-            var actual = mock.Object.Delete("4");
+            var actual = _schedCol.Delete("4");
 
             // Assert
                // Assert that a deletion was made
@@ -170,14 +156,22 @@ namespace sPlannedIt.Tests
 
                // Mock the interface and implementation
             var mock = new Mock<IScheduleHandler>();
-            mock.Setup(x => x.GetShiftsFromSchedule("test")).Returns(dtos);
+            _mockHandler.Setup(x => x.GetShiftsFromSchedule("test")).Returns(dtos);
 
             // Act
                // I am using sched.scheduleId to check if it actually gets the id properly
-            var actual = mock.Object.GetShiftsFromSchedule(sched.ScheduleId);
+               var actual = _schedCol.GetShiftsFromSchedule(sched.ScheduleId);
 
             // Assert
-            CollectionAssert.AreEquivalent(dtos, actual);
+            for (int i = 0; i < actual.Count; i++)
+            {
+                Assert.AreEqual(dtos[i].ScheduleId, actual[i].ScheduleId);
+                Assert.AreEqual(dtos[i].ShiftId, actual[i].ShiftId);
+                Assert.AreEqual(dtos[i].UserId, actual[i].UserId);
+                Assert.AreEqual(dtos[i].ShiftDate, actual[i].ShiftDate);
+                Assert.AreEqual(dtos[i].StartTime, actual[i].StartTime);
+                Assert.AreEqual(dtos[i].EndTime, actual[i].EndTime);
+            }
         }
 
         // This unit test tests for getting a company's schedule
@@ -198,21 +192,22 @@ namespace sPlannedIt.Tests
             var dto7 = new ScheduleDTO("7", "7", "id1");
             var dto8 = new ScheduleDTO("8", "8", "id1");
                // Creating 2 lists; one with all schedules, one with all schedules belonging to the company
-            List<ScheduleDTO> allDtos = new List<ScheduleDTO>() {dto1, dto2, dto3, dto4, dto5, dto6, dto7, dto8};
-            List<ScheduleDTO> companyScheduleDtos = new List<ScheduleDTO>() {dto1, dto2, dto3, dto4};
+               List<ScheduleDTO> companyScheduleDtos = new List<ScheduleDTO>() {dto1, dto2, dto3, dto4};
 
                // Mocking the interface and its implementation
-            var mock = new Mock<IScheduleHandler>();
-            mock.Setup(x => x.GetSchedulesFromCompany("id")).Returns(companyScheduleDtos);
+               _mockHandler.Setup(x => x.GetSchedulesFromCompany("id")).Returns(companyScheduleDtos);
 
             // Act
-            var actual = mock.Object.GetSchedulesFromCompany(company.CompanyId);
+            var actual = _schedCol.GetSchedulesFromCompany(company.CompanyId);
 
             // Assert
                // Asserts that the company's schedules were retrieved
-            CollectionAssert.AreEquivalent(companyScheduleDtos, actual);
-               // Asserts that none of the other dtos are in the list
-            CollectionAssert.AreNotEquivalent(allDtos, actual);
+               for (int i = 0; i < actual.Count; i++)
+               {
+                   Assert.AreEqual(companyScheduleDtos[i].Name, actual[i].Name);
+                   Assert.AreEqual(companyScheduleDtos[i].CompanyId, actual[i].CompanyId);
+                   Assert.AreEqual(companyScheduleDtos[i].ScheduleId, actual[i].ScheduleId);
+               }
         }
     }
 }

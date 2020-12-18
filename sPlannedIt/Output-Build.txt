@@ -1,0 +1,4 @@
+﻿Build started...
+1>------ Build started: Project: sPlannedIt.Tests, Configuration: Debug Any CPU ------
+1>sPlannedIt.Tests -> C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt.Tests\bin\Debug\netcoreapp3.1\sPlannedIt.Tests.dll
+========== Build: 1 succeeded, 0 failed, 5 up-to-date, 0 skipped ==========

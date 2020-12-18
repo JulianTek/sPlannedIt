@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Text;
+﻿using System.Collections.Generic;
 using Microsoft.Data.SqlClient;
 
-namespace sPlannedIt.Data.Role_functions
+namespace sPlannedIt.Data
 {
     public static class RoleData_Data
     {

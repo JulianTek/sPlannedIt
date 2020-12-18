@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using sPlannedIt.Data;
 using sPlannedIt.Entities.Models;
 using sPlannedIt.Interface;
+using sPlannedIt.Interface.BLL;
 using sPlannedIt.Interface.DAL;
 using sPlannedIt.Logic;
 using sPlannedIt.Viewmodels.Homepage_Viewmodels;
@@ -20,14 +21,14 @@ namespace sPlannedIt.Controllers
     public class EmployerController : Controller
     {
         public readonly UserManager<IdentityUser> _userManager;
+        private readonly IShiftCollection _shiftCollection;
         public readonly ICompanyHandler _companyHandler;
-        public readonly IShiftHandler _shiftHandler;
         private readonly IScheduleCollection _scheduleCollection;
 
-        public EmployerController(UserManager<IdentityUser> userManager, IShiftHandler shiftHandler, IScheduleCollection scheduleCollection, ICompanyHandler companyHandler)
+        public EmployerController(UserManager<IdentityUser> userManager, IShiftCollection shiftCollection, IScheduleCollection scheduleCollection, ICompanyHandler companyHandler)
         {
             _userManager = userManager;
-            _shiftHandler = shiftHandler;
+            _shiftCollection = shiftCollection;
             _scheduleCollection = scheduleCollection;
             _companyHandler = companyHandler;
         }
@@ -65,7 +66,7 @@ namespace sPlannedIt.Controllers
         {
             CreateShiftViewmodel model = new CreateShiftViewmodel()
             {
-                EmployeeEmails = await GetUserEmails(),
+                EmployeeEmails = _companyHandler.GetAllEmployeeEmails(_companyHandler.GetCompanyFromUser(User.FindFirstValue(ClaimTypes.NameIdentifier)).CompanyId),
                 ShiftId = Guid.NewGuid().ToString(),
                 ScheduleId = id,
                 DateTime = DateTime.Today
@@ -89,7 +90,7 @@ namespace sPlannedIt.Controllers
                         var user = await _userManager.FindByEmailAsync(model.UserEmail);
                         Shift shift = new Shift(model.ShiftId, model.ScheduleId, user.Id, model.DateTime, model.StartTime,
                             model.EndTime);
-                        var result = _shiftHandler.Create(ModelConverter.ConvertShiftModelToDto(shift));
+                        var result = _shiftCollection.Create(shift);
                         if (result != null)
                         {
                             return RedirectToAction("EditSchedule", new { id = model.ScheduleId });
@@ -104,7 +105,8 @@ namespace sPlannedIt.Controllers
 
 
 
-            model.EmployeeEmails = await GetUserEmails();
+            model.EmployeeEmails = _companyHandler.GetAllEmployeeEmails(_companyHandler
+                .GetCompanyFromUser(User.FindFirstValue(ClaimTypes.NameIdentifier)).CompanyId);
             return View(model);
         }
 
@@ -165,10 +167,10 @@ namespace sPlannedIt.Controllers
         [HttpGet]
         public async Task<IActionResult> EditShift(string id)
         {
-            Shift shift = ModelConverter.ConvertShiftDtoToModel(_shiftHandler.GetById(id));
+            Shift shift = _shiftCollection.GetById(id);
             EditShiftViewModel model = new EditShiftViewModel()
             {
-                EmployeeEmails = await GetUserEmails(),
+                EmployeeEmails = _companyHandler.GetAllEmployeeEmails(_companyHandler.GetCompanyFromUser(User.FindFirstValue(ClaimTypes.NameIdentifier)).CompanyId),
                 ShiftId = shift.ShiftId,
                 ScheduleId = shift.ScheduleId,
                 DateTime = shift.ShiftDate,
@@ -184,22 +186,23 @@ namespace sPlannedIt.Controllers
         {
             var user = await _userManager.FindByEmailAsync(model.UserEmail);
             Shift shift = new Shift(model.ShiftId, model.ScheduleId, user.Id, model.DateTime, model.StartTime, model.EndTime);
-            var result = _shiftHandler.Update(ModelConverter.ConvertShiftModelToDto(shift));
+            var result = _shiftCollection.Update(shift);
             if (result != null)
             {
                 return RedirectToAction("EditSchedule", new { id = model.ScheduleId });
             }
 
-            model.EmployeeEmails = await GetUserEmails();
+            model.EmployeeEmails = _companyHandler.GetAllEmployeeEmails(_companyHandler
+                .GetCompanyFromUser(User.FindFirstValue(ClaimTypes.NameIdentifier)).CompanyId);
             return View(model);
         }
 
         [HttpPost]
         public IActionResult DeleteShift(string id)
         {
-            var shift = _shiftHandler.GetById(id);
+            var shift = _shiftCollection.GetById(id);
             var scheduleId = shift.ScheduleId;
-            var result = _shiftHandler.Delete(id);
+            var result = _shiftCollection.Delete(id);
             if (result)
             {
                 return RedirectToAction("EditSchedule", new { id = scheduleId });
@@ -214,24 +217,10 @@ namespace sPlannedIt.Controllers
             List<Shift> shifts = _scheduleCollection.GetShiftsFromSchedule(id);
             foreach (Shift shift in shifts)
             {
-                _shiftHandler.Delete(shift.ShiftId);
+                _shiftCollection.Delete(shift.ShiftId);
             }
             _scheduleCollection.Delete(id);
             return RedirectToAction("IndexEmployer");
-        }
-
-        private async Task<List<string>> GetUserEmails()
-        {
-            string companyId = _companyHandler.GetCompanyFromUser(User.FindFirstValue(ClaimTypes.NameIdentifier)).CompanyId;
-            List<string> userIds = _companyHandler.GetAllEmployees(_companyHandler.GetById(companyId).CompanyId);
-            List<string> userEmails = new List<string>();
-            foreach (string userId in userIds)
-            {
-                var user = await _userManager.FindByIdAsync(userId);
-                userEmails.Add(user.Email);
-            }
-
-            return userEmails;
         }
     }
 }

@@ -117,6 +117,19 @@ namespace sPlannedIt.Data
             }
         }
 
+        public string GetUserEmailFromShift(string id)
+        {
+            using (ConnectionString connectionString = new ConnectionString())
+            {
+                SqlCommand getEmail = new SqlCommand("SELECT AspNetUsers.Email FROM Shift INNER JOIN AspNetUsers ON Shift.UserEmail = AspNetUsers.Id WHERE ShiftID = @ShiftID", connectionString.SqlConnection);
+                getEmail.Parameters.AddWithValue("@ShiftID", id);
+                connectionString.Open();
+                var result = (string) getEmail.ExecuteScalar();
+                connectionString.Dispose();
+                return result ?? null;
+            }
+        }
+
         public List<ShiftDTO> GetShiftsFromUser(string userId)
         {
             List<ShiftDTO> shiftDtos = new List<ShiftDTO>();
