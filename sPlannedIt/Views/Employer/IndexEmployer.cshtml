@@ -49,7 +49,7 @@
                         <tr valign="top">
                             <td width="100">@String.Concat(@shift.ShiftDate.Date.Day + "-" + @shift.ShiftDate.Date.Month)</td>
                             <td>@String.Concat(shift.StartTime + ":00") - @String.Concat(shift.EndTime + ":00")</td>
-                            <td><br></td>
+                            <td>@await _userManager.FindByIdAsync(shift.UserId)</td>
                         </tr>
                     }
                 </tbody>

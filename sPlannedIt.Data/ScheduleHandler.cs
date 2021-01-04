@@ -111,8 +111,7 @@ namespace sPlannedIt.Data
                 var reader = getShifts.ExecuteReader();
                 while (reader.Read())
                 {
-                    ShiftDTO dto = new ShiftDTO(reader.GetString(0), reader.GetString(1),
-                        reader.GetString(5), reader.GetDateTime(4), reader.GetInt32(2), reader.GetInt32(3));
+                    ShiftDTO dto = new ShiftDTO(shiftId: reader.GetString(0), scheduleId: reader.GetString(1), userId: reader.GetString(5), shiftDate: reader.GetDateTime(4), reader.GetInt32(2), reader.GetInt32(3));
                     dtos.Add(dto);
                 }
                 connectionString.Dispose();
@@ -136,8 +135,7 @@ namespace sPlannedIt.Data
                     {
                         if (sched.ScheduleId == reader.GetString(1))
                         {
-                            ShiftDTO dto = new ShiftDTO(reader.GetString(0), reader.GetString(1),
-                                reader.GetString(5), reader.GetDateTime(4), reader.GetInt32(2), reader.GetInt32(3));
+                            ShiftDTO dto = new ShiftDTO(shiftId: reader.GetString(0), scheduleId: reader.GetString(1), userId: reader.GetString(5), shiftDate: reader.GetDateTime(4), reader.GetInt32(2), reader.GetInt32(3));
                             dtos.Add(dto);
                         }
                         else

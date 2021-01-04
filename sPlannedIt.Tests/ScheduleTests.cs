@@ -18,7 +18,6 @@ namespace sPlannedIt.Tests
         // Mocking the neccessary interfaces here
         private readonly ScheduleCollection _schedCol;
         private readonly Mock<IScheduleHandler> _mockHandler = new Mock<IScheduleHandler>();
-        private readonly Mock<IScheduleCollection> _mockCollection = new Mock<IScheduleCollection>();
 
         public ScheduleTests()
         {
