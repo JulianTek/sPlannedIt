@@ -167,5 +167,47 @@ namespace sPlannedIt.Controllers
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
+
+
+        [HttpGet]
+        public IActionResult RegisterEmployee(string id)
+        {
+            RegisterEmployeeViewModel model = new RegisterEmployeeViewModel { CompanyId = id };
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RegisterEmployee(RegisterEmployeeViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = new IdentityUser
+                {
+                    UserName = model.User.Email,
+                    Email = model.User.Email
+                };
+
+                var result = await _userManager.CreateAsync(user, model.User.Password);
+
+
+                if (result.Succeeded)
+                {
+                    foreach (var role in model.RoleNames)
+                    {
+                        if (model.User.RoleName == role)
+                        {
+                            return RedirectToAction("IndexEmployer", "Employer");
+                        }
+                    }
+                }
+
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+            }
+
+            return View(model);
+        }
     }
 }

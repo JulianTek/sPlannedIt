@@ -32,6 +32,9 @@
                 }
                 <br />
                 <a asp-action="CreateSchedule" asp-route-id="@Model.CompanyID" class="btn btn-primary">Create Schedule</a>
+                <br />
+                <a asp-action="RegisterEmployee" asp-controller="Account" asp-route-id="@Model.CompanyID" class="btn btn-primary">Register new employee</a>
+                <a asp-action="CompanyDetails" asp-controller="Company" asp-route-id="@Model.CompanyID" class="btn btn-primary">View Company Details</a>
             </div>
         </div>
     </div>

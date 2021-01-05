@@ -1,0 +1,57 @@
+﻿@model sPlannedIt.Viewmodels.Account_Viewmodels.RegisterEmployeeViewModel;
+
+@{
+    ViewData["Title"] = "Register Employer";
+}
+
+<h1>Register</h1>
+
+<h4>RegisterEmployerViewModel</h4>
+<hr />
+<form method="post" class="mt-3">
+    <div class="row">
+        <div class="col-md-4">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="User.Email" class="control-label"></label>
+                <input asp-for="User.Email" class="form-control" />
+                <span asp-validation-for="User.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="User.Password" class="control-label"></label>
+                <input asp-for="User.Password" class="form-control" />
+                <span asp-validation-for="User.Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="User.ConfirmPwd" class="control-label"></label>
+                <input asp-for="User.ConfirmPwd" class="form-control" />
+                <span asp-validation-for="User.ConfirmPwd" class="text-danger"></span>
+            </div>
+            <div class="form-group row">
+                <label asp-for="CompanyId" class="control-label"></label>
+                <input asp-for="CompanyId" readonly="readonly" style="color: #c0c0c0" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Select Role:</label>
+                <select asp-for="User.RoleName">
+                    @foreach (string rolename in Model.RoleNames)
+                    {
+                        <option value="@rolename">@rolename</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index" asp-controller="Home">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

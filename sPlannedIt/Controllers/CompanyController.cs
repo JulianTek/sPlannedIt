@@ -66,15 +66,15 @@ namespace sPlannedIt.Controllers
             return RedirectToAction("ListCompanies");
         }
 
-        public async Task<IActionResult> CompanyDetails(string companyId)
+        public async Task<IActionResult> CompanyDetails(string id)
         {
-            Company company = ModelConverter.ConvertCompanyDtoToModel(_companyHandler.GetById(companyId));
+            Company company = ModelConverter.ConvertCompanyDtoToModel(_companyHandler.GetById(id));
             List<CompanyDetailEmployeeData> data = new List<CompanyDetailEmployeeData>();
-            foreach (string id in _companyHandler.GetAllEmployees(ModelConverter.ConvertModelToCompanyDto(company).CompanyId))
+            foreach (string userId in _companyHandler.GetAllEmployees(ModelConverter.ConvertModelToCompanyDto(company).CompanyId))
             {
                 data.Add(new CompanyDetailEmployeeData()
                 {
-                    User = await _userManager.FindByIdAsync(id)
+                    User = await _userManager.FindByIdAsync(userId)
                 });
             }
             CompanyDetailsViewmodel model = new CompanyDetailsViewmodel()
