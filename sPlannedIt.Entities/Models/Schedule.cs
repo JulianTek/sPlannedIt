@@ -34,6 +34,6 @@ namespace sPlannedIt.Entities.Models
         public string Name { get; private set; }
         public string ScheduleId { get; private set; }
         public string CompanyId { get; private set; }
-        public List<Shift> Shifts { get; private set; } = new List<Shift>();
+        public List<Shift> Shifts { get; set; } = new List<Shift>();
     }
 }

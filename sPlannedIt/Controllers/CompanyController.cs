@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -94,7 +95,7 @@ namespace sPlannedIt.Controllers
             var company = ModelConverter.ConvertCompanyDtoToModel(_companyHandler.GetById(companyId));
             if (company == null)
             {
-                //Todo: implement error view
+                throw new Exception("Company not found");
             }
 
             var model = new List<UserRoleViewModel>();
@@ -139,7 +140,7 @@ namespace sPlannedIt.Controllers
             var company = ModelConverter.ConvertCompanyDtoToModel(_companyHandler.GetById(companyId));
             if (company == null)
             {
-                //Todo: implement error view
+                throw new Exception("Company was not found");
             }
 
             for (int i = 0; i < model.Count; i++)

@@ -11,6 +11,7 @@ namespace sPlannedIt.Viewmodels.Homepage_Viewmodels
     public class IndexEmployeeViewModel
     {
         public string CompanyID { get; set; }
+        public List<Schedule> Schedules { get; set; }
         public List<Shift> Shifts { get; set; }
         public List<Shift> TodaysWorkers { get; set; }
     }

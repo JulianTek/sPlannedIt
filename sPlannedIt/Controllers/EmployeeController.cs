@@ -2,21 +2,23 @@
 using System.Collections.Generic;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
+using sPlannedIt.Interface.BLL;
 using sPlannedIt.Interface.DAL;
 using sPlannedIt.Logic;
 using sPlannedIt.Viewmodels.Homepage_Viewmodels;
+using sPlannedIt.Viewmodels.Schedule_Viewmodels;
 
 namespace sPlannedIt.Controllers
 {
     public class EmployeeController : Controller
     {
-        private readonly IShiftHandler _shiftHandler;
-        private readonly IScheduleHandler _scheduleHandler;
+        private readonly IShiftCollection _shiftCollection;
+        private readonly IScheduleCollection _scheduleCollection;
         private readonly ICompanyHandler _companyHandler;
-        public EmployeeController(IShiftHandler shiftHandler, IScheduleHandler scheduleHandler, ICompanyHandler companyHandler)
+        public EmployeeController(IShiftCollection shiftCollection, IScheduleCollection scheduleCollection, ICompanyHandler companyHandler)
         {
-            _shiftHandler = shiftHandler;
-            _scheduleHandler = scheduleHandler;
+            _shiftCollection = shiftCollection;
+            _scheduleCollection = scheduleCollection;
             _companyHandler = companyHandler;
         }
 
@@ -26,8 +28,20 @@ namespace sPlannedIt.Controllers
             IndexEmployeeViewModel model = new IndexEmployeeViewModel()
             {
                 CompanyID = _companyHandler.GetCompanyFromUser(userId).CompanyId,
-                Shifts = ModelConverter.ConvertShiftDtoListToShiftModelList(_shiftHandler.GetShiftsFromUser(userId)),
-                TodaysWorkers = ModelConverter.ConvertShiftDtoListToShiftModelList(_scheduleHandler.GetTodaysShifts(_companyHandler.GetCompanyFromUser(userId).CompanyId, DateTime.Today))
+                Schedules = _scheduleCollection.GetSchedulesFromCompany(_companyHandler.GetCompanyFromUser(userId).CompanyId),
+                Shifts = _shiftCollection.GetShiftsFromUser(userId),
+                TodaysWorkers = _scheduleCollection.GetTodaysShifts(_companyHandler.GetCompanyFromUser(userId).CompanyId, DateTime.Today)
+            };
+            return View(model);
+        }
+
+        public IActionResult ViewScheduleDetails(string id)
+        {
+            var sched = _scheduleCollection.GetById(id);
+            ScheduleDetailsViewModel model = new ScheduleDetailsViewModel()
+            {
+                Name = sched.Name,
+                Shifts = sched.Shifts
             };
             return View(model);
         }

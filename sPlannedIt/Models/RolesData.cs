@@ -7,6 +7,6 @@ namespace sPlannedIt.Models
 {
     public class RolesData
     {
-        public List<string> Roles { get; set; }
+        public List<string> Roles { get; set; } = new List<string>{"Admin", "Employer", "Employee"};
     }
 }

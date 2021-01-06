@@ -454,3 +454,4 @@ C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt\bin\Debug\netcoreapp3.1\sP
 C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt\bin\Debug\netcoreapp3.1\sPlannedIt.Entities.pdb
 C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt\obj\Debug\netcoreapp3.1\Razor\Views\Employer\EditShift.cshtml.g.cs
 C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt\obj\Debug\netcoreapp3.1\Razor\Views\Account\RegisterEmployee.cshtml.g.cs
+C:\Users\Julia\Documents\GitHub\sPlannedIt\sPlannedIt\obj\Debug\netcoreapp3.1\Razor\Views\Employee\ViewScheduleDetails.cshtml.g.cs

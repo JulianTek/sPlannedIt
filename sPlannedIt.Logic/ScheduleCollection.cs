@@ -23,7 +23,9 @@ namespace sPlannedIt.Logic
 
         public Schedule GetById(string id)
         {
-            return ModelConverter.ConvertScheduleDtoToModel(_scheduleHandler.GetById(id));
+            var sched = ModelConverter.ConvertScheduleDtoToModel(_scheduleHandler.GetById(id));
+            sched.Shifts = ModelConverter.ConvertShiftDtoListToShiftModelList(_scheduleHandler.GetShiftsFromSchedule(id));
+            return sched;
         }
 
         public Schedule Create(Schedule schedule)

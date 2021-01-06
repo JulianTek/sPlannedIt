@@ -132,7 +132,6 @@ namespace sPlannedIt.Controllers
                 var result = _scheduleCollection.Create(schedule);
                 if (result != null)
                 {
-                    // todo: implement success view
                     return RedirectToAction("IndexEmployer");
                 }
 

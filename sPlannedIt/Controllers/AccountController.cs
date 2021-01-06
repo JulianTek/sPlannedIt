@@ -80,25 +80,15 @@ namespace sPlannedIt.Controllers
             RegisterViewModel model = new RegisterViewModel
             {
                 User = null,
-                Roles = new RolesData
-                {
-                    Roles = Logic.RoleData_Logic.GetRoleNames()
-                },
+                Roles = new RolesData()
             };
             return View(model);
         }
 
 
-        //Todo: Add support for name so username can be overhauled to be remembered easier. Add support for roles
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
-
-            // VERY MUCH A TEMP SOLUTION TO A PROBLEM I DEFINITELY CREATED
-            model.Roles = new RolesData
-            {
-                Roles = RoleData_Logic.GetRoleNames()
-            };
             if (ModelState.IsValid)
             {
                 var user = new IdentityUser
@@ -146,7 +136,6 @@ namespace sPlannedIt.Controllers
                 var role = await _userManager.GetRolesAsync(user);
                 if (role.Count > 1)
                 {
-                    // todo: add view and action if user has more roles
                 }
                 var result = await _signInManager.PasswordSignInAsync(user.UserName, model.Password, model.RememberMe, false);
 
