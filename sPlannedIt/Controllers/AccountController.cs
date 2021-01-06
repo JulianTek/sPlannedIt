@@ -185,6 +185,8 @@ namespace sPlannedIt.Controllers
                     {
                         if (model.User.RoleName == role)
                         {
+                            await _userManager.AddToRoleAsync(user, role);
+                            _companyHandler.AddEmployee(user.Id, _companyHandler.GetById(model.CompanyId));
                             return RedirectToAction("IndexEmployer", "Employer");
                         }
                     }
